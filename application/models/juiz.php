@@ -12,6 +12,8 @@
 				'password' => $this->input->post('password')
 			);
 
-			return $this->db->insert('users',$data);		}
+			return $this->db->insert('users',$data);		
+		}
 	}
+
 ?>

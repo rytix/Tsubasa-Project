@@ -1,5 +1,6 @@
 <?php
 	class Juiz extends CI_Controller{
+		
 		public function __construct(){
 			parent::__construct();
 			$this->load->model('juiz');
@@ -23,7 +24,9 @@
 				$this->load->view('cadastrojuiz');
 			}else{
 				$this->juiz->insert_juiz();
-				$this->load->view('cadastrojuiz');
+				$bolinhas = array();
+				$bolinhas['sucesso'] = 'valeuGalere';
+				$this->load->view('cadastrojuiz',$bolinha);
 			}
 		}
 	}
