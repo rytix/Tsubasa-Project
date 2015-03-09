@@ -2,7 +2,7 @@
 	class Juiz extends CI_Controller{
 		public function __construct(){
 			parent::__construct();
-			$this->load->model('juiz_model');
+			$this->load->model('juiz');
 		}
 
 		public function view(){
@@ -22,7 +22,7 @@
 			if($this->form_validation->run() === FALSE){
 				$this->load->view('cadastrojuiz');
 			}else{
-				$this->juiz_model->insert_juiz();
+				$this->juiz->insert_juiz();
 				$this->load->view('cadastrojuiz');
 			}
 		}
