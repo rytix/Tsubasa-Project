@@ -7,7 +7,7 @@
  */
 
 /**
- * Description of Jogador
+ * Description of Usuario
  *
  * @author Paulo Eduardo Martins
  */
@@ -17,26 +17,15 @@ abstract class Usuario extends CI_Model {
     private $nome;
     private $senha;
 
-    /**
-     * 
-     * @param String $login
-     * @param String $nome
-     * @param String $senha
-     */
-    function __construct($login, $nome, $senha)
-    {
+    function __construct() {
         parent::__construct();
-        $this->setLogin($login);
-        $this->setNome($nome);
-        $this->setSenha($senha);
     }
 
     /**
      * 
      * @return String
      */
-    public function getLogin()
-    {
+    public function getLogin() {
         return $this->login;
     }
 
@@ -44,8 +33,7 @@ abstract class Usuario extends CI_Model {
      * 
      * @return String
      */
-    public function getNome()
-    {
+    public function getNome() {
         return $this->nome;
     }
 
@@ -53,54 +41,62 @@ abstract class Usuario extends CI_Model {
      * Não é um elogio
      * @return String 
      */
-    public function getSenha()
-    {
+    public function getSenha() {
         return $this->senha;
     }
+
     /**
      * Questiona a distancia da variavel
      * @param String $login
+     * @return Usuario
      */
-    private function setLogin($login)
-    {
-        if (FALSE === is_string($login))
-        {
+    public function setLogin($login) {
+        if (FALSE === is_string($login)) {
             $tipoEncontradoErro = gettype($login);
-            if ($tipoEncontradoErro == 'object')
-            {
+            if ($tipoEncontradoErro == 'object') {
                 $tipoEncontradoErro = get_class($login);
             }
             trigger_error('$login precisa ser uma string, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
         }
+
         $this->login = $login;
+        return $this;
     }
 
-    private function setNome($nome)
-    {
-        if (FALSE === is_string($nome))
-        {
+    /**
+     * 
+     * @param String $nome
+     * @return Usuario
+     */
+    public function setNome($nome) {
+        if (FALSE === is_string($nome)) {
             $tipoEncontradoErro = gettype($nome);
-            if ($tipoEncontradoErro == 'object')
-            {
+            if ($tipoEncontradoErro == 'object') {
                 $tipoEncontradoErro = get_class($nome);
             }
             trigger_error('$nome precisa ser uma string, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
         }
+
         $this->nome = $nome;
+        return $this;
     }
 
-    private function setSenha($senha)
-    {
-        if (FALSE === is_string($senha))
-        {
+    /**
+     * 
+     * @param String $senha
+     * @return Usuario
+     */
+    public function setSenha($senha) {
+        if (FALSE === is_string($senha)) {
             $tipoEncontradoErro = gettype($senha);
-            if ($tipoEncontradoErro == 'object')
-            {
+            if ($tipoEncontradoErro == 'object') {
                 $tipoEncontradoErro = get_class($senha);
             }
             trigger_error('$senha precisa ser uma string, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
         }
+
         $this->senha = $senha;
+        return $this;
     }
 
 }

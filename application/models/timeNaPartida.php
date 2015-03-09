@@ -17,35 +17,32 @@ class TimeNaPartida extends Time {
 
     private $wo;
 
+    function __construct() {
+        parent::__construct();
+    }
+    
     /**
      * 
-     * @param String $nome
-     * @param array<Jogador> $jogadores
-     * @param boolean $wo
+     * @return boolean
      */
-    public function __construct($nome, $jogadores, $wo)
-    {
-        parent::__construct($nome, $jogadores);
-        $this->setWo($wo);
-    }
-
-    public function getWo()
-    {
+    public function getWo() {
         return $this->wo;
     }
-
-    private function setWo($wo)
-    {
-        if (FALSE === is_string($wo))
-        {
+    /**
+     * 
+     * @param boolean $wo
+     */
+    public function setWo($wo) {
+        if (FALSE === is_string($wo)) {
             $tipoEncontradoErro = gettype($wo);
-            if ($tipoEncontradoErro == 'object')
-            {
+            if ($tipoEncontradoErro == 'object') {
                 $tipoEncontradoErro = get_class($wo);
             }
-            trigger_error('$wo precisa ser um boolean, encontrado:' . $wo, E_USER_ERROR);
+            trigger_error('$wo precisa ser um boolean, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
         }
+
         $this->wo = $wo;
+        return $this;
     }
 
 }

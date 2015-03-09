@@ -7,15 +7,14 @@
  */
 
 /**
- * Description of Jogador
+ * Description of Socio
  *
  * @author Paulo Eduardo Martins
  */
-class Jogador extends Socio{
-    private $goleiro;
-    @@@@@function __construct($goleiro)
-    {
-        $this->goleiro = $goleiro;
+class Socio extends Usuario{
+    //put your code here
+    public function __construct() {
+        parent::__construct();
     }
 
 }

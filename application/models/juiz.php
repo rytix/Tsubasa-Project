@@ -16,6 +16,10 @@ use Partida;
  */
 class Juiz extends Usuario{
     //put your code here
+    function __construct() {
+        parent::__construct();
+    }
+
     public function cadastrarSumula(Sumula $sumula){
         //TODO Cadastro da sumula no banco de dados
     }
