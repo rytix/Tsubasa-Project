@@ -1,19 +1,44 @@
 <?php
-	class Juiz extends Usuario{
 
-		public function __construct(){
-			$this->load->database();
-		}
+use Usuario;
+use Sumula;
+use Partida;
 
-		function insert_juiz(){
-			$data = array(
-				'nome' => $this->input->post('nome'),
-				'username' => $this->input->post('username'),
-				'password' => $this->input->post('password')
-			);
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-			return $this->db->insert('users',$data);		
-		}
-	}
+/**
+ * Description of Juiz
+ *
+ * @author Paulo Eduardo Martins
+ */
+class Juiz extends Usuario {
 
+    //put your code here
+    function __construct() {
+        parent::__construct();
+        $this->load->database();
+    }
+
+    public function cadastrarSumula(Sumula $sumula) {
+        //TODO Cadastro da sumula no banco de dados
+    }
+
+    public function agendarPartida(Partida $partida) {
+        //TODO Cadastro da partida no banco de dados
+    }
+
+    function insert_juiz() {
+        $data = array(
+            'nome' => $this->input->post('nome'),
+            'username' => $this->input->post('username'),
+            'password' => $this->input->post('password')
+        );
+
+        return $this->db->insert('users', $data);
+    }
+}
 ?>
