@@ -3,7 +3,7 @@
 		
 		public function __construct(){
 			parent::__construct();
-			$this->load->model('juiz');
+			$this->load->model('Juiz_model');
 		}
 
 		public function view(){
@@ -23,10 +23,10 @@
 			if($this->form_validation->run() === FALSE){
 				$this->load->view('cadastrojuiz');
 			}else{
-				$this->juiz->insert_juiz();
-				$bolinhas = array();
-				$bolinhas['sucesso'] = 'valeuGalere';
-				$this->load->view('cadastrojuiz',$bolinha);
+				$this->Juiz_model->insert_juiz();
+				$situacao_cadastro = array();
+				$situacao_cadastro['sucesso'] = 'Usuario cadastrado com sucesso';
+				$this->load->view('cadastrojuiz',$situacao_cadastro);
 			}
 		}
 	}

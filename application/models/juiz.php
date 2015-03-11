@@ -15,10 +15,10 @@ use Partida;
  *
  * @author Paulo Eduardo Martins
  */
-class Juiz extends Usuario {
+class Juiz_model extends Usuario {
 
     //put your code here
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->load->database();
     }
