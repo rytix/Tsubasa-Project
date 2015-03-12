@@ -11,7 +11,7 @@
  *
  * @author Paulo Eduardo Martins
  */
-class Socio extends Usuario{
+class Socio_model extends Usuario_model{
     //put your code here
     public function __construct() {
         parent::__construct();

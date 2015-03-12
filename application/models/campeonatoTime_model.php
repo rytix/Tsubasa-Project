@@ -11,7 +11,7 @@
  *
  * @author 4289714
  */
-class CampeonatoTime extends CI_Model {
+class CampeonatoTime_model extends CI_Model {
 
     private $time;
     private $Campeonato;

@@ -11,7 +11,7 @@
  *
  * @author 4276663
  */
-class Categoria extends CI_Model{
+class Categoria_model extends CI_Model{
     private $nome;
     private $faixaDeIdade;
     

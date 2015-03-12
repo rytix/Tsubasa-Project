@@ -11,7 +11,7 @@
  *
  * @author Paulo Eduardo Martins
  */
-class JogadorNaPartida extends Jogador {
+class JogadorNaPartida_model extends Jogador_model {
 
     private $cartaoVermelho;
     private $nCartaoAzul;
