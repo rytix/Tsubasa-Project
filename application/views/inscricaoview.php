@@ -1,8 +1,8 @@
-
+    
 <!DOCTYPE HTML>  
 <html language="pt-BR" >
     <head>
-        ?php $this->load->helper('url'); ?>
+        <?php $this->load->helper('url'); ?>
         <?php $this->load->helper('form'); ?>
         <?php $this->load->library('form_validation'); ?>
        <script type="text/javascript" src="<?php echo base_url("application/libraries/js/jquery-2.1.1.min.js"); ?>"></script>
@@ -62,7 +62,6 @@
                 </tr>
             </thead>
             <tbody>
-            <!-- for -->
                 <tr>
                     <td>Copa Jorjão</td>
                     <td>Veteranos</td>
