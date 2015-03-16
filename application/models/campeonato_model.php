@@ -46,5 +46,9 @@ class Campeonato_model extends CI_Model {
         $this->nome = $nome;
         return $this;
     }
+    
+    public function select_campeonato(){
+       
+    }
 
 }
