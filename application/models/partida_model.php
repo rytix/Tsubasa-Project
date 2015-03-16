@@ -126,6 +126,18 @@ class Partida_model extends CI_Model {
         return $this;
     }
 
+    public function insert_agendamento() {
+        $data = array(
+            'campeonato' => $this->input->post('campeonato'),
+            'categoria' => $this->input->post('categoria'),
+            'casa' => $this->input->post('casa'),
+            'visitante' => $this->input->post('visitante'),
+            'data' => $this->input->post('data'),
+            'horajogo' => $this->input->post('horajogo'),
+            'campo' => $this->input->post('campo'))
+        ;
+    }
+    
     
 
 }

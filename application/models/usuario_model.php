@@ -21,42 +21,7 @@ abstract class Usuario_model extends CI_Model {
     {
         parent::__construct();
     }
-
-    /**
-     * Verifica o Usuário e senha e retorna a instancia do Usuário.
-     * @return socio_model|juiz_model|diretor_model|null o objeto correspondente
-     * a aquele usuário ou null caso o usuário e senha forem incorretos.
-     */
-    public static function get_user($usuario, $senha)
-    {
-        $query = $this->db->query("SELECT * FROM pessoa WHERE login = ? AND senha = ?", array($usuario, $senha));
-        die;
-        if ($query->num_rows() > 0)
-        {
-            $row = $query->row_array();
-            $UsuarioObject;
-            switch($row['tipo']){
-                case 1:
-                    $UsuarioObject = new Diretor_model();
-                    break;
-                case 2:
-                    $UsuarioObject = new Juiz_model();
-                    break;
-                case 3:
-                    $UsuarioObject = new Socio_model();
-                    break;
-                default:
-                    return null;
-            }
-            $UsuarioObject->setLogin($row['login']);
-            $UsuarioObject->setSenha($row['senha']);
-            $UsuarioObject->setSenha($row['nome']);
-            return $UsuarioObject;
-        }else{
-            return null;
-        }
-    }
-
+    
     /**
      * 
      * @return String
