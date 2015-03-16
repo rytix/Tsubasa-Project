@@ -11,9 +11,7 @@ use Partida;
  */
 
 /**
- * Description of Juiz
- *
- * @author Paulo Eduardo Martins
+ * Tipo 2
  */
 class Juiz_model extends Usuario_model {
 

@@ -7,9 +7,7 @@
  */
 
 /**
- * Description of Socio
- *
- * @author Paulo Eduardo Martins
+ * Tipo 3
  */
 class Socio_model extends Usuario_model{
     //put your code here
