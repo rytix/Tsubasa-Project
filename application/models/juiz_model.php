@@ -15,7 +15,7 @@ use Partida;
  *
  * @author Paulo Eduardo Martins
  */
-class Juiz_model extends Usuario {
+class Juiz_model extends Usuario_model {
 
     //put your code here
     public function __construct() {

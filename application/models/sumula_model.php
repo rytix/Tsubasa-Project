@@ -15,7 +15,7 @@ use JogadorNaPartida;
  *
  * @author Paulo Eduardo Martins
  */
-class Sumula extends CI_Model {
+class Sumula_model extends CI_Model {
 
     private $observacoes;
     private $partida;

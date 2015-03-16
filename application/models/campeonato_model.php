@@ -11,7 +11,7 @@
  *
  * @author Paulo Eduardo Martins
  */
-class Campeonato extends CI_Model {
+class Campeonato_model extends CI_Model {
 
     private $nome;
 

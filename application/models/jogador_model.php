@@ -11,7 +11,7 @@
  *
  * @author Paulo Eduardo Martins
  */
-class Jogador extends Socio {
+class Jogador_model extends Socio_model {
 
     private $goleiro;
 

@@ -13,7 +13,7 @@ use Time;
  *
  * @author Paulo Eduardo Martins
  */
-class TimeNaPartida extends Time {
+class TimeNaPartida_model extends Time_model {
 
     private $wo;
 

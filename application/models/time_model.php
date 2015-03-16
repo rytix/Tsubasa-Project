@@ -11,7 +11,7 @@
  *
  * @author Paulo Eduardo Martins
  */
-class Time extends CI_Model {
+class Time_model extends CI_Model {
 
     private $nome;
     private $Jogadores;

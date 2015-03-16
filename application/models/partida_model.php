@@ -11,7 +11,7 @@
  *
  * @author 4276663
  */
-class Partida extends CI_Model {
+class Partida_model extends CI_Model {
 
     private $campo;
     private $data;

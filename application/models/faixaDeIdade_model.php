@@ -11,7 +11,7 @@
  *
  * @author 4276663
  */
-class FaixaDeIdade {
+class FaixaDeIdade_model {
 
     private $idadeMaximaGoleiro;
     private $idadeMaximaJogador;

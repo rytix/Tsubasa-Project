@@ -11,7 +11,7 @@
  *
  * @author 4289714
  */
-class Diretor extends Usuario {
+class Diretor_model extends Usuario_model {
 
     public function __construct() {
         parent::__construct();
