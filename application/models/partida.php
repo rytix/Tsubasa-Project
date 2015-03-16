@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of Partida
+ *
+ * @author 4276663
+ */
 class Partida extends CI_Model {
 
     private $campo;
@@ -104,19 +115,6 @@ class Partida extends CI_Model {
         
         $this->partidaAtiva = $partidaAtiva;
         return $this;
-    }
-    
-    public function insert_partida(){
-        $data = array(
-            'campeonato' => $this->input->post('campeonato'),
-            'categoria' => $this->input->post('categoria'),
-            'casa' => $this->input->post('casa'),
-            'visitante' => $this->input->post('visitante'),
-            'data' => $this->input->post('data'),
-            'hora' => $this->input->post('hora'),
-            'campo' => $this->input->post ('campo'),
-            
-        );
     }
 
 }
