@@ -19,8 +19,6 @@ class invoker_model extends CI_Model{
      */
      public function __construct() {
          parent::__construct();
-        $this->load->database();
-        echo "aaa";
      }
 
      
@@ -29,9 +27,12 @@ class invoker_model extends CI_Model{
         $query = $this->db->query("SELECT * FROM pessoa WHERE login = ? AND senha = ?", array($usuario, $senha));
         if ($query->num_rows() > 0)
         {
+            $this->load->model('diretor_model');
+            $this->load->model('juiz_model');
+            $this->load->model('socio_model');
             $row = $query->row_array();
             $UsuarioObject;
-            switch($row['tipo']){
+            switch($row['Tipo']){
                 case 1:
                     $UsuarioObject = new Diretor_model();
                     break;
@@ -46,7 +47,7 @@ class invoker_model extends CI_Model{
             }
             $UsuarioObject->setLogin($row['login']);
             $UsuarioObject->setSenha($row['senha']);
-            $UsuarioObject->setSenha($row['nome']);
+            $UsuarioObject->setNome($row['nome']);
             return $UsuarioObject;
         }else{
             return null;

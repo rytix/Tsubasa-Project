@@ -11,7 +11,7 @@
  *
  * @author Paulo Eduardo Martins
  */
-abstract class Usuario_model extends CI_Model {
+class Usuario_model extends CI_Model {
     
     private $login;
     private $nome;
