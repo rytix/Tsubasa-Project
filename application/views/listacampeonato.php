@@ -58,57 +58,26 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Copa Jorjão</td>
-                    <td>Novos, Veteranos</td>
-                    <td>
-						<ul>
-							<li>
-								<a>Editar</a>
-							</li>
-							<li>
-								<a>Excluir</a>
-							</li>
-							<li>
-								<a>Gerar Times</a>
-							</li>
-						</ul>
-					</td>
-                </tr>
-                <tr>
-                    <td>Copa Pistão</td>
-                    <td>Novos</td>
-                    <td>
-						<ul>
-							<li>
-								<a>Editar</a>
-							</li>
-							<li>
-								<a>Excluir</a>
-							</li>
-							<li>
-								<a>Gerar Times</a>
-							</li>
-						</ul>
-					</td>
-                </tr>
-                <tr>
-                    <td>Copinha</td>
-                    <td>Fraldinha, Infanto-Juvenil</td>
-                    <td>
-						<ul>
-							<li>
-								<a>Editar</a>
-							</li>
-							<li>
-								<a>Excluir</a>
-							</li>
-							<li>
-								<a>Gerar Times</a>
-							</li>
-						</ul>
-					</td>
-                </tr>
+                <?php foreach ($campeonatos as $campeonatos) {
+                    echo "<tr>";
+                    echo "<td>".$campeonato->getNome()."</td>";
+                    echo "<td>".$campeonato->getCategoria()->getNome()."</td>";
+                    echo "<td>
+                            <ul>
+				<li>
+                                    <a>Editar</a>
+				</li>
+				<li>
+                                    <a>Excluir</a>
+				</li>
+				<li>
+                                    <a>Gerar Times</a>
+				</li>
+				</ul>
+                            </td>";
+                    echo "</tr>";
+                }
+                ?>
             </tbody>
         </table>
     </div>
