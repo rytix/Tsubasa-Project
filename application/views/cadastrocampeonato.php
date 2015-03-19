@@ -4,6 +4,7 @@
         <?php $this->load->helper('url'); ?>
         <?php $this->load->helper('form'); ?>
         <?php $this->load->library('form_validation'); ?>
+        <meta charset="UTF-8" > 
         <script type="text/javascript" src="<?php echo base_url("application/libraries/js/jquery-2.1.1.min.js"); ?>"></script>
         <link rel="stylesheet" href="<?php echo base_url('application/libraries/css/bootstrap.min.css'); ?>" />    
         <link rel="stylesheet" href="<?php echo base_url('application/libraries/css/datepicker.css'); ?>"  />

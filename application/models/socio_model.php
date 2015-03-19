@@ -7,14 +7,17 @@
  */
 
 /**
- * Description of Socio
- *
- * @author Paulo Eduardo Martins
+ * Tipo 3
  */
-class Socio_model extends Usuario_model{
+class Socio_model extends CI_Model{	
     //put your code here
     public function __construct() {
         parent::__construct();
+        $this->load->database();
+    }
+
+    public function buscaCampeonato(){
+    	
     }
 
 }

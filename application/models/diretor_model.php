@@ -7,9 +7,7 @@
  */
 
 /**
- * Description of Diretor
- *
- * @author 4289714
+ * Tipo 1
  */
 class Diretor_model extends Usuario_model {
 

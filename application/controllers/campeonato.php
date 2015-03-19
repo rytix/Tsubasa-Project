@@ -1,4 +1,5 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 	class Campeonato extends CI_Controller{
 		
 		public function __construct(){
@@ -31,9 +32,6 @@
 		}
 
 		public function cadastrocampeonato(){
-			$this->load->helper('form');
-			$this->load->library('form_validation');
-                        
                         $this->form_validation->set_rules('nome','Nome','required');
                         $this->form_validation->set_rules('categoria','Categoria','required');
                         $this->form_validation->set_rules('juiz','Juiz','required');

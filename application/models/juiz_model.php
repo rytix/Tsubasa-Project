@@ -1,9 +1,5 @@
     <?php
 
-use Usuario;
-use Sumula;
-use Partida;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,9 +7,7 @@ use Partida;
  */
 
 /**
- * Description of Juiz
- *
- * @author Paulo Eduardo Martins
+ * Tipo 2
  */
 class Juiz_model extends Usuario_model {
 
