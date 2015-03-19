@@ -20,6 +20,7 @@ class Partida extends CI_Controller {
 
     public function view() {
         $data['title'] = 'Agendamento de Partida';
+        $data['campeonatos'] = $this->campeonato_model->select_campeonato();
         $this->load->view('agendamentopartida');
     }
 
@@ -29,8 +30,8 @@ class Partida extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('campeonato', 'Campeonato', 'required');
-        $this->form_validation->set_rules('categoria', 'Categoria', 'required|is_unique[users.username]');
-        $this->form_validation->set_rules('casa', 'Casa', 'required|matches[password-clone]');
+        $this->form_validation->set_rules('categoria', 'Categoria', 'required');
+        $this->form_validation->set_rules('casa', 'Casa', 'required');
         $this->form_validation->set_rules('visitante', 'Visitante', 'required');
         $this->form_validation->set_rules('datajogo', 'Data do Jogo', 'required');
         $this->form_validation->set_rules('horajogo', 'Hora do Jogo', 'required');
@@ -39,7 +40,7 @@ class Partida extends CI_Controller {
         if ($this->form_validation->run() === FALSE) {
             $this->load->view('cadastropartida');
         } else {
-            $this->Juiz_model->insert_juiz();
+            $this->partida_model->insert_partida();
             $situacao_cadastro = array();
             $situacao_cadastro['sucesso'] = 'Partida cadastrado com sucesso';
             $this->load->view('cadastrojuiz', $situacao_cadastro);

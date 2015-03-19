@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use Usuario;
 use Sumula;
@@ -27,8 +27,17 @@ class Juiz_model extends Usuario_model {
         //TODO Cadastro da sumula no banco de dados
     }
 
-    public function agendarPartida(Partida $partida) {
-        //TODO Cadastro da partida no banco de dados
+    public function insert_partida() {
+        $data = array(
+            'campeonato' => $this->input->post('campeonato'),
+            'categoria' => $this->input->post('categoria'),
+            'casa' => $this->input->post('casa'),
+            'visitante' => $this->input->post('visitante'),
+            'data' => $this->input->post('data'),
+            'horajogo' => $this->input->post('horajogo'),
+            'campo' => $this->input->post('campo')
+        );
+        return $this->db->insert('partida',$data);
     }
 
     function insert_juiz() {

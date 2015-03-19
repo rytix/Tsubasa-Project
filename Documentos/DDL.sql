@@ -28,7 +28,8 @@ DROP TABLE IF EXISTS TimeNaPartida CASCADE
 CREATE TABLE Campeonato ( 
 	nome varchar(50) NOT NULL,
 	id integer NOT NULL,
-	juizID integer NOT NULL
+	juizID integer NOT NULL,
+	campeonatoativo boolean NOT NULL
 )
 ;
 

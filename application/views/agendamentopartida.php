@@ -54,11 +54,15 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            <div class="form-control">
                                 <label for="campenato">Campeonato</label>
                                 <select id="campeonato" class="form-control"  >
-                                    <option>Copa Jorjao</option>
-                                    <option>Copinha</option>
+                                    <?php
+                                        foreach($campeonatos as $row)
+                                        { 
+                                            echo '<option value="'.$row->nome.'">'.$row->nome.'</option>';
+                                        }
+                                    ?>
                                 </select>
                             </div>
                         </div>

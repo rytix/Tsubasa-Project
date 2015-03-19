@@ -1,16 +1,4 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of campeonato
- *
- * @author Paulo Eduardo Martins
- */
 class Campeonato_model extends CI_Model {
 
     private $nome;
@@ -48,7 +36,9 @@ class Campeonato_model extends CI_Model {
     }
     
     public function select_campeonato(){
-       
+        $query = $this->db->query('select nome from campeonato where campeonatoativo=true;');
+        
+        return $query->return();
     }
 
 }
