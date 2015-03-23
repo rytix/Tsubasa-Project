@@ -51,42 +51,50 @@
     <div class="page-header">
         <h2>Inscrição do Campeonato</h2>
     </div>
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>Campeonato</th>
-                    <th>Categoria</th>
-                    <th>Goleiro</th>
-					<th>Selecionar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Copa Jorjão</td>
-                    <td>Veteranos</td>
-                    <td><input type="checkbox" /></td>
-					<td><input type="checkbox" /></td>
-                </tr>
-                <tr>
-                    <td>Copa Marte</td>
-                    <td>Veteranos</td>
-                    <td><input type="checkbox" /></td>
-					<td><input type="checkbox" /></td>
-                </tr>
-                <tr>
-                    <td>Copa Uranus</td>
-                    <td>Veteranos</td>
-                    <td><input type="checkbox" /></td>
-					<td><input type="checkbox" name="<?php echo "selecionar".countadorDoMathiasHuezento ?>" /></td>
-                </tr>
-                <!-- endfor -->
-            </tbody>
-        </table>
-    </div>
+    
     <div class="row">
+        <?php echo validation_errors(); ?>
+        <?php echo form_open('index.php/juiz/cadastrojuiz'); ?>
         <div class="col-xs-12">
             <div class="form-group">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Campeonato</th>
+                                <th>Categoria</th>
+                                <th>Goleiro</th>
+                                <th>Selecionar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                $contador = 0;
+                                $contadorGoleiro = 0;
+                                foreach($query->result_array() as $row){
+                                <tr>
+                                    <td>$row['nomeCampeonato']</td>
+                                    <td>$row['nomeCategoria']</td>
+                                    <td><input type="checkbox" name = "goleiro[]" value = "++contadorGoleiro"/></td>
+                                    <td><input type="checkbox" name = "selecionar[]" value = "++$contador"/></td>
+                                </tr>
+                                /*<tr>
+                                    <td>Copa Marte</td>
+                                    <td>Veteranos</td>
+                                    <td><input type="checkbox" /></td>
+                                    <td><input type="checkbox" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Copa Uranus</td>
+                                    <td>Veteranos</td>
+                                    <td><input type="checkbox" /></td>
+                                    <td><input type="checkbox" name="<?php echo "selecionar".countadorDoMathiasHuezento ?>" /></td>
+                                </tr> */
+                            }?>
+                            <!-- endfor -->
+                        </tbody>
+                    </table>
+                </div>
                 <div class="pull-right">
                     <button class="btn btn-primary">Inscrever-se</button>
                 </div>

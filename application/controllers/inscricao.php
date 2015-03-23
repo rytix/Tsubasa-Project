@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-	class Inscricao extends Ci_Controller{
+	class Inscricao extends CI_Controller{
 
 		public function __construct(){
 			parent::__construct();
@@ -9,7 +9,21 @@
 
 		public function view(){
 			$data['title'] = 'Inscricao';
-			$this->load->view('inscricaoview');
+			$query = $this->Socio_model->buscaCampeonato();
+			$this->load->view('inscricaoview', $data, $query);
+		}
+
+		public function cadastroSocioCampeonato(){
+			$this->load->helper('form');
+			if(!empty($_POST['selecionar'])){
+				foreach ($_POST['selecionar']) {
+					if($_POST['goleiro']){
+						
+					}else{
+						
+					}
+				}
+			}
 		}
 	}
 ?>
