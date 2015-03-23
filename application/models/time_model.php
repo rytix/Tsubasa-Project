@@ -13,12 +13,15 @@
  */
 class Time_model extends CI_Model {
 
+    private $id;
     private $nome;
-    private $Jogadores;
+    private $jogadores;
+    private $campeonatoCategoria;
+    
 
     function __construct() {
         parent::__construct();
-        $this->Jogadores = array();
+        $this->jogadores = array();
     }
 
     /**
@@ -34,7 +37,7 @@ class Time_model extends CI_Model {
      * @return array do tipo Jogador
      */
     public function getJogadores() {
-        return $this->Jogadores;
+        return $this->jogadores;
     }
 
     /**
@@ -75,7 +78,23 @@ class Time_model extends CI_Model {
             }
         }
         
-        $this->Jogadores = $jogadores;
+        $this->jogadores = $jogadores;
     }
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getCampeonatoCategoria() {
+        return $this->campeonatoCategoria;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public function setCampeonatoCategoria($campeonatoCategoria) {
+        $this->campeonatoCategoria = $campeonatoCategoria;
+    }
+
 
 }

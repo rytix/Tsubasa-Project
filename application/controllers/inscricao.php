@@ -15,9 +15,9 @@
 
 		public function cadastroSocioCampeonato(){
 			$this->load->helper('form');
-			if(!empty($_POST['selecionar'])){
-				foreach ($_POST['selecionar']) {
-					if($_POST['goleiro']){
+			if(!empty($this->post->get('selecionar'))){
+				foreach ($this->post->get('selecionar') as $selecionar) {
+					if($this->post->get('goleiro')){
 						
 					}else{
 						

@@ -11,8 +11,11 @@
  *
  * @author Paulo Eduardo Martins
  */
-class JogadorNaPartida_model extends Jogador_model {
+class JogadorNaPartida_model extends CI_Model {
 
+    private $id;
+    private $sumula;
+    private $jogador;
     private $cartaoVermelho;
     private $nCartaoAzul;
     private $nFaltas;
@@ -21,6 +24,31 @@ class JogadorNaPartida_model extends Jogador_model {
     function __construct() {
         parent::__construct();
     }
+    
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getSumula() {
+        return $this->sumula;
+    }
+
+    public function getJogador() {
+        return $this->jogador;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public function setSumula(Sumula_model $sumula) {
+        $this->sumula = $sumula;
+    }
+
+    public function setJogador(Jogador_model $jogador) {
+        $this->jogador = $jogador;
+    }
+    
     /**
      * 
      * @return boolean

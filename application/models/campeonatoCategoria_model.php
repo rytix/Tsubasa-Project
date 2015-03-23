@@ -7,53 +7,54 @@
  */
 
 /**
- * Description of campeonatoTime
+ * Description of campeonatoCategoria
  *
  * @author 4289714
  */
-class CampeonatoTime_model extends CI_Model {
+class CampeonatoCategoria_model extends CI_Model {
 
-    private $time;
-    private $Campeonato;
+    private $id;
+    private $campeonato;
+    private $categoria;
 
     public function __construct() {
         parent::__construct();
     }
     /**
      * 
-     * @return Time
+     * @return Categoria
      */
-    public function getTime() {
-        return $this->time;
+    public function getCategoria() {
+        return $this->categoria;
     }
     /**
      * 
      * @return Campeonato
      */
     public function getCampeonato() {
-        return $this->Campeonato;
+        return $this->campeonato;
     }
     /**
      * 
-     * @param Time $time
-     * @return CampeonatoTime
+     * @param Categoria $categoria
+     * @return CampeonatoCategoria
      */
-    public function setTime(Time $time) {
-        if ($time instanceof Time) {
-            $tipoEncontradoErro = gettype($time);
+    public function setCategoria(Categoria $categoria) {
+        if ($categoria instanceof Categoria) {
+            $tipoEncontradoErro = gettype($categoria);
             if ($tipoEncontradoErro == 'object') {
-                $tipoEncontradoErro = get_class($time);
+                $tipoEncontradoErro = get_class($categoria);
             }
-            trigger_error('$time precisa ser uma instancia de Time, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
+            trigger_error('$categoria precisa ser uma instancia de Categoria, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
         }
         
-        $this->time = $time;
+        $this->categoria = $categoria;
         return $this;
     }
     /**
      * 
      * @param Campeonato $campeonato
-     * @return CampeonatoTime
+     * @return CampeonatoCategoria
      */
     public function setCampeonato(Campeonato $campeonato) {
         if ($campeonato instanceof Campeonato) {
@@ -64,7 +65,7 @@ class CampeonatoTime_model extends CI_Model {
             trigger_error('$campeonato precisa ser uma instancia de Campeonato, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
         }
         
-        $this->Campeonato = $campeonato;
+        $this->campeonato = $campeonato;
         return $this;
     }
 

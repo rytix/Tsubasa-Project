@@ -13,9 +13,12 @@ use Time;
  *
  * @author Paulo Eduardo Martins
  */
-class TimeNaPartida_model extends Time_model {
+class TimeNaPartida_model extends CI_Model {
 
+    private $id;
     private $wo;
+    private $time;
+    private $sumula;
 
     function __construct() {
         parent::__construct();
@@ -44,5 +47,30 @@ class TimeNaPartida_model extends Time_model {
         $this->wo = $wo;
         return $this;
     }
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getTime() {
+        return $this->time;
+    }
+
+    public function getSumula() {
+        return $this->sumula;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public function setTime(Time_model $time) {
+        $this->time = $time;
+    }
+
+    public function setSumula(Sumula_model $sumula) {
+        $this->sumula = $sumula;
+    }
+
+
 
 }

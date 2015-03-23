@@ -33,13 +33,13 @@ class invoker_model extends CI_Model{
             $row = $query->row_array();
             $UsuarioObject;
             switch($row['Tipo']){
-                case 1:
+                case Usuario_model::DIRETOR :
                     $UsuarioObject = new Diretor_model();
                     break;
-                case 2:
+                case Usuario_model::JUIZ:
                     $UsuarioObject = new Juiz_model();
                     break;
-                case 3:
+                case Usuario_model::SOCIO:
                     $UsuarioObject = new Socio_model();
                     break;
                 default:

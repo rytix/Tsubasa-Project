@@ -17,6 +17,7 @@ use JogadorNaPartida;
  */
 class Sumula_model extends CI_Model {
 
+    private $id;
     private $observacoes;
     private $partida;
     private $timeNaPartidaA;
@@ -35,9 +36,16 @@ class Sumula_model extends CI_Model {
         parent::__construct();
         $this->jogadoresNaPartida = array();
     }
+    public function getId() {
+        return $this->id;
+    }
 
-    /**
-     * 
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+        /**
+    1 * 
      * @return String
      */
     public function getObservacoes() {
@@ -113,7 +121,7 @@ class Sumula_model extends CI_Model {
      * @param TimeNaPartida $timeNaPartidaB
      * @return Sumula
      */
-    public function setTimeNaPartidaB($timeNaPartidaB) {
+    public function setTimeNaPartidaB(TimeNaPartida $timeNaPartidaB) {
         if (!$timeNaPartidaB instanceof TimeNaPartida) {
             $tipoEncontradoErro = gettype($timeNaPartidaB);
             if ($tipoEncontradoErro == 'object') {
@@ -145,7 +153,7 @@ class Sumula_model extends CI_Model {
      * @param array<JogadorNaPartida> $jogadoresNaPartida
      * @return Sumula
      */
-    public function setJogadoresNaPartida($jogadoresNaPartida) {
+    public function setJogadoresNaPartida(JogadorNaPartida_model $jogadoresNaPartida) {
         if (FALSE === is_string($jogadoresNaPartida)) {
             $tipoEncontradoErro = gettype($jogadoresNaPartida);
             if ($tipoEncontradoErro == 'object') {

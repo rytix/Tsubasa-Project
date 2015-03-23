@@ -13,7 +13,10 @@
  */
 class Categoria_model extends CI_Model{
     private $nome;
-    private $faixaDeIdade;
+    private $idadeMinJ;
+    private $idadeMaxJ;
+    private $idadeMaxG;
+    private $idadeMinG;
     
     function __construct() {
         parent::__construct();
@@ -24,13 +27,6 @@ class Categoria_model extends CI_Model{
      */
     public function getNome() {
         return $this->nome;
-    }
-    /**
-     * 
-     * @return FaixaDeIdade
-     */
-    public function getFaixaDeIdade() {
-        return $this->faixaDeIdade;
     }
     /**
      * 
@@ -49,22 +45,39 @@ class Categoria_model extends CI_Model{
         $this->nome = $nome;
         return $this;
     }
-    /**
-     * 
-     * @param FaixaDeIdade $faixaDeIdade
-     * @return Categoria
-     */
-    public function setFaixaDeIdade(FaixaDeIdade $faixaDeIdade) {
-        if ($faixaDeIdade instanceof FaixaDeIdade) {
-            $tipoEncontradoErro = gettype($faixaDeIdade);
-            if ($tipoEncontradoErro == 'object') {
-                $tipoEncontradoErro = get_class($faixaDeIdade);
-            }
-            trigger_error('$faixaDeIdade precisa ser uma FaixaDeIdade, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
-        }
-        $this->faixaDeIdade = $faixaDeIdade;
-        return $this;
+    public function getIdadeMinJ() {
+        return $this->idadeMinJ;
     }
+
+    public function getIdadeMaxJ() {
+        return $this->idadeMaxJ;
+    }
+
+    public function getIdadeMaxG() {
+        return $this->idadeMaxG;
+    }
+
+    public function getIdadeMinG() {
+        return $this->idadeMinG;
+    }
+
+    public function setIdadeMinJ($idadeMinJ) {
+        $this->idadeMinJ = $idadeMinJ;
+    }
+
+    public function setIdadeMaxJ($idadeMaxJ) {
+        $this->idadeMaxJ = $idadeMaxJ;
+    }
+
+    public function setIdadeMaxG($idadeMaxG) {
+        $this->idadeMaxG = $idadeMaxG;
+    }
+
+    public function setIdadeMinG($idadeMinG) {
+        $this->idadeMinG = $idadeMinG;
+    }
+
+
 
 
 

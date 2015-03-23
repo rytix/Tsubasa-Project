@@ -13,6 +13,11 @@
  */
 class Usuario_model extends CI_Model {
     
+    const DIRETOR = 1;
+    const JUIZ = 2;
+    const SOCIO = 3;
+    
+    private $id;
     private $login;
     private $nome;
     private $senha;
@@ -22,7 +27,16 @@ class Usuario_model extends CI_Model {
         parent::__construct();
     }
     
-    /**
+    
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+        /**
      * 
      * @return String
      */

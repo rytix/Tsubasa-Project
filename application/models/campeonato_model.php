@@ -2,6 +2,7 @@
 class Campeonato_model extends CI_Model {
 
     private $nome;
+    private $ativo;
 
     public function __construct() {
         parent::__construct();
@@ -40,5 +41,15 @@ class Campeonato_model extends CI_Model {
         
         return $query->return();
     }
+    
+    public function isAtivo() {
+        return $this->ativo;
+    }
+
+    public function setAtivo($ativo) {
+        $this->ativo = $ativo;
+    }
+
+
 
 }

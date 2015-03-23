@@ -11,13 +11,21 @@
  */
 class Juiz_model extends Usuario_model {
 
+    private $campeonatos;
+    
+    
     //put your code here
     public function __construct() {
         parent::__construct();
         $this->load->database();
     }
 
-    public function cadastrarSumula(Sumula $sumula) {
+    public function getCampeonatos() {
+        //busca todos os campenatos que tenha esse juiz linkado.
+        return $this->campeonatos;
+    }
+
+        public function cadastrarSumula(Sumula $sumula) {
         //TODO Cadastro da sumula no banco de dados
     }
 

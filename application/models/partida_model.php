@@ -13,10 +13,12 @@
  */
 class Partida_model extends CI_Model {
 
+    private $id;
     private $campo;
     private $data;
     private $nome;
     private $partidaAtiva;
+    private $campeonatoCategoria;
 
     public function __construct() {
         parent::__construct();
@@ -138,6 +140,22 @@ class Partida_model extends CI_Model {
         ;
     }
     
-    
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getCampeonatoCategoria() {
+        return $this->campeonatoCategoria;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public function setCampeonatoCategoria(CampeonatoCategoria $campeonatoCategoria) {
+        $this->campeonatoCategoria = $campeonatoCategoria;
+    }
+
+
 
 }
