@@ -39,8 +39,8 @@
 */
 
 //$route['404_override'] = '';
-//$route['index.php/juiz/cadastrojuiz'] = 'index.php/juiz/cadastrojuiz';
-//$route['index.php/juiz'] = 'index.php/juiz';
+$route['index.php/juiz/cadastrojuiz'] = 'index.php/juiz/cadastrojuiz';
+$route['index.php/juiz'] = 'index.php/juiz';
 $route['default_controller'] = 'welcome/index';
 
 /* End of file routes.php */
