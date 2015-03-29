@@ -1,6 +1,6 @@
 <?php
 class Campeonato_model extends CI_Model {
-
+    private $id;
     private $nome;
     private $ativo;
 
@@ -11,6 +11,14 @@ class Campeonato_model extends CI_Model {
     public function gerarTabelaPontuacao() {
         //TODO funcao gerar tabela pontuação
     }
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
     /**
      * 
      * @return String
