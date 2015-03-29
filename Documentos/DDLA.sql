@@ -37,8 +37,8 @@ DROP TABLE IF EXISTS Usuario CASCADE
 
 CREATE TABLE Campeonato
 (
-	ativo Boolean,
-	nome String,
+	ativo Boolean NOT NULL,
+	nome String NOT NULL,
 	campeonatoID Integer NOT NULL AUTO_INCREMENT,
         juizID Integer NOT NULL,
 	PRIMARY KEY (campeonatoID),
@@ -58,19 +58,19 @@ CREATE TABLE CampeonatoCategoria --JOIN CAMPEONATO CATEGORIA
 
 CREATE TABLE Categoria
 (
-	idadeMaximaGoleiro const int,
-	idadeMaximaJogador const int,
-	idadeMinimaGoleiro const int,
-	idadeMinimaJogador const int,
-	nome String,
+	idadeMaximaGoleiro const int NOT NULL,
+	idadeMaximaJogador const int NOT NULL,
+	idadeMinimaGoleiro const int NOT NULL,
+	idadeMinimaJogador const int NOT NULL,
+	nome String NOT NULL,
 	categoriaID Integer NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY (categoriaID)
 ) 
 ;
 
-CREATE TABLE Jogador --JOIN TIME SOCIO
+CREATE TABLE Jogador --JOIN TIME SOCIO 
 (
-	goleiro Boolean,
+	goleiro Boolean NOT NULL,
 	jogadorID Integer NOT NULL AUTO_INCREMENT,
         socioID Integer NOT NULL,
         timeID Integer,
@@ -83,25 +83,25 @@ CREATE TABLE Jogador --JOIN TIME SOCIO
 ;
 
 
-CREATE TABLE JogadorNaPartida --JOIN JOGADOR SUMULA
+CREATE TABLE JogadorNaSumula --JOIN JOGADOR SUMULA 
 (
-	cartaoVermelho Boolean,
-	nCartaoAzul int,
-	nFaltas int,
-	nGol int,
+	cartaoVermelho Boolean NOT NULL,
+	nCartaoAzul int NOT NULL,
+	nFaltas int NOT NULL,
+	nGol int NOT NULL,
         jogadorID Integer NOT NULL,
         sumulaID Integer NOT NULL,
 	PRIMARY KEY (jogadorID,sumulaID),
 ) 
 ;
 
-CREATE TABLE Partida
+CREATE TABLE Partida 
 (
 	partidaID Integer NOT NULL AUTO_INCREMENT,
-	campo String,
-	data Datetime,
-	nome String,
-	partidaAtiva boolean,
+	campo String NOT NULL,
+	data Datetime NOT NULL,
+	nome String NOT NULL,
+	partidaAtiva boolean NOT NULL,
 	sumulaID Integer,
         campeonatoCategoriaID Integer NOT NULL,
 	PRIMARY KEY (partidaID),
@@ -113,31 +113,28 @@ CREATE TABLE Partida
 CREATE TABLE Sumula
 (
 	observacoes String,
-	sumulaID Integer NOT NULL,
-	juizID Integer,
+	sumulaID Integer NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY (sumulaID),
-	KEY (juizID)
 ) 
 ;
 
 
-CREATE TABLE Time
+CREATE TABLE Time 
 (
-	nome String,
-	timeID Integer NOT NULL,
-        campeonatoCategoriaID Integer,
+	nome String NOT NULL,
+	timeID Integer AUTO_INCREMENT,
+        campeonatoCategoriaID Integer NOT NULL,
 	PRIMARY KEY (timeID),
         KEY (campeonatoCategoriaID)
-
 ) 
 ;
 
 
-CREATE TABLE TimeNaPartida --JOIN SUMULA TIME
+CREATE TABLE TimeNaSumula --JOIN SUMULA TIME (são informações da sumula) 
 (
-	wo Boolean,
-        sumulaID Integer,
-	timeID Integer,
+	wo Boolean NOT NULL,
+        sumulaID Integer NOT NULL,
+	timeID Integer NOT NULL,
 	PRIMARY KEY (sumulaID,timeID)
 ) 
 ;
@@ -145,10 +142,10 @@ CREATE TABLE TimeNaPartida --JOIN SUMULA TIME
 
 CREATE TABLE Usuario
 (
-	login String,
-	nome String,
-	senha String,
-	usuarioID Integer NOT NULL,
+	login String NOT NULL,
+	nome String NOT NULL,
+	senha String NOT NULL,
+	usuarioID Integer NOT NULL AUTO_INCREMENT,
         tipo Integer NOT NULL,
 	PRIMARY KEY (usuarioID)
 
@@ -156,16 +153,11 @@ CREATE TABLE Usuario
 ;
 
 
-
 SET FOREIGN_KEY_CHECKS=1;
 
 
-ALTER TABLE Campeonato ADD CONSTRAINT FK_Campeonato_Juiz 
-	FOREIGN KEY (juizID) REFERENCES Juiz (juizID)
-;
-
-ALTER TABLE Campeonato ADD CONSTRAINT Cria 
-	FOREIGN KEY (diretorID) REFERENCES Diretor (diretorID)
+ALTER TABLE Campeonato ADD CONSTRAINT FK_Campeonato_UsuarioJuiz 
+	FOREIGN KEY (juizID) REFERENCES Usuario (usuarioID)
 ;
 
 ALTER TABLE CampeonatoCategoria ADD CONSTRAINT FK_CampeonatoCategoria_Campeonato 
@@ -176,66 +168,42 @@ ALTER TABLE CampeonatoCategoria ADD CONSTRAINT FK_CampeonatoCategoria_Categoria
 	FOREIGN KEY (categoriaID) REFERENCES Categoria (categoriaID)
 ;
 
-ALTER TABLE CampeonatoCategoria ADD CONSTRAINT FK_CampeonatoCategoria_Partida 
-	FOREIGN KEY (partidaID) REFERENCES Partida (partidaID)
-;
-
-ALTER TABLE CampeonatoCategoria ADD CONSTRAINT FK_CampeonatoCategoria_Jogador 
-	FOREIGN KEY (jogadorID) REFERENCES Jogador (jogadorID)
-;
-
-ALTER TABLE CampeonatoCategoria ADD CONSTRAINT FK_CampeonatoCategoria_Time 
+ALTER TABLE Jogador ADD CONSTRAINT FK_Jogador_Time
 	FOREIGN KEY (timeID) REFERENCES Time (timeID)
 ;
 
-ALTER TABLE Diretor ADD CONSTRAINT FK_Diretor_Usuario 
-	FOREIGN KEY (diretorID) REFERENCES Usuario (usuarioID)
-;
-
-ALTER TABLE JoinJogadorToSumula ADD CONSTRAINT Sumula 
-	FOREIGN KEY (sumulaID) REFERENCES Sumula (sumulaID)
-;
-
-ALTER TABLE JoinJogadorToSumula ADD CONSTRAINT Jogador 
-	FOREIGN KEY (jogadorID) REFERENCES Jogador (jogadorID)
-;
-
-ALTER TABLE JoinSocioToTime ADD CONSTRAINT Time 
-	FOREIGN KEY (timeID) REFERENCES Time (timeID)
-;
-
-ALTER TABLE JoinSocioToTime ADD CONSTRAINT Socio 
+ALTER TABLE Jogador ADD CONSTRAINT FK_Jogador_Socio 
 	FOREIGN KEY (socioID) REFERENCES Socio (socioID)
 ;
 
-ALTER TABLE JoinTimeToSumula ADD CONSTRAINT Sumula 
+ALTER TABLE Jogador ADD CONSTRAINT FK_Jogador_CampeonatoCategoria 
+	FOREIGN KEY (campeonatoCategoriaID) REFERENCES CampeonatoCategoria (campeonatoCategoriaID)
+;
+
+ALTER TABLE JogadorNaSumula ADD CONSTRAINT FK_JogadorNaSumula_Jogador 
+	FOREIGN KEY (jogadorID) REFERENCES Jogador (jogadorID)
+;
+
+ALTER TABLE JogadorNaSumula ADD CONSTRAINT FK_JogadorNaSumula_Sumula
 	FOREIGN KEY (sumulaID) REFERENCES Sumula (sumulaID)
-;
-
-ALTER TABLE JoinTimeToSumula ADD CONSTRAINT Time 
-	FOREIGN KEY (timeID) REFERENCES Time (timeID)
-;
-
-ALTER TABLE Juiz ADD CONSTRAINT Cadastra 
-	FOREIGN KEY (diretorID) REFERENCES Diretor (diretorID)
-;
-
-ALTER TABLE Juiz ADD CONSTRAINT FK_Juiz_Usuario 
-	FOREIGN KEY (juizID) REFERENCES Usuario (usuarioID)
-;
-
-ALTER TABLE Partida ADD CONSTRAINT Agenda 
-	FOREIGN KEY (juizID) REFERENCES Juiz (juizID)
 ;
 
 ALTER TABLE Partida ADD CONSTRAINT FK_Partida_Sumula 
 	FOREIGN KEY (sumulaID) REFERENCES Sumula (sumulaID)
 ;
 
-ALTER TABLE Socio ADD CONSTRAINT FK_Socio_Usuario 
-	FOREIGN KEY (socioID) REFERENCES Usuario (usuarioID)
+ALTER TABLE Partida ADD CONSTRAINT FK_Partida_CampeonatoCategoriaID 
+	FOREIGN KEY (campeonatoCategoriaID) REFERENCES CampeonatoCategoria (campeonatoCategoriaID)
 ;
 
-ALTER TABLE Sumula ADD CONSTRAINT Cria 
-	FOREIGN KEY (juizID) REFERENCES Juiz (juizID)
+ALTER TABLE Time ADD CONSTRAINT FK_Time_CampeonatoCategoria 
+	FOREIGN KEY (campeonatoCategoriaID) REFERENCES CampeonatoCategoria (campeonatoCategoriaID)
+;
+
+ALTER TABLE TimeNaSumula ADD CONSTRAINT FK_TimeNaSumula_Sumula 
+	FOREIGN KEY (sumulaID) REFERENCES Sumula (sumulaID)
+;
+
+ALTER TABLE TimeNaSumula ADD CONSTRAINT FK_TimeNaSumula_Time
+	FOREIGN KEY (timeID) REFERENCES Time (timeID)
 ;
