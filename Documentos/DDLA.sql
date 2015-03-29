@@ -1,6 +1,19 @@
+BEGIN;
 SET FOREIGN_KEY_CHECKS=0;
 
+#CODE IGNITER
+DROP TABLE IF EXISTS `ci_sessions` CASCADE;
 
+CREATE TABLE IF NOT EXISTS  `ci_sessions` (
+	session_id varchar(40) DEFAULT '0' NOT NULL,
+	ip_address varchar(45) DEFAULT '0' NOT NULL,
+	user_agent varchar(120) NOT NULL,
+	last_activity int(10) unsigned DEFAULT 0 NOT NULL,
+	user_data text NOT NULL,
+	PRIMARY KEY (session_id),
+	KEY `last_activity_idx` (`last_activity`)
+);
+#CODE IGNITER END
 
 DROP TABLE IF EXISTS Campeonato CASCADE
 ;
@@ -8,29 +21,17 @@ DROP TABLE IF EXISTS CampeonatoCategoria CASCADE
 ;
 DROP TABLE IF EXISTS Categoria CASCADE
 ;
-DROP TABLE IF EXISTS Diretor CASCADE
-;
 DROP TABLE IF EXISTS Jogador CASCADE
 ;
-DROP TABLE IF EXISTS JogadorNaPartida CASCADE
+DROP TABLE IF EXISTS JogadorNaSumula CASCADE
 ;
-DROP TABLE IF EXISTS JoinJogadorToSumula CASCADE
-;
-DROP TABLE IF EXISTS JoinSocioToTime CASCADE
-;
-DROP TABLE IF EXISTS JoinTimeToSumula CASCADE
-;
-DROP TABLE IF EXISTS Juiz CASCADE
+DROP TABLE IF EXISTS TimeNaSumula CASCADE
 ;
 DROP TABLE IF EXISTS Partida CASCADE
-;
-DROP TABLE IF EXISTS Socio CASCADE
 ;
 DROP TABLE IF EXISTS Sumula CASCADE
 ;
 DROP TABLE IF EXISTS Time CASCADE
-;
-DROP TABLE IF EXISTS TimeNaPartida CASCADE
 ;
 DROP TABLE IF EXISTS Usuario CASCADE
 ;
@@ -38,7 +39,7 @@ DROP TABLE IF EXISTS Usuario CASCADE
 CREATE TABLE Campeonato
 (
 	ativo Boolean NOT NULL,
-	nome String NOT NULL,
+	nome varchar(256) NOT NULL,
 	campeonatoID Integer NOT NULL AUTO_INCREMENT,
         juizID Integer NOT NULL,
 	PRIMARY KEY (campeonatoID),
@@ -47,7 +48,7 @@ CREATE TABLE Campeonato
 ;
 
 
-CREATE TABLE CampeonatoCategoria --JOIN CAMPEONATO CATEGORIA
+CREATE TABLE CampeonatoCategoria #JOIN CAMPEONATO CATEGORIA
 (
 	campeonatoID Integer NOT NULL,
 	categoriaID Integer NOT NULL,
@@ -58,32 +59,34 @@ CREATE TABLE CampeonatoCategoria --JOIN CAMPEONATO CATEGORIA
 
 CREATE TABLE Categoria
 (
-	idadeMaximaGoleiro const int NOT NULL,
-	idadeMaximaJogador const int NOT NULL,
-	idadeMinimaGoleiro const int NOT NULL,
-	idadeMinimaJogador const int NOT NULL,
-	nome String NOT NULL,
+	idadeMaximaGoleiro int NOT NULL,
+	idadeMaximaJogador int NOT NULL,
+	idadeMinimaGoleiro int NOT NULL,
+	idadeMinimaJogador int NOT NULL,
+	nome varchar(256) NOT NULL,
 	categoriaID Integer NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY (categoriaID)
 ) 
 ;
 
-CREATE TABLE Jogador --JOIN TIME SOCIO 
+CREATE TABLE Jogador #JOIN TIME SOCIO 
 (
 	goleiro Boolean NOT NULL,
 	jogadorID Integer NOT NULL AUTO_INCREMENT,
         socioID Integer NOT NULL,
         timeID Integer,
-        campeonatoCategoriaID Integer NOT NULL,
+        campeonatoID Integer NOT NULL,
+        categoriaID Integer NOT NULL,
 	PRIMARY KEY (jogadorID),
         KEY (timeID),
         KEY (socioID),
-        KEY (campeonatoCategoriaID)
+        KEY (campeonatoID),
+        KEY (categoriaID)
 ) 
 ;
 
 
-CREATE TABLE JogadorNaSumula --JOIN JOGADOR SUMULA 
+CREATE TABLE JogadorNaSumula #JOIN JOGADOR SUMULA 
 (
 	cartaoVermelho Boolean NOT NULL,
 	nCartaoAzul int NOT NULL,
@@ -91,46 +94,50 @@ CREATE TABLE JogadorNaSumula --JOIN JOGADOR SUMULA
 	nGol int NOT NULL,
         jogadorID Integer NOT NULL,
         sumulaID Integer NOT NULL,
-	PRIMARY KEY (jogadorID,sumulaID),
+	PRIMARY KEY (jogadorID,sumulaID)
 ) 
 ;
 
 CREATE TABLE Partida 
 (
 	partidaID Integer NOT NULL AUTO_INCREMENT,
-	campo String NOT NULL,
+	campo varchar(256) NOT NULL,
 	data Datetime NOT NULL,
-	nome String NOT NULL,
+	nome varchar(256) NOT NULL,
 	partidaAtiva boolean NOT NULL,
 	sumulaID Integer,
-        campeonatoCategoriaID Integer NOT NULL,
+        campeonatoID Integer NOT NULL,
+        categoriaID Integer NOT NULL,
 	PRIMARY KEY (partidaID),
 	KEY (sumulaID),
-        KEY (campeonatoCategoriaID)
+        KEY (campeonatoID),
+        KEY (categoriaID)
 ) 
 ;
 
 CREATE TABLE Sumula
 (
-	observacoes String,
+	observacoes varchar(256),
 	sumulaID Integer NOT NULL AUTO_INCREMENT,
-	PRIMARY KEY (sumulaID),
+	PRIMARY KEY (sumulaID)
 ) 
 ;
 
 
 CREATE TABLE Time 
 (
-	nome String NOT NULL,
+	nome varchar(256) NOT NULL,
 	timeID Integer AUTO_INCREMENT,
-        campeonatoCategoriaID Integer NOT NULL,
+        campeonatoID Integer NOT NULL,
+        categoriaID Integer NOT NULL,
 	PRIMARY KEY (timeID),
-        KEY (campeonatoCategoriaID)
+        KEY (campeonatoID),
+        KEY (categoriaID)
 ) 
 ;
 
 
-CREATE TABLE TimeNaSumula --JOIN SUMULA TIME (são informações da sumula) 
+CREATE TABLE TimeNaSumula #JOIN SUMULA TIME (são informações da sumula) 
 (
 	wo Boolean NOT NULL,
         sumulaID Integer NOT NULL,
@@ -142,9 +149,9 @@ CREATE TABLE TimeNaSumula --JOIN SUMULA TIME (são informações da sumula)
 
 CREATE TABLE Usuario
 (
-	login String NOT NULL,
-	nome String NOT NULL,
-	senha String NOT NULL,
+	login varchar(256) NOT NULL,
+	nome varchar(256) NOT NULL,
+	senha varchar(256) NOT NULL,
 	usuarioID Integer NOT NULL AUTO_INCREMENT,
         tipo Integer NOT NULL,
 	PRIMARY KEY (usuarioID)
@@ -172,12 +179,12 @@ ALTER TABLE Jogador ADD CONSTRAINT FK_Jogador_Time
 	FOREIGN KEY (timeID) REFERENCES Time (timeID)
 ;
 
-ALTER TABLE Jogador ADD CONSTRAINT FK_Jogador_Socio 
-	FOREIGN KEY (socioID) REFERENCES Socio (socioID)
+ALTER TABLE Jogador ADD CONSTRAINT FK_Jogador_Usuario 
+	FOREIGN KEY (socioID) REFERENCES Usuario (usuarioID)
 ;
 
 ALTER TABLE Jogador ADD CONSTRAINT FK_Jogador_CampeonatoCategoria 
-	FOREIGN KEY (campeonatoCategoriaID) REFERENCES CampeonatoCategoria (campeonatoCategoriaID)
+	FOREIGN KEY (campeonatoID,categoriaID) REFERENCES CampeonatoCategoria (campeonatoID,categoriaID)
 ;
 
 ALTER TABLE JogadorNaSumula ADD CONSTRAINT FK_JogadorNaSumula_Jogador 
@@ -193,11 +200,11 @@ ALTER TABLE Partida ADD CONSTRAINT FK_Partida_Sumula
 ;
 
 ALTER TABLE Partida ADD CONSTRAINT FK_Partida_CampeonatoCategoriaID 
-	FOREIGN KEY (campeonatoCategoriaID) REFERENCES CampeonatoCategoria (campeonatoCategoriaID)
+	FOREIGN KEY (campeonatoID,categoriaID) REFERENCES CampeonatoCategoria (campeonatoID,categoriaID)
 ;
 
 ALTER TABLE Time ADD CONSTRAINT FK_Time_CampeonatoCategoria 
-	FOREIGN KEY (campeonatoCategoriaID) REFERENCES CampeonatoCategoria (campeonatoCategoriaID)
+	FOREIGN KEY (campeonatoID,categoriaID) REFERENCES CampeonatoCategoria (campeonatoID,categoriaID)
 ;
 
 ALTER TABLE TimeNaSumula ADD CONSTRAINT FK_TimeNaSumula_Sumula 
@@ -207,3 +214,4 @@ ALTER TABLE TimeNaSumula ADD CONSTRAINT FK_TimeNaSumula_Sumula
 ALTER TABLE TimeNaSumula ADD CONSTRAINT FK_TimeNaSumula_Time
 	FOREIGN KEY (timeID) REFERENCES Time (timeID)
 ;
+COMMIT;
