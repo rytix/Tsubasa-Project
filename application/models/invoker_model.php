@@ -53,4 +53,23 @@ class invoker_model extends CI_Model{
             return null;
         }
     }
+    /**
+     * Função que recebe um campeonato e retorna todos os campeonatosCategorias
+     * Dentro dele.
+     * 
+     * @param type Campeonato 
+     * @return array<CampeonatoCategoria>
+     */
+    public function get_campeonatosCategoria($campeonato){
+        //TODO acesso a banco de dados
+    }
+    /**
+     * Função que varre o banco de dados retornando um array com todos os campeonatos
+     * existentes nele.
+     * 
+     * @return array<Campeonato>
+     */
+    public function get_campeonatos(){
+        
+    }
 }

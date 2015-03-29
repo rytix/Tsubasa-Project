@@ -40,24 +40,18 @@ CREATE TABLE Campeonato
 	ativo Boolean,
 	nome String,
 	campeonatoID Integer NOT NULL AUTO_INCREMENT,
-	PRIMARY KEY (campeonatoID)
+        juizID Integer NOT NULL,
+	PRIMARY KEY (campeonatoID),
+        KEY (juizID)
 ) 
 ;
 
 
-CREATE TABLE CampeonatoCategoria --STACK *
+CREATE TABLE CampeonatoCategoria --JOIN CAMPEONATO CATEGORIA
 (
-	campeonatoCategoriaID Integer NOT NULL AUTO_INCREMENT,
-	campeonatoID Integer,
-	categoriaID Integer,
-	partidaID Integer,
-	jogadorID Integer,
-	timeID Integer,
-	PRIMARY KEY (campeonatoID,categoriaID),
-	KEY (partidaID), -- <
-	KEY (jogadorID),
-	KEY (timeID)
-
+	campeonatoID Integer NOT NULL,
+	categoriaID Integer NOT NULL,
+	PRIMARY KEY (campeonatoID,categoriaID)
 ) 
 ;
 
@@ -71,76 +65,35 @@ CREATE TABLE Categoria
 	nome String,
 	categoriaID Integer NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY (categoriaID)
-
 ) 
 ;
 
-CREATE TABLE Jogador
+CREATE TABLE Jogador --JOIN TIME SOCIO
 (
 	goleiro Boolean,
 	jogadorID Integer NOT NULL AUTO_INCREMENT,
-	PRIMARY KEY (jogadorID)
-
+        socioID Integer NOT NULL,
+        timeID Integer,
+        campeonatoCategoriaID Integer NOT NULL,
+	PRIMARY KEY (jogadorID),
+        KEY (timeID),
+        KEY (socioID),
+        KEY (campeonatoCategoriaID)
 ) 
 ;
 
 
-CREATE TABLE JogadorNaPartida
+CREATE TABLE JogadorNaPartida --JOIN JOGADOR SUMULA
 (
 	cartaoVermelho Boolean,
 	nCartaoAzul int,
 	nFaltas int,
 	nGol int,
-	jogadorNaPartidaID Integer NOT NULL,
-	PRIMARY KEY (jogadorNaPartidaID)
-
+        jogadorID Integer NOT NULL,
+        sumulaID Integer NOT NULL,
+	PRIMARY KEY (jogadorID,sumulaID),
 ) 
 ;
-
-
-CREATE TABLE JoinJogadorToSumula
-(
-	sumulaID Integer,
-	jogadorID Integer,
-	KEY (sumulaID),
-	KEY (jogadorID)
-
-) 
-;
-
-
-CREATE TABLE JoinSocioToTime
-(
-	timeID Integer,
-	socioID Integer,
-	KEY (timeID),
-	KEY (socioID)
-
-) 
-;
-
-
-CREATE TABLE JoinTimeToSumula
-(
-	sumulaID Integer,
-	timeID Integer,
-	KEY (sumulaID),
-	KEY (timeID)
-
-) 
-;
-
-
-CREATE TABLE Juiz
-(
-	juizID Integer NOT NULL,
-	diretorID Integer NOT NULL,
-	PRIMARY KEY (juizID),
-	KEY (diretorID)
-
-) 
-;
-
 
 CREATE TABLE Partida
 (
@@ -149,26 +102,13 @@ CREATE TABLE Partida
 	data Datetime,
 	nome String,
 	partidaAtiva boolean,
-	juizID Integer NOT NULL, -- Stack ** (Juiz só no campeonato)
-	sumulaID Integer NOT NULL,
+	sumulaID Integer,
         campeonatoCategoriaID Integer NOT NULL,
-
 	PRIMARY KEY (partidaID),
-	KEY (juizID),
-	KEY (sumulaID)
-
+	KEY (sumulaID),
+        KEY (campeonatoCategoriaID)
 ) 
 ;
-
-
-CREATE TABLE Socio
-(
-	socioID Integer NOT NULL,
-	PRIMARY KEY (socioID)
-
-) 
-;
-
 
 CREATE TABLE Sumula
 (
@@ -177,7 +117,6 @@ CREATE TABLE Sumula
 	juizID Integer,
 	PRIMARY KEY (sumulaID),
 	KEY (juizID)
-
 ) 
 ;
 
@@ -186,18 +125,20 @@ CREATE TABLE Time
 (
 	nome String,
 	timeID Integer NOT NULL,
-	PRIMARY KEY (timeID)
+        campeonatoCategoriaID Integer,
+	PRIMARY KEY (timeID),
+        KEY (campeonatoCategoriaID)
 
 ) 
 ;
 
 
-CREATE TABLE TimeNaPartida
+CREATE TABLE TimeNaPartida --JOIN SUMULA TIME
 (
 	wo Boolean,
-	timeNaPartidaID Integer NOT NULL,
-	PRIMARY KEY (timeNaPartidaID)
-
+        sumulaID Integer,
+	timeID Integer,
+	PRIMARY KEY (sumulaID,timeID)
 ) 
 ;
 
@@ -208,6 +149,7 @@ CREATE TABLE Usuario
 	nome String,
 	senha String,
 	usuarioID Integer NOT NULL,
+        tipo Integer NOT NULL,
 	PRIMARY KEY (usuarioID)
 
 ) 
