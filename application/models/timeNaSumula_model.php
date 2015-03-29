@@ -13,7 +13,7 @@ use Time;
  *
  * @author Paulo Eduardo Martins
  */
-class TimeNaPartida_model extends CI_Model {
+class TimeNaSumula_model extends CI_Model {
 
     private $id;
     private $wo;

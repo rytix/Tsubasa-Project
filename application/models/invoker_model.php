@@ -48,6 +48,9 @@ class invoker_model extends CI_Model {
             $UsuarioObject->setLogin($row['login']);
             $UsuarioObject->setSenha($row['senha']);
             $UsuarioObject->setNome($row['nome']);
+            $UsuarioObject->setDataNascimento($row['dataNascimento']);
+            $UsuarioObject->setSexo($row['sexo']);
+            $UsuarioObject->setId($row['usuarioID']);
             return $UsuarioObject;
         } else {
             return null;

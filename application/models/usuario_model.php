@@ -12,7 +12,9 @@
  * @author Paulo Eduardo Martins
  */
 class Usuario_model extends CI_Model {
-    
+    const MASCULINO = 'MASCULINO';
+    const FEMININO = 'FEMININO';
+    const UNISEX = 'UNISEX';
     const DIRETOR = 1;
     const JUIZ = 2;
     const SOCIO = 3;
@@ -21,6 +23,8 @@ class Usuario_model extends CI_Model {
     private $login;
     private $nome;
     private $senha;
+    private $sexo;
+    private $dataNascimento;
 
     function __construct()
     {
@@ -35,7 +39,23 @@ class Usuario_model extends CI_Model {
     public function setId($id) {
         $this->id = $id;
     }
+    public function getSexo() {
+        return $this->sexo;
+    }
 
+    public function getDataNascimento() {
+        return $this->dataNascimento;
+    }
+
+    public function setSexo($sexo) {
+        $this->sexo = $sexo;
+    }
+
+    public function setDataNascimento($dataNascimento) {
+        $this->dataNascimento = $dataNascimento;
+    }
+
+    
         /**
      * 
      * @return String

@@ -12,14 +12,27 @@
  * @author 4276663
  */
 class Categoria_model extends CI_Model{
+    const MASCULINO = 'MASCULINO';
+    const FEMININO = 'FEMININO';
+    const UNISEX = 'UNISEX';
+    const IDADEILIMITADA = 999;
+    
     private $nome;
     private $idadeMinJ;
     private $idadeMaxJ;
     private $idadeMaxG;
     private $idadeMinG;
+    private $sexo;
     
     function __construct() {
         parent::__construct();
+    }
+    public function getSexo() {
+        return $this->sexo;
+    }
+
+    public function setSexo($sexoPermitido) {
+        $this->sexo = $sexoPermitido;
     }
     /**
      * 

@@ -63,6 +63,7 @@ CREATE TABLE Categoria
 	idadeMaximaJogador int NOT NULL,
 	idadeMinimaGoleiro int NOT NULL,
 	idadeMinimaJogador int NOT NULL,
+	sexo varchar(256) NOT NULL,
 	nome varchar(256) NOT NULL,
 	categoriaID Integer NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY (categoriaID)
@@ -154,6 +155,8 @@ CREATE TABLE Usuario
 	senha varchar(256) NOT NULL,
 	usuarioID Integer NOT NULL AUTO_INCREMENT,
         tipo Integer NOT NULL,
+        dataNascimento Datetime NOT NULL,
+        sexo varchar(256) NOT NULL,
 	PRIMARY KEY (usuarioID)
 
 ) 

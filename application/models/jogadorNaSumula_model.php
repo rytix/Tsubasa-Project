@@ -11,7 +11,7 @@
  *
  * @author Paulo Eduardo Martins
  */
-class JogadorNaPartida_model extends CI_Model {
+class JogadorNaSumula_model extends CI_Model {
 
     private $id;
     private $sumula;

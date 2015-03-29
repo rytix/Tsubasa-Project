@@ -20,8 +20,8 @@ class Sumula_model extends CI_Model {
     private $id;
     private $observacoes;
     private $partida;
-    private $timeNaPartidaA;
-    private $timeNaPartidaB;
+    private $timeNaSumulaA;
+    private $timeNaSumulaB;
     private $jogadoresNaPartida;
 
     /**
@@ -65,7 +65,7 @@ class Sumula_model extends CI_Model {
      * @return TimeNaPartida
      */
     public function getTimeNaPartidaA() {
-        return $this->timeNaPartidaA;
+        return $this->timeNaSumulaA;
     }
 
     /**
@@ -73,7 +73,7 @@ class Sumula_model extends CI_Model {
      * @return TimeNaPartida
      */
     public function getTimeNaPartidaB() {
-        return $this->timeNaPartidaB;
+        return $this->timeNaSumulaB;
     }
 
     /**
@@ -113,7 +113,7 @@ class Sumula_model extends CI_Model {
             }
             trigger_error('$timeNaPartidaA precisa ser um TimeNaPartida, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
         }
-        $this->timeNaPartidaA = $timeNaPartidaA;
+        $this->timeNaSumulaA = $timeNaPartidaA;
         return $this;
     }
     /**
@@ -129,7 +129,7 @@ class Sumula_model extends CI_Model {
             }
             trigger_error('$timeNaPartidaB precisa ser um TimeNaPartida, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
         }
-        $this->timeNaPartidaB = $timeNaPartidaB;
+        $this->timeNaSumulaB = $timeNaPartidaB;
         return $this;
     }
     /**
@@ -153,7 +153,7 @@ class Sumula_model extends CI_Model {
      * @param array<JogadorNaPartida> $jogadoresNaPartida
      * @return Sumula
      */
-    public function setJogadoresNaPartida(JogadorNaPartida_model $jogadoresNaPartida) {
+    public function setJogadoresNaPartida(JogadorNaSumula_model $jogadoresNaPartida) {
         if (FALSE === is_string($jogadoresNaPartida)) {
             $tipoEncontradoErro = gettype($jogadoresNaPartida);
             if ($tipoEncontradoErro == 'object') {
