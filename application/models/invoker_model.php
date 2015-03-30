@@ -73,10 +73,10 @@ class invoker_model extends CI_Model {
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $ccDB) {
                 $cc = new CampeonatoCategoria_model();
-                $campeonato = $this->get_campeonato($ccDB->campenatoID);
-                $categoria = $this->get_campeonato($ccDB->categoriaID);
+                $campeonato = $this->get_campeonato($ccDB->campeonatoID);
+                $categoria = $this->get_categoria($ccDB->categoriaID);
                 $cc->setCampeonato($campeonato);
-                $cc->setCampeonato($categoria);
+                $cc->setCategoria($categoria);
                 array_push($ccs, $cc);
             }
         }
@@ -118,7 +118,7 @@ class invoker_model extends CI_Model {
         $this->load->model('campeonato_model');
 
         $query = $this->db->query("SELECT * FROM campeonato WHERE campeonatoID = ?", $id);
-        $campeonato;
+        $campeonato = null;
         if ($query->num_rows() > 0) {
             $campeonatoDB = $query->row();
             $campeonato = new Campeonato_model();
@@ -132,6 +132,7 @@ class invoker_model extends CI_Model {
     public function get_categoria($id) {
         $this->load->model('categoria_model');
         $query = $this->db->query("SELECT * FROM categoria WHERE categoriaID = ?", $id);
+        $categoria = null;
         if ($query->num_rows() > 0) {
             $categoriaDB = $query->row();
             $categoria = new Categoria_model();
