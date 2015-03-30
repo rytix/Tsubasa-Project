@@ -45,7 +45,6 @@
                         ));
                         $goleiros[$i-1]->setTime($invoker->get_time($timeID));
                         $invoker->update_jogador($goleiros[$i-1]->getId(), array('timeID' => $timeID));
-                        for ($j = $i-1; $j < 11 + $controle; $j++){
                             $jogadores[$j]->setTime($invoker->get_time($timeID));
                             $invoker->update_jogador($jogadores[$j]->getId(), array('timeID' => $timeID));
                         }

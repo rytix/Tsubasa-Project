@@ -198,6 +198,7 @@ class invoker_model extends CI_Model {
                 $cc->setCategoria($categoria);
                 $cc->setCampeonatoID($ccDB->campeonatoID);
                 $cc->setCategoriaID($ccDB->categoriaID);
+                $cc->setTemTime($this->has_time($ccDB->campeonatoID, $ccDB->categoriaID));
                 array_push($ccs, $cc);
             }
         }
@@ -720,7 +721,7 @@ class invoker_model extends CI_Model {
 
     public function get_campeonatossCategoria($campeonatoID, $categoriaID){
         $this->load->model('CampeonatoCategoria_model');
-        $query = $this->db->query('SELECT campeonatoID, categoriaID FROM campeonatoCategoria WHERE campeonatoID="$campeonatoID" AND categoriaID="$categoriaID"');
+        $query = $this->db->query("SELECT campeonatoID, categoriaID FROM campeonatoCategoria WHERE campeonatoID=$campeonatoID AND categoriaID=$categoriaID");
         $campeonatoCategoria = new CampeonatoCategoria_model();
         if($query->num_rows() > 0) {
             $campeonatoCategoriaDB = $query->row();
@@ -751,6 +752,15 @@ class invoker_model extends CI_Model {
 
     public function insert_juiz($data){
         $this->db->insert('usuario', $data);
+    }
+    
+    public function has_time($idCampeonato, $idCategoria){
+        $this->load->model('time_model');
+        $query = $this->db->query("SELECT * FROM time WHERE campeonatoID = ? AND categoriaID = ?", array($idCampeonato, $idCategoria));
+        if($query->num_rows() > 0){
+          return true;  
+        }
+        return false;
     }
 
 }

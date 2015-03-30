@@ -17,6 +17,7 @@ class CampeonatoCategoria_model extends CI_Model {
     private $categoriaID;
     private $campeonato;
     private $categoria;
+    private $temTime;
 
     public function __construct() {
         parent::__construct();
@@ -90,5 +91,15 @@ class CampeonatoCategoria_model extends CI_Model {
         $this->campeonato = $campeonato;
         return $this;
     }
+    
+    public function getTemTime() {
+        return $this->temTime;
+    }
+
+    public function setTemTime($temTime) {
+        $this->temTime = $temTime;
+    }
+
+
 
 }
