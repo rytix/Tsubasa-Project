@@ -59,11 +59,8 @@ class CampeonatoCategoria_model extends CI_Model {
      * @param Categoria $categoria
      * @return CampeonatoCategoria
      */
-<<<<<<< HEAD
     public function setCategoria(Categoria_model $categoria) {
-=======
-    public function setCategoria($categoria) {
->>>>>>> b194edaf60b6ed8b464f38e11df6c91f22c26bda
+
         if ($categoria instanceof Categoria) {
             $tipoEncontradoErro = gettype($categoria);
             if ($tipoEncontradoErro == 'object') {
@@ -80,11 +77,8 @@ class CampeonatoCategoria_model extends CI_Model {
      * @param Campeonato $campeonato
      * @return CampeonatoCategoria
      */
-<<<<<<< HEAD
     public function setCampeonato(Campeonato_model $campeonato) {
-=======
-    public function setCampeonato($campeonato) {
->>>>>>> b194edaf60b6ed8b464f38e11df6c91f22c26bda
+
         if ($campeonato instanceof Campeonato) {
             $tipoEncontradoErro = gettype($campeonato);
             if ($tipoEncontradoErro == 'object') {
