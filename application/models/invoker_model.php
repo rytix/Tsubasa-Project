@@ -128,6 +128,24 @@ class invoker_model extends CI_Model {
         }
         return $campeonato;
     }
+    
+    public function delete_campeonato($id) {
+        $this->db->delete('campeonatocategoria', array('campeonatoID' => $id)); 
+        $this->db->delete('campeonato', array('campeonatoID' => $id)); 
+    }
+    
+    public function insert_campeonato($post){
+        $campeonato = array('nome' => $post['nome'], 'juizID' => $post['juiz'], 'data' => $post['data'], 'ativo' => 0);
+        $this->db->insert('campeonato', $campeonato); 
+        $campeonatoID = $this->db->insert_id();
+        $ccs = array();
+        foreach ($post['categorias'] as $categoriaID) {
+            $cc = array('categoriaID' => $categoriaID, 'campeonatoID' => $campeonatoID);
+            array_push($ccs, $cc);
+        }
+        $this->db->insert_batch('campeonatocategoria', $ccs); 
+        
+    }
 
     public function get_categoria($id) {
         $this->load->model('categoria_model');

@@ -3,6 +3,7 @@ class Campeonato_model extends CI_Model {
     private $id;
     private $nome;
     private $ativo;
+    private $juiz;
 
     public function __construct() {
         parent::__construct();
@@ -57,6 +58,17 @@ class Campeonato_model extends CI_Model {
     public function setAtivo($ativo) {
         $this->ativo = $ativo;
     }
+    
+    function getJuiz() {
+        return $this->juiz;
+    }
+
+    function setJuiz($juiz) {
+        $this->juiz = $juiz;
+        return $this;
+    }
+
+
 
 
 

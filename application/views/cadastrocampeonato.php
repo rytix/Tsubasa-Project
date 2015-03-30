@@ -61,7 +61,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="categoria">Categoria</label>
-                                <select id="categoria" class="form-control" multiple="true" name="categoria">
+                                <select id="categoria" class="form-control" multiple="true" name="categoria[]">
                                     <?php
                                     foreach ($categorias as $categoria) {
                                         echo "<option value='".$categoria->getId()."'>".$categoria->getNome()."</option>";
