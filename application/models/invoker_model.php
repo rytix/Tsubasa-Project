@@ -137,18 +137,20 @@ class invoker_model extends CI_Model {
     
     public function get_campeonatojuiz($id){
         $this->load->model('campeonato_model');
-
-        $query = $this->db->query("SELECT * FROM campeonato WHERE juizID = ? AND ativo=true", $id);
-        $campeonato = null;
+        $query = $this->db->query("SELECT * FROM campeonato WHERE juizID = ? and ativo=true", $id);
+        $campeonatos = array();
         if ($query->num_rows() > 0) {
-            $campeonatoDB = $query->row();
-            $campeonato = new Campeonato_model();
-            $campeonato->setAtivo($campeonatoDB->ativo);
-            $campeonato->setId($campeonatoDB->campeonatoID);
-            $campeonato->setNome($campeonatoDB->nome);
-            $campeonato->setData($campeonatoDB->data);
+            foreach ($query->result() as $campeonatoDB) {
+                $campeonatoDB = $query->row();
+                $campeonato = new Campeonato_model();
+                $campeonato->setAtivo($campeonatoDB->ativo);
+                $campeonato->setId($campeonatoDB->campeonatoID);
+                $campeonato->setNome($campeonatoDB->nome);
+                $campeonato->setData($campeonatoDB->data);
+                array_push($campeonatos, $campeonato);
+            }
         }
-        return $campeonato;
+        return $campeonatos;
     }
     
     public function delete_campeonato($id) {

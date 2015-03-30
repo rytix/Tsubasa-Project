@@ -13,13 +13,16 @@ class sumula extends CI_Controller {
         $this->load->model('campeonatoCategoria_model');
     }
 
-    public function view() {
+    public function novo() {
         $data['title'] = 'Cadastro de Sumula';
+        $data['action'] = "index.php/campeonato/cadastrocampeonato";
+        $usuario = serialize($this->session->userdata('usuario'));
         $campeonatos = array();
         $invoker = new invoker_model();
         $cc = $invoker->get_campeonatoscategoria();
         $campeonato = $invoker->get_campeonatosativos();
         $categoria = $invoker ->get_categorias();
+        $partida = $invoker ->get_campeonatojuiz($id);
         $data['campeonatos'] = $campeonatos;
         $data['campeonatocategoria'] = $cc;
         $data['categorias'] = $categoria;

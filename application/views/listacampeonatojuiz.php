@@ -46,6 +46,11 @@
         <form>
     <div class="page-header">
         <h2>Campeonatos</h2>
+        <?php
+        foreach ($campeonatos as $cc) {
+            echo "<h2>teste</h2>";
+        }
+        ?>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
@@ -59,11 +64,11 @@
             <tbody>
                 <?php foreach ($campeonatos as $cc) {
                     echo "<tr>";
-                    echo "<td>".$cc->getCampeonato()->getNome()."</td>";
-                    echo "<td>".$cc->getCampeonato()->getData()."</td>";
+                    echo "<td>".$cc->getNome()."</td>";
+                    echo "<td>".$cc->getData()."</td>";
                     echo "<td>
                             <ul>";
-                    echo	"<li><a class='btn btn-danger'><i class='fa fa-trash-o' href='".  base_url('index.php/sumula/view')."'></i> Caddastra Uma Nova Sumula</a></li>";
+                    echo	"<li><a class='btn btn-info'><i class='fa fa-refresh' href='".  base_url('index.php/sumula/view')."'></i> Caddastra Uma Nova Sumula</a></li>";
                     echo	"<li>
                                     <a class='btn btn-info'><i class='fa fa-refresh'></i> Gerar Um Novo Agendamento</a>
 				</li>";
@@ -71,7 +76,7 @@
                                     <a class='btn btn-info'><i class='fa fa-refresh'></i> Excluir Uma Sumula</a>
 				</li>";
                     echo "
-				</ul>
+                            </ul>
                             </td>";
                     echo "</tr>";
                 }

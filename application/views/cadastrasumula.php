@@ -67,10 +67,10 @@
                                 <select id="campeonato" class="form-control"  >
                                     <?php
                                     foreach ($campeonatocategoria as $cc) {
-                                        echo "<td>".$cc->getCampeonato()->getNome()."</td>";
-                    
-                                        ?>
+                                        echo "<option>".$cc->getCampeonato()->getNome()."</option>";
                                     }
+                                        ?>
+                                    
                                     </select>
                                 </div>
                             </div>
@@ -80,9 +80,10 @@
                                     <select id="categoria" class="form-control"  >
                                         <?php
                                         foreach ($campeonatocategoria as $cc) {
-                                            echo "<td>".$cc->getCategoria()->getNome()."</td>";
-                                            ?>
-                                    }
+                                            echo "<option>".$cc->getCategoria()->getNome()."</option>";
+                                        }
+                                    ?>
+                                    
                                 </select>
                             </div>
                         </div>
