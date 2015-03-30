@@ -153,9 +153,8 @@ class invoker_model extends CI_Model {
         return $campeonatos;
     }
     
-    public function delete_campeonato($id) {
-        $this->db->delete('campeonatocategoria', array('campeonatoID' => $id)); 
-        $this->db->delete('campeonato', array('campeonatoID' => $id)); 
+    public function delete_campeonato($campeonatoID, $categoriaID) {
+        $this->db->delete('campeonatocategoria', array('campeonatoID' => $campeonatoID, 'categoriaID' => $categoriaID)); 
     }
     
     public function insert_campeonato($post){

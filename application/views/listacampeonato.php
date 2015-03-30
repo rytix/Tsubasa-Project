@@ -68,7 +68,7 @@
                     echo "<td>".$cc->getCategoria()->getNome()."</td>";
                     echo "<td>
                             <ul>";
-                    echo	"<li><a class='btn btn-danger' href='".  base_url('index.php/campeonato/excluir/'.$cc->getCampeonato()->getId())."'><i class='fa fa-trash-o'></i> Excluir</a></li>";
+                    echo	"<li><a class='btn btn-danger' href='".  base_url('index.php/campeonato/excluir?campeonato='.$cc->getCampeonato()->getId()."&categoria=".$cc->getCategoria()->getId())."'><i class='fa fa-trash-o'></i> Excluir</a></li>";
                                 
 		    if(!$cc->getCampeonato()->isAtivo()){
                     echo	"<li>
