@@ -66,8 +66,21 @@ class invoker_model extends CI_Model {
      * @param type Campeonato_model
      * @return array<CampeonatoCategoria_model>
      */
-    public function get_campeonatosCategoria($campeonato) {
-        //TODO acesso a banco de dados
+    public function get_campeonatoscategoria() {
+        $this->load->model('campeonatocategoria_model');
+        $query = $this->db->query("SELECT * FROM campeonatocategoria");
+        $ccs = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $ccDB) {
+                $cc = new CampeonatoCategoria_model();
+                $campeonato = $this->get_campeonato($ccDB->campenatoID);
+                $categoria = $this->get_campeonato($ccDB->categoriaID);
+                $cc->setCampeonato($campeonato);
+                $cc->setCampeonato($categoria);
+                array_push($ccs, $cc);
+            }
+        }
+        return $ccs;
     }
 
     /* ------- Tabela Campeonato -------- */
@@ -169,23 +182,6 @@ class invoker_model extends CI_Model {
             }
         }
         return $juizes;
-    }
-    
-    public function get_campeonatoscategoria() {
-        $this->load->model('juiz_model');
-        $query = $this->db->query("SELECT * FROM campeonatocategoria");
-        $ccs = array();
-        if ($query->num_rows() > 0) {
-            foreach ($query->result() as $ccDB) {
-                $cc = new CampeonatoCategoria_model();
-                $campeonato = $this->get_campeonato($ccDB->campenatoID);
-                $categoria = $this->get_campeonato($ccDB->categoriaID);
-                $cc->setCampeonato($campeonato);
-                $cc->setCampeonato($categoria);
-                array_push($ccs, $cc);
-            }
-        }
-        return $ccs;
     }
     
     
