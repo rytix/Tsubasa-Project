@@ -16,10 +16,6 @@ class Socio_model extends CI_Model{
         $this->load->database();
     }
 
-    public function buscaCampeonato(){
-    	$this->db->query('SELECT c.nome as nomeCampeonato, cat.nome as nomeCategoria FROM campeonato c INNER JOIN categoria cat ON (c.id = cat.campeonatoID)');
-    }
-
     public function insereSocioCampeonato($data){
     	
     }
