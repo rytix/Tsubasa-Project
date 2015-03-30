@@ -1,9 +1,5 @@
 <?php
 
-use Partida;
-use TimeNaPartida;
-use JogadorNaPartida;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -88,8 +84,8 @@ class Sumula_model extends CI_Model {
      * @param Partida $partida
      * @return Sumula
      */
-    public function setPartida(Partida $partida) {
-        if (!$partida instanceof Partida) {
+    public function setPartida(Partida_model $partida) {
+        if (!$partida instanceof Partida_model) {
             $tipoEncontradoErro = gettype($partida);
             if ($tipoEncontradoErro == 'object') {
                 $tipoEncontradoErro = get_class($partida);
@@ -106,7 +102,7 @@ class Sumula_model extends CI_Model {
      * @return Sumula
      */
     public function setTimeNaSumulaA(TimeNaSumula_model $timeNaSumulaA) {
-        if (!$timeNaSumulaA instanceof TimeNaPartida) {
+        if (!$timeNaSumulaA instanceof TimeNaSumula_model) {
             $tipoEncontradoErro = gettype($timeNaSumulaA);
             if ($tipoEncontradoErro == 'object') {
                 $tipoEncontradoErro = get_class($timeNaSumulaA);
@@ -122,7 +118,7 @@ class Sumula_model extends CI_Model {
      * @return Sumula
      */
     public function setTimeNaSumulaB(TimeNaSumula_model $timeNaSumulaB) {
-        if (!$timeNaSumulaB instanceof TimeNaPartida) {
+        if (!$timeNaSumulaB instanceof TimeNaSumula_model) {
             $tipoEncontradoErro = gettype($timeNaSumulaB);
             if ($tipoEncontradoErro == 'object') {
                 $tipoEncontradoErro = get_class($timeNaSumulaB);
@@ -153,23 +149,8 @@ class Sumula_model extends CI_Model {
      * @param array<JogadorNaPartida> $jogadoresNaSumula
      * @return Sumula
      */
-    public function setJogadoresNaSumula(JogadorNaSumula_model $jogadoresNaSumula) {
-        if (FALSE === is_string($jogadoresNaSumula)) {
-            $tipoEncontradoErro = gettype($jogadoresNaSumula);
-            if ($tipoEncontradoErro == 'object') {
-                $tipoEncontradoErro = get_class($jogadoresNaSumula);
-            }
-            trigger_error('$jogadoresNaPartida precisa ser um array, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
-        }
-        foreach ($jogadoresNaSumula as $value) {
-            if (!$value instanceof JogadorNaPartida) {
-                $tipoEncontradoErro = gettype($value);
-                if ($tipoEncontradoErro == 'object') {
-                    $tipoEncontradoErro = get_class($value);
-                }
-                trigger_error('$jogadoresNaPartida precisa possuir somente JogadorNaPartida, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
-            }
-        }
+    public function setJogadoresNaSumula($jogadoresNaSumula) {
+       
         $this->jogadoresNaSumula = $jogadoresNaSumula;
         return $this;
     }

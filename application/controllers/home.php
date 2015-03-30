@@ -15,8 +15,11 @@ class Home extends CI_Controller {
         $this->load->model('Diretor_model');
         $parameters = $this->getParameters();
         $selected = $this->getShowPosition($parameters);
-        $data = $this->getData($selected, $parameters);
-        $this->load->view('home_view.php',$data,$selected);
+        $dataObjects = $this->getData($selected, $parameters);
+        $data['data'] = $dataObjects;
+        $data['selected'] = $selected;
+        $data['parameters'] = $parameters;
+        $this->load->view('home_view.php',$data);
         $usuario = unserialize($this->session->userdata('usuario'));
 
         if ($usuario instanceof Socio_model) {
@@ -34,32 +37,32 @@ class Home extends CI_Controller {
         $parameters = array();
         $campeonatoID = $this->input->get('campeonatoID', true);
         $categoriaID = $this->input->get('categoriaID', true);
-
+        
         $timeID = $this->input->get('timeID', true);
         $jogadorID = $this->input->get('jogadorID', true);
 
         $partidaID = $this->input->get('partidaID', true);
-        if (isset($campeonatoID)) {
+        if ($campeonatoID) {
             array_push($parameters, $campeonatoID);
         } else {
             array_push($parameters, -1);
         }
-        if (isset($categoriaID)) {
+        if ($categoriaID) {
             array_push($parameters, $categoriaID);
         } else {
             array_push($parameters, -1);
         }
-        if (isset($timeID)) {
+        if ($timeID) {
             array_push($parameters, $timeID);
         } else {
             array_push($parameters, -1);
         }
-        if (isset($jogadorID)) {
+        if ($jogadorID) {
             array_push($parameters, $jogadorID);
         } else {
             array_push($parameters, -1);
         }
-        if (isset($partidaID)) {
+        if ($partidaID) {
             array_push($parameters, $partidaID);
         } else {
             array_push($parameters, -1);
@@ -82,11 +85,10 @@ class Home extends CI_Controller {
             case 1:
                 $campcat = $invoker->get_campeonatocategoria($array[0], $array[1]);
                 $times = $invoker->get_TimesPorCampCat($campcat);
-                $partidas = $invoker->getPartidasPorCampCat($campcat);
-                $timesEPartidas = array($times,$partidas);
-                return $timesEPartidas;
+                $partidas = $invoker->get_partidasPorCampCat($campcat);
+                return array_merge($times,$partidas);
             case 2:
-                return $invoker->get_jogadoresDeUmTime($array[2]);
+                return $invoker->get_jogadoresDeUmTime($invoker->get_time($array[2]));
             case 3:
                 return $invoker->get_jogador($array[3]);
             case 4:

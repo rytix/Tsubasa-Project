@@ -119,7 +119,7 @@ CREATE TABLE Partida
 
 CREATE TABLE Sumula
 (
-	observacoes varchar(25600),
+	observacoes varchar(9800),
 	sumulaID Integer NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY (sumulaID)
 ) 
