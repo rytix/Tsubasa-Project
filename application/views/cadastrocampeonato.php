@@ -47,7 +47,7 @@
         <div class="container">
             <div class="row">
                 <?php echo validation_errors(); ?>
-                <?php echo form_open('index.php/campeonato/cadastrocampeonato'); ?>
+                <?php echo form_open($action); ?>
                     <div class="page-header">
                         <h2>Cadastro de Campeonato</h2>
                     </div>
