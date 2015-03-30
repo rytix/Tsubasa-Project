@@ -9,15 +9,11 @@
 /**
  * Tipo 3
  */
-class Socio_model extends CI_Model{	
+class Socio_model extends Usuario_model{	
     //put your code here
     public function __construct() {
         parent::__construct();
         $this->load->database();
-    }
-
-    public function buscaCampeonato(){
-    	$this->db->query('SELECT c.nome as nomeCampeonato, cat.nome as nomeCategoria FROM campeonato c INNER JOIN categoria cat ON (c.id = cat.campeonatoID)');
     }
 
     public function insereSocioCampeonato($data){

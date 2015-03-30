@@ -3,8 +3,13 @@ class Campeonato_model extends CI_Model {
     private $id;
     private $nome;
     private $ativo;
+<<<<<<< HEAD
     private $juiz;
 
+=======
+    private $data;
+    
+>>>>>>> d6dc11e9d48c94eb90da116170f15ae3f00e1bc8
     public function __construct() {
         parent::__construct();
     }
@@ -12,6 +17,16 @@ class Campeonato_model extends CI_Model {
     public function gerarTabelaPontuacao() {
         //TODO funcao gerar tabela pontuação
     }
+    
+    public function getData() {
+        return $this->data;
+    }
+
+    public function setData($data) {
+        $this->data = $data;
+    }
+
+        
     public function getId() {
         return $this->id;
     }

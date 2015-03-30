@@ -1,4 +1,7 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -102,11 +105,13 @@ class invoker_model extends CI_Model {
                 $campeonato->setAtivo($campeonatoDB->ativo);
                 $campeonato->setId($campeonatoDB->campeonatoID);
                 $campeonato->setNome($campeonatoDB->nome);
+                $campeonato->setData($campeonatoDB->data);
                 array_push($campeonatos, $campeonato);
             }
         }
         return $campeonatos;
     }
+
     /**
      * Função que procura um campeonato por uma ID e retorna a instancia dele ou
      * null se não for encontrado.
@@ -125,6 +130,7 @@ class invoker_model extends CI_Model {
             $campeonato->setAtivo($campeonatoDB->ativo);
             $campeonato->setId($campeonatoDB->campeonatoID);
             $campeonato->setNome($campeonatoDB->nome);
+            $campeonato->setData($campeonatoDB->data);
         }
         return $campeonato;
     }
@@ -155,17 +161,17 @@ class invoker_model extends CI_Model {
             $categoriaDB = $query->row();
             $categoria = new Categoria_model();
             $categoria->setId($categoriaDB->categoriaID)
-                ->setIdadeMaxG($categoriaDB->idadeMaximaGoleiro)
-                ->setIdadeMinG($categoriaDB->idadeMinimaGoleiro)
-                ->setIdadeMaxJ($categoriaDB->idadeMaximaJogador)
-                ->setIdadeMinJ($categoriaDB->idadeMinimaJogador)
-                ->setNome($categoriaDB->nome)
-                ->setSexo($categoriaDB->sexo)
-                   ;
+                    ->setIdadeMaxG($categoriaDB->idadeMaximaGoleiro)
+                    ->setIdadeMinG($categoriaDB->idadeMinimaGoleiro)
+                    ->setIdadeMaxJ($categoriaDB->idadeMaximaJogador)
+                    ->setIdadeMinJ($categoriaDB->idadeMinimaJogador)
+                    ->setNome($categoriaDB->nome)
+                    ->setSexo($categoriaDB->sexo)
+            ;
         }
         return $categoria;
     }
-    
+
     public function get_categorias() {
         $this->load->model('categoria_model');
         $query = $this->db->query("SELECT * FROM categoria");
@@ -174,19 +180,19 @@ class invoker_model extends CI_Model {
             foreach ($query->result() as $categoriaDB) {
                 $categoria = new Categoria_model();
                 $categoria->setId($categoriaDB->categoriaID)
-                    ->setIdadeMaxG($categoriaDB->idadeMaximaGoleiro)
-                    ->setIdadeMinG($categoriaDB->idadeMinimaGoleiro)
-                    ->setIdadeMaxJ($categoriaDB->idadeMaximaJogador)
-                    ->setIdadeMinJ($categoriaDB->idadeMinimaJogador)
-                    ->setNome($categoriaDB->nome)
-                    ->setSexo($categoriaDB->sexo)
-                       ;
+                        ->setIdadeMaxG($categoriaDB->idadeMaximaGoleiro)
+                        ->setIdadeMinG($categoriaDB->idadeMinimaGoleiro)
+                        ->setIdadeMaxJ($categoriaDB->idadeMaximaJogador)
+                        ->setIdadeMinJ($categoriaDB->idadeMinimaJogador)
+                        ->setNome($categoriaDB->nome)
+                        ->setSexo($categoriaDB->sexo)
+                ;
                 array_push($categorias, $categoria);
             }
         }
         return $categorias;
     }
-    
+
     public function get_juizes() {
         $this->load->model('juiz_model');
         $query = $this->db->query("SELECT * FROM usuario WHERE tipo = ?", Usuario_model::JUIZ);
@@ -195,13 +201,12 @@ class invoker_model extends CI_Model {
             foreach ($query->result() as $juizDB) {
                 $juiz = new Juiz_model();
                 $juiz->setId($juizDB->usuarioID)
-                    ->setNome($juizDB->nome)
-                       ;
+                        ->setNome($juizDB->nome)
+                ;
                 array_push($juizes, $juiz);
             }
         }
         return $juizes;
     }
-    
-    
+
 }

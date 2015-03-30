@@ -136,14 +136,14 @@ VALUES
 
 #Campeonatos********************************************************************
 INSERT INTO `tsubasa_db`.`campeonato`
-(`ativo`,`nome`,`juizID`)
+(`ativo`,`nome`,`juizID`,data)
 VALUES
-(true,'Pequeno Campeonato',2);
+(true,'Pequeno Campeonato',2,'2015-09-03');
 
 INSERT INTO `tsubasa_db`.`campeonato`
-(`ativo`,`nome`,`juizID`)
+(`ativo`,`nome`,`juizID`,data)
 VALUES
-(true,'Pequeno Aberto',2);
+(true,'Pequeno Aberto',2,'2014-03-03');
 
 #Categorias*********************************************************************
 INSERT INTO `tsubasa_db`.`categoria`

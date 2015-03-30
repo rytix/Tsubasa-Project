@@ -13,13 +13,32 @@
  */
 class CampeonatoCategoria_model extends CI_Model {
 
-    private $id;
+    private $campeonatoID;
+    private $categoriaID;
     private $campeonato;
     private $categoria;
 
     public function __construct() {
         parent::__construct();
+        $this->load->model('Invoker_model');
     }
+
+    public function getCampeonatoID(){
+        return $this->campeonatoID;
+    }
+
+    public function setCampeonatoID($id){
+        $this->campeonatoID = $id;
+    }
+
+    public function getCategoriaID(){
+        return $this->categoriaID;
+    }
+
+    public function setCategoriaID($id){
+        $this->categoriaID = $id;
+    }
+
     /**
      * 
      * @return Categoria
@@ -34,12 +53,17 @@ class CampeonatoCategoria_model extends CI_Model {
     public function getCampeonato() {
         return $this->campeonato;
     }
+
     /**
      * 
      * @param Categoria $categoria
      * @return CampeonatoCategoria
      */
+<<<<<<< HEAD
+    public function setCategoria(Categoria_model $categoria) {
+=======
     public function setCategoria($categoria) {
+>>>>>>> b194edaf60b6ed8b464f38e11df6c91f22c26bda
         if ($categoria instanceof Categoria) {
             $tipoEncontradoErro = gettype($categoria);
             if ($tipoEncontradoErro == 'object') {
@@ -56,7 +80,11 @@ class CampeonatoCategoria_model extends CI_Model {
      * @param Campeonato $campeonato
      * @return CampeonatoCategoria
      */
+<<<<<<< HEAD
+    public function setCampeonato(Campeonato_model $campeonato) {
+=======
     public function setCampeonato($campeonato) {
+>>>>>>> b194edaf60b6ed8b464f38e11df6c91f22c26bda
         if ($campeonato instanceof Campeonato) {
             $tipoEncontradoErro = gettype($campeonato);
             if ($tipoEncontradoErro == 'object') {
