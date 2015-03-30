@@ -70,7 +70,7 @@
                             <ul>";
                     echo	"<li><a class='btn btn-danger' href='".  base_url('index.php/campeonato/excluir?campeonato='.$cc->getCampeonato()->getId()."&categoria=".$cc->getCategoria()->getId())."'><i class='fa fa-trash-o'></i> Excluir</a></li>";
                                 
-		    if(!$cc->getCampeonato()->isAtivo()){
+		    if(!$cc->getTemTime()){
                     echo	"<li><a class='btn btn-info' href='".  base_url('index.php/campeonato/geratime?campeonato='.$cc->getCampeonato()->getId()."&categoria=".$cc->getCategoria()->getId())."'><i class='fa fa-trash-o'></i> Excluir</a></li>";
                     }
                     echo "
