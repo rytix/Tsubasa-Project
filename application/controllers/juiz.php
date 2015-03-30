@@ -20,7 +20,7 @@ class Juiz extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('nome', 'Nome', 'required');
-        $this->form_validation->set_rules('username', 'Usuário', 'required|is_unique[users.username]');
+        $this->form_validation->set_rules('username', 'Usuário', 'required|is_unique[usuario.login]');
         $this->form_validation->set_rules('password', 'Senha', 'required|matches[password-clone]');
         $this->form_validation->set_rules('password-clone', 'Repetir Senha', 'required');
 

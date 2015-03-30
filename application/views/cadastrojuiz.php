@@ -62,43 +62,11 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="username">Usu�rio</label>
+                                <label for="username">Usuário</label>
                                 <input type="text" id="username" name="username" class=" form-control"/>
                             </div>
                         </div>
                     </div>
-                    <!--<div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                            <label for="sexom">Masculino</label>
-                            <input type="checkbox" id ="sexof" name = "selecionar[]" value = "M"/>
-                            
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                            <label for="sexof">Feminino</label>
-                            <input type="checkbox" id ="sexof" name = "selecionar[]" value = "F"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class='col-sm-6'>
-                            <div class="form-group">
-                                <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' class="form-control" />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <script type="text/javascript">
-                            $(function () {
-                                $('#datetimepicker1').datetimepicker();
-                            });
-                        </script>
-                    </div>-->
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
