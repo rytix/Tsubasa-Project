@@ -554,9 +554,9 @@ class invoker_model extends CI_Model {
     
      /* ------- Tabela Juiz -------- */
     
-    public function get_partidacategoria($id){
+    public function get_partidacategoria($campeonato,$categoria){
         $this->load->model('partida_model');
-        $query = $this->db->query("SELECT * FROM partida WHERE categoriaID=?",$id);
+        $query = $this->db->query("SELECT * FROM partida WHERE categoriaID=? and campeonatoID=?",$campeonatoID,$categoriaID);
         $partida= array();
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $partidasDB) {
