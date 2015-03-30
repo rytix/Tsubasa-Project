@@ -58,9 +58,9 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($campeonatos as $campeonatos) {
+                <?php foreach ($campeonatos as $campeonato) {
                     echo "<tr>";
-                    echo "<td>".$campeonato->getNome()."</td>";
+                    echo "<td>".$campeonato->getCampeonato()->getNome()."</td>";
                     echo "<td>".$campeonato->getCategoria()->getNome()."</td>";
                     echo "<td>
                             <ul>

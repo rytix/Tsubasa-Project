@@ -8,19 +8,9 @@
 		}
                 
                 public function lista() {
+                    $invoker = new invoker_model();
                     $data['title'] = 'Listagem de Campeonato';
-                    $campeonatosCategoria = array();
-                    for($i = 0; $i < 5; $i++){
-                        $campeonatoCategoria = new CampeonatoCategoria_model();
-                        $campeonato = new Campeonato_model();
-                        $campeonato->setNome('Campeonato do Clube '.$i);
-                        $categoria = new Categoria_model();
-                        $categoria->setNome('Categoria Teste '.$i);
-                        $campeonatoCategoria->setCampeonato($campeonato);
-                        $campeonatoCategoria->setCategoria($categoria);
-                        $campeonatosCategoria[] = $campeonatoCategoria;
-                    }
-                    $data['campeonatos'] = $campeonatosCategoria;
+                    $data['campeonatos'] = $invoker->get_campeonatoscategoria();
                     $this->load->view('listacampeonato', $data);
                 }
 
