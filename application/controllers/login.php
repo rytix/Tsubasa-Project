@@ -20,7 +20,7 @@ class login extends CI_Controller {
             if ($Usuario != null)
             {
                 $this->session->set_userdata('usuario',  serialize($Usuario));
-                redirect('index.php/acessControl', 'refresh');
+                redirect('index.php/home', 'refresh');
             } else
             {
                 $data = array();
