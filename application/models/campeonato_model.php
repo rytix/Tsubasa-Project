@@ -4,7 +4,6 @@ class Campeonato_model extends CI_Model {
     private $nome;
     private $ativo;
     private $juiz;
-
     private $data;
     
     public function __construct() {
