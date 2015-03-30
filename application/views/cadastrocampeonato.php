@@ -63,8 +63,8 @@
                                 <label for="categoria">Categoria</label>
                                 <select id="categoria" class="form-control" multiple="true" name="categoria">
                                     <?php
-                                    foreach ($categorias as $key => $categoria) {
-                                        echo "<option value='$key'>$categoria</option>";
+                                    foreach ($categorias as $categoria) {
+                                        echo "<option value='".$categoria->getId()."'>".$categoria->getNome()."</option>";
                                     }
                                     ?>
                                 </select>
@@ -77,8 +77,8 @@
                                 <label for="juiz">Juiz</label>
                                 <select id="juiz" class="form-control" name="juiz">
                                     <?php
-                                    foreach ($juizes as $key => $juiz) {
-                                        echo "<option value='$key'>$juiz</option>";
+                                    foreach ($juizes as $juiz) {
+                                        echo "<option value='".$juiz->getId()."'>".$juiz->getNome()."</option>";
                                     }
                                     ?>
                                 </select>

@@ -17,6 +17,7 @@ class Categoria_model extends CI_Model{
     const UNISEX = 'UNISEX';
     const IDADEILIMITADA = 999;
     
+    private $id;
     private $nome;
     private $idadeMinJ;
     private $idadeMaxJ;
@@ -76,19 +77,34 @@ class Categoria_model extends CI_Model{
 
     public function setIdadeMinJ($idadeMinJ) {
         $this->idadeMinJ = $idadeMinJ;
+        return $this;
     }
 
     public function setIdadeMaxJ($idadeMaxJ) {
         $this->idadeMaxJ = $idadeMaxJ;
+        return $this;
     }
 
     public function setIdadeMaxG($idadeMaxG) {
         $this->idadeMaxG = $idadeMaxG;
+        return $this;
     }
 
     public function setIdadeMinG($idadeMinG) {
         $this->idadeMinG = $idadeMinG;
+        return $this;
     }
+    
+    function getId() {
+        return $this->id;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+        return $this;
+    }
+
+
 
 
 

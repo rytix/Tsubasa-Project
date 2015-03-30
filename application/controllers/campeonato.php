@@ -24,38 +24,30 @@
                     $this->load->view('listacampeonato', $data);
                 }
 
-		public function view(){
+		public function novo(){
+                        $this->load->model('invoker_model');
+                        $invoker = new invoker_model();
 			$data['title'] = 'Cadastro de Campeonato';
-                        
-                        //faz select de juizes no banco
-                        $data['juizes'] = array(
-                            'Rogerio',
-                            'Marcelo',
-                            'Juca'
-                        );
-                        //faz select de categoria no banco
-                        
-                        $data['categorias'] = array(
-                            'Fraldinha',
-                            'Dente de Leite',
-                            'Infanto-Juvenil',
-                            'Novos',
-                            'Veteranos',
-                            'Master',
-                            'Feminino'
-                        );
+                        $data['juizes'] = $invoker->get_juizes();
+                        $data['categorias'] = $invoker->get_categorias();
                         
 			$this->load->view('cadastrocampeonato', $data);
 		}
 
 		public function cadastrocampeonato(){
+                        $this->load->model('invoker_model');
+                        $invoker = new invoker_model();
+                        
                         $this->form_validation->set_rules('nome','Nome','required');
                         $this->form_validation->set_rules('categoria','Categoria','required');
                         $this->form_validation->set_rules('juiz','Juiz','required');
                         $this->form_validation->set_rules('data','Data do Campeonato','required');
-
+                        
+                        $data['juizes'] = $invoker->get_juizes();
+                        $data['categorias'] = $invoker->get_categorias();
+                        
 			if($this->form_validation->run() === FALSE){
-				$this->load->view('cadastrocampeonato');
+				$this->load->view('cadastrocampeonato', $data);
 			}else{
 				$data = array();
 				$data['sucesso'] = 'Campeonato cadastrado com sucesso';

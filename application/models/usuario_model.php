@@ -38,6 +38,7 @@ class Usuario_model extends CI_Model {
 
     public function setId($id) {
         $this->id = $id;
+        return $this;
     }
     public function getSexo() {
         return $this->sexo;

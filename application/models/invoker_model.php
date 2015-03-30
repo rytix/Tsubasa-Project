@@ -115,5 +115,45 @@ class invoker_model extends CI_Model {
         }
         return $campeonato;
     }
+    /**
+     * 
+     * @return array
+     */
+    public function get_categorias() {
+        $this->load->model('categoria_model');
+        $query = $this->db->query("SELECT * FROM categoria");
+        $categorias = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $categoriaDB) {
+                $categoria = new Categoria_model();
+                $categoria->setId($categoriaDB->categoriaID)
+                    ->setIdadeMaxG($categoriaDB->idadeMaximaGoleiro)
+                    ->setIdadeMinG($categoriaDB->idadeMinimaGoleiro)
+                    ->setIdadeMaxJ($categoriaDB->idadeMaximaJogador)
+                    ->setIdadeMinJ($categoriaDB->idadeMinimaJogador)
+                    ->setNome($categoriaDB->nome)
+                    ->setSexo($categoriaDB->sexo)
+                       ;
+                array_push($categorias, $categoria);
+            }
+        }
+        return $categorias;
+    }
+    
+    public function get_juizes() {
+        $this->load->model('juiz_model');
+        $query = $this->db->query("SELECT * FROM usuario WHERE tipo = ?", Usuario_model::JUIZ);
+        $juizes = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $juizDB) {
+                $juiz = new Juiz_model();
+                $juiz->setId($juizDB->usuarioID)
+                    ->setNome($juizDB->nome)
+                       ;
+                array_push($juizes, $juiz);
+            }
+        }
+        return $juizes;
+    }
 
 }
