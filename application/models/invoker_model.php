@@ -115,10 +115,25 @@ class invoker_model extends CI_Model {
         }
         return $campeonato;
     }
-    /**
-     * 
-     * @return array
-     */
+
+    public function get_categoria($id) {
+        $this->load->model('categoria_model');
+        $query = $this->db->query("SELECT * FROM categoria WHERE categoriaID = ?", $id);
+        if ($query->num_rows() > 0) {
+            $categoriaDB = $query->row();
+            $categoria = new Categoria_model();
+            $categoria->setId($categoriaDB->categoriaID)
+                ->setIdadeMaxG($categoriaDB->idadeMaximaGoleiro)
+                ->setIdadeMinG($categoriaDB->idadeMinimaGoleiro)
+                ->setIdadeMaxJ($categoriaDB->idadeMaximaJogador)
+                ->setIdadeMinJ($categoriaDB->idadeMinimaJogador)
+                ->setNome($categoriaDB->nome)
+                ->setSexo($categoriaDB->sexo)
+                   ;
+        }
+        return $categoria;
+    }
+    
     public function get_categorias() {
         $this->load->model('categoria_model');
         $query = $this->db->query("SELECT * FROM categoria");
@@ -155,5 +170,23 @@ class invoker_model extends CI_Model {
         }
         return $juizes;
     }
-
+    
+    public function get_campeonatoscategoria() {
+        $this->load->model('juiz_model');
+        $query = $this->db->query("SELECT * FROM campeonatocategoria");
+        $ccs = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $ccDB) {
+                $cc = new CampeonatoCategoria_model();
+                $campeonato = $this->get_campeonato($ccDB->campenatoID);
+                $categoria = $this->get_campeonato($ccDB->categoriaID);
+                $cc->setCampeonato($campeonato);
+                $cc->setCampeonato($categoria);
+                array_push($ccs, $cc);
+            }
+        }
+        return $ccs;
+    }
+    
+    
 }

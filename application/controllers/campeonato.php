@@ -24,9 +24,10 @@
                     $this->load->view('listacampeonato', $data);
                 }
 
-		public function novo(){
+		public function novo($id = null){
                         $this->load->model('invoker_model');
                         $invoker = new invoker_model();
+                        $data['action'] = "index.php/campeonato/cadastrocampeonato";
 			$data['title'] = 'Cadastro de Campeonato';
                         $data['juizes'] = $invoker->get_juizes();
                         $data['categorias'] = $invoker->get_categorias();
@@ -37,6 +38,8 @@
 		public function cadastrocampeonato(){
                         $this->load->model('invoker_model');
                         $invoker = new invoker_model();
+                        $data['title'] = 'Cadastro de Campeonato';
+                        $data['action'] = "index.php/campeonato/cadastrocampeonato";
                         
                         $this->form_validation->set_rules('nome','Nome','required');
                         $this->form_validation->set_rules('categoria','Categoria','required');
