@@ -10,8 +10,12 @@
         <link rel="stylesheet" href="<?php echo base_url('application/libraries/css/toastr.min.css'); ?>" />
         <title><?php echo $title ?></title>            
     <title>Capitão Tsubasa!</title>            </head>
-
     <body>
+        <style>
+            ul{
+                list-style: none;
+            }
+        </style>
                 <div class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -58,21 +62,20 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($campeonatos as $campeonatos) {
+                <?php foreach ($campeonatos as $cc) {
                     echo "<tr>";
-                    echo "<td>".$campeonato->getNome()."</td>";
-                    echo "<td>".$campeonato->getCategoria()->getNome()."</td>";
+                    echo "<td>".$cc->getCampeonato()->getNome()."</td>";
+                    echo "<td>".$cc->getCategoria()->getNome()."</td>";
                     echo "<td>
-                            <ul>
-				<li>
-                                    <a>Editar</a>
-				</li>
-				<li>
-                                    <a>Excluir</a>
-				</li>
-				<li>
-                                    <a>Gerar Times</a>
-				</li>
+                            <ul>";
+                    echo	"<li><a class='btn btn-danger'><i class='fa fa-trash-o' href='".  base_url('index.php/campeonato/excluir/'.$cc->getCampeonato()->getId())."'></i> Excluir</a></li>";
+                                
+		    if(!$cc->getCampeonato()->isAtivo()){
+                    echo	"<li>
+                                    <a class='btn btn-info'><i class='fa fa-refresh'></i> Gerar Times</a>
+				</li>";
+                    }
+                    echo "
 				</ul>
                             </td>";
                     echo "</tr>";
@@ -85,7 +88,7 @@
         <div class="col-xs-12">
             <div class="form-group">
                 <div class="pull-right">
-                    <button class="btn btn-primary">Criar</button>
+                    <a class="btn btn-primary" href="<?php echo base_url('index.php/campeonato/novo') ?>">Criar</a>
                 </div>
             </div>
         </div>
