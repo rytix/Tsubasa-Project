@@ -8,8 +8,14 @@ class Home extends CI_Controller {
     public function index()
     {
         $this->load->model('Diretor_model');
-        $usuario = unserialize($this->session->userdata('usuario'));
-        var_dump($usuario);
+        $campeonatoID = $this->input->get('campeonatoID', true);
+        $categoriaID = $this->input->get('categoriaID', true);
+        
+        $timeID = $this->input->get('timeID',true);
+        $jogadorID = $this->input->get('jogadorID',true);
+        
+        $partidaID = $this->input->get('partidaID',true);
+        
         if($usuario instanceof Socio_model){
             echo "Olá Sócio";
         }else if($usuario instanceof Juiz_model){
@@ -19,6 +25,7 @@ class Home extends CI_Controller {
         }else{
             echo "Olá, você não deveria estar aqui";
         }
+        
     }
 
 }
