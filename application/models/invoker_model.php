@@ -554,10 +554,10 @@ class invoker_model extends CI_Model {
     
      /* ------- Tabela Juiz -------- */
     
-    public function get_partidacategoria($campeonato,$categoria){
+    public function get_partidacategoria($campeonatoID,$categoriaID){
         $this->load->model('partida_model');
-        $query = $this->db->query("SELECT * FROM partida WHERE categoriaID=? and campeonatoID=?",$campeonatoID,$categoriaID);
-        $partida= array();
+        $query = $this->db->query("SELECT * FROM partida WHERE categoriaID= ? AND campeonatoID= ? ", array($campeonatoID,$categoriaID));
+        $partidas= array();
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $partidasDB) {
                 $partida = new partida_model();

@@ -15,18 +15,19 @@ class sumula extends CI_Controller {
 
     public function novo() {
         $data['title'] = 'Cadastro de Sumula';
-        $data['action'] = "index.php/campeonato/cadastrocampeonato";
+        $data['action'] = "index.php/campeonato/cadastrocampeonato";     
         $usuario = serialize($this->session->userdata('usuario'));
         $campeonatos = array();
         $invoker = new invoker_model();
-        $cc = $invoker->get_campeonatoscategoria();
-        $campeonato = $invoker->get_campeonatosativos();
+        $cc = $invoker->get_allCampeonatosCategoria();
+        $partida = $invoker->get_partidacategoria(4,1);
+        //$times = $invoker->get_timesPorCampCat(); colocar objeto de campeonatocategoria
         $categoria = $invoker ->get_categorias();
-        $partida = $invoker ->get_campeonatojuiz($id);
-        $data['campeonatos'] = $campeonatos;
+        //$data['times']= $times;
+        $data['partidas'] = $partida;
         $data['campeonatocategoria'] = $cc;
         $data['categorias'] = $categoria;
-        $this->load->view('cadastrosumula', $data);
+        $this->load->view('cadastrasumula', $data);
     }
     
     

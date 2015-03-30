@@ -91,7 +91,11 @@
                             <div class="form-group">
                                 <label for="categoria">Partida Ativa</label>
                                 <select id="categoria" class="form-control"  >
-                                    <option>Fla x Flu</option>
+                                    <?php
+                                        foreach ($partidas as $p) {
+                                            echo "<option>".$p->getNome()."</option>";
+                                        }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -101,22 +105,22 @@
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <select class="form-control">
-                                    <option> </option>
-                                    <option>Time 1</option>
-                                    <option>Time 2</option>
-                                    <option>Time 3</option>
-                                    <option>Time 4</option>
+                                    <?php
+                                        foreach ($times as $times){
+                                          echo "<option>".$p->getNome()."</option>";  
+                                        }
+                                    ?>
                                 </select>
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <select class="form-control">
-                                    <option> </option>
-                                    <option>Time 1</option>
-                                    <option>Time 2</option>
-                                    <option>Time 3</option>
-                                    <option>Time 4</option>
+                                    <?php
+                                        foreach ($times as $times){
+                                          echo "<option>".$p->getNome()."</option>";  
+                                        }
+                                    ?>
                                 </select>
                             </div>
                         </div>
