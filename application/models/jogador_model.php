@@ -1,7 +1,7 @@
 <?php
 
-use Socio_model;
-use Time_model;
+//use Socio_model;
+//use Time_model;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -85,9 +85,4 @@ class Jogador_model extends CI_Model {
     public function setSocio(Socio_model $socio) {
         $this->socio = $socio;
     }
-
-
-
-
-
 }
