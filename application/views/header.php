@@ -1,13 +1,7 @@
 <?php
-
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
-
-class Home extends CI_Controller {
-
-    public function index()
-    {
-        $this->load->model('Diretor_model');
+/*
+ * Talvez isso seja util:
+   $this->load->model('Diretor_model');
         $usuario = unserialize($this->session->userdata('usuario'));
         var_dump($usuario);
         if($usuario instanceof Socio_model){
@@ -19,6 +13,5 @@ class Home extends CI_Controller {
         }else{
             echo "Olá, você não deveria estar aqui";
         }
-    }
-
-}
+        
+ */
