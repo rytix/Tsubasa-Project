@@ -229,10 +229,27 @@ class invoker_model extends CI_Model {
         }
         return $campeonato;
     }
-
+    public function get_campeonatojuiz($id){
+        $this->load->model('campeonato_model');
+        $query = $this->db->query("SELECT * FROM campeonato WHERE juizID = ? and ativo=true", $id);
+        $campeonatos = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $campeonatoDB) {
+                $campeonatoDB = $query->row();
+                $campeonato = new Campeonato_model();
+                $campeonato->setAtivo($campeonatoDB->ativo);
+                $campeonato->setId($campeonatoDB->campeonatoID);
+                $campeonato->setNome($campeonatoDB->nome);
+                $campeonato->setData($campeonatoDB->data);
+                array_push($campeonatos, $campeonato);
+            }
+        }
+        return $campeonatos;
+    }
     public function delete_campeonato($id) {
         $this->db->delete('campeonatocategoria', array('campeonatoID' => $id));
         $this->db->delete('campeonato', array('campeonatoID' => $id));
+
     }
 
     public function insert_campeonato($post) {
@@ -246,9 +263,19 @@ class invoker_model extends CI_Model {
         }
         $this->db->insert_batch('campeonatocategoria', $ccs);
     }
+    
+
 
     /* ------- Tabela Categoria -------- */
-
+    
+     /**
+     * Função que procura uma categoria por um ID e retorna a instancia dele ou
+     * null se não for encontrado.
+     * 
+     * @param int $id
+     * @return Campeonato_model | NULL
+     */
+    
     public function get_categoria($id) {
         $this->load->model('categoria_model');
         $query = $this->db->query("SELECT * FROM categoria WHERE categoriaID = ?", $id);
@@ -273,6 +300,7 @@ class invoker_model extends CI_Model {
      * @param CampeonatoCategoria_model $cc
      * @return array<Categoria_model>
      */
+    
     public function get_categorias() {
         $this->load->model('categoria_model');
         $query = $this->db->query("SELECT * FROM categoria");
@@ -484,6 +512,23 @@ class invoker_model extends CI_Model {
             }
         }
         return $jogadores;
+    }
+    
+     /* ------- Tabela Juiz -------- */
+    
+    public function get_partidacategoria($id){
+        $this->load->model('partida_model');
+        $query = $this->db->query("SELECT * FROM partida WHERE categoriaID=?",$id);
+        $partida= array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $partidasDB) {
+                $partida = new partida_model();
+                $partida->setNome($partidasDB->nome)
+                ;
+                array_push($partidas, $partida);
+            }
+        }
+        return $partidas;
     }
 
 }

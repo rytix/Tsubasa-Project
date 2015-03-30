@@ -25,9 +25,9 @@
 			$this->load->view('cadastrocampeonato', $data);
 		}
                 
-                public function excluir($id) {
+                public function excluir() {
                     $invoker = new invoker_model();
-                    
+                    $invoker->delete_campeonato($this->input->get('campeonato'),$this->input->get('categoria'));
                     $data['title'] = 'Listagem de Campeonato';
                     $data['campeonatos'] = $invoker->get_allCampeonatosCategoria();
                     $this->load->view('listacampeonato', $data);
@@ -58,8 +58,11 @@
                                     'data' => $this->input->post('data'),
                                 );
                                 $invoker->insert_campeonato($post);
+                                $data = array();
+                                $data['title'] = 'Listagem de Campeonato';
+                                $data['campeonatos'] = $invoker->get_campeonatoscategoria();
 				$data['sucesso'] = 'Campeonato cadastrado com sucesso';
-				$this->load->view('cadastrocampeonato',$data);
+                                $this->load->view('listacampeonato', $data);
 			}
 		}
 	}
