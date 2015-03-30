@@ -90,14 +90,7 @@ class Partida_model extends CI_Model {
      * @param \DateTime $data
      * @return Partida
      */
-    public function setData(\DateTime $data) {
-        if ($data instanceof \DateTime) {
-            $tipoEncontradoErro = gettype($data);
-            if ($tipoEncontradoErro == 'object') {
-                $tipoEncontradoErro = get_class($data);
-            }
-            trigger_error('$data precisa ser um \DateTime, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
-        }
+    public function setData($data) {
         $this->data = $data;
         return $this;
     }
@@ -162,7 +155,7 @@ class Partida_model extends CI_Model {
         $this->id = $id;
     }
 
-    public function setCampeonatoCategoria(CampeonatoCategoria $campeonatoCategoria) {
+    public function setCampeonatoCategoria(CampeonatoCategoria_model $campeonatoCategoria) {
         $this->campeonatoCategoria = $campeonatoCategoria;
     }
 

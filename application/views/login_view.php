@@ -6,8 +6,8 @@
     </head>
     <body>
         <?php include('header.php') ?>
-        <div class="container">
-            <div class="row">
+        <div class="container geral">
+            <div class="row fakemodel">
                 <form class="form-signin" role="form">
                     <h2 class="form-signin-heading">Faça a autenticação</h2>
                     <input name="usuario" type="text" class="form-control" placeholder="Usuário" required autofocus>
@@ -16,7 +16,7 @@
                     <?php
                     if (isset($falha))
                     {
-                        echo "<p>" . $falha . "</p>";
+                        echo "<p class='erro'>" . $falha . "</p>";
                     }
                     ?>
                 </form>
