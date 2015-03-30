@@ -67,7 +67,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <!--<div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                             <label for="sexom">Masculino</label>
@@ -98,7 +98,7 @@
                                 $('#datetimepicker1').datetimepicker();
                             });
                         </script>
-                    </div>
+                    </div>-->
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">

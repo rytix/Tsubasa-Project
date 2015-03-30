@@ -716,7 +716,7 @@ class invoker_model extends CI_Model {
         $this->db->insert('Jogador',$data);
     }
 
-    public function get_campeonatoCategoria($campeonatoID, $categoriaID){
+    public function get_campeonatossCategoria($campeonatoID, $categoriaID){
         $this->load->model('CampeonatoCategoria_model');
         $query = $this->db->query('SELECT campeonatoID, categoriaID FROM campeonatoCategoria WHERE campeonatoID="$campeonatoID" AND categoriaID="$categoriaID"');
         $campeonatoCategoria = new CampeonatoCategoria_model();
