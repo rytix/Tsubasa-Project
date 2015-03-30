@@ -4,7 +4,6 @@
 		
 		public function __construct(){
 			parent::__construct();
-			$this->load->model('Juiz_model');
 			$this->load->model('Invoker_model');
 		}
 
@@ -27,10 +26,11 @@
 			}else{
 				$data = array(
             		'nome' => $this->input->post('nome'),
-            		'username' => $this->input->post('username'),
-            		'password' => $this->input->post('password')
+            		'login' => $this->input->post('username'),
+            		'senha' => $this->input->post('password'),
+            		'tipo' => '3'
        			);
-				$this->Juiz_model->insert_juiz();
+				$this->Invoker_model->insert_juiz();
 				$situacao_cadastro = array();
 				$situacao_cadastro['sucesso'] = 'Usuario cadastrado com sucesso';
 				$this->load->view('cadastrojuiz',$situacao_cadastro);

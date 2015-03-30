@@ -39,12 +39,12 @@
 					if(isset($_POST['goleiro']) AND $idadeSocio >= $categoria->getIdadeMinG() AND $idadeSocio <= $categoria->getIdadeMaxG()){
 							$jogador->setGoleiro(TRUE);
 							$jogador->setSocio($usuario);
-							$jogador->setCampeonatoCategoria($this->Invoker_model->get_campeonatoCategoria($pieces[0],$pieces[1]));
+							$jogador->setCampeonatoCategoria($this->Invoker_model->get_campeonatossCategoria($pieces[0],$pieces[1]));
 							$faixaIdade = TRUE;
 					}elseif($idadeSocio >= $categoria->getIdadeMinJ() && $idadeSocio <= $categoria->getIdadeMaxJ()){
 							$jogador->setGoleiro(FALSE);
 							$jogador->setSocio($usuario);
-							$jogador->setCampeonatoCategoria($this->Invoker_model->get_campeonatoCategoria($pieces[0],$pieces[1]));
+							$jogador->setCampeonatoCategoria($this->Invoker_model->get_campeonatossCategoria($pieces[0],$pieces[1]));
 							$faixaIdade = TRUE;
 					}else{
 						$faixaIdade = FALSE;
