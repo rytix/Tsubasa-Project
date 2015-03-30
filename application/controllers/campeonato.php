@@ -27,7 +27,7 @@
                 
                 public function excluir($id) {
                     $invoker = new invoker_model();
-                    
+                    $invoker->delete_campeonato($id);
                     $data['title'] = 'Listagem de Campeonato';
                     $data['campeonatos'] = $invoker->get_campeonatoscategoria();
                     $this->load->view('listacampeonato', $data);
