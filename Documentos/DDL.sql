@@ -139,7 +139,7 @@ CREATE TABLE Time
 ;
 
 
-CREATE TABLE TimeNaSumula #JOIN SUMULA TIME (são informações da sumula) 
+CREATE TABLE TimeNaSumula #JOIN SUMULA TIME (sÃ£o informaÃ§Ãµes da sumula) 
 (
 	wo Boolean NOT NULL,
         sumulaID Integer NOT NULL,
@@ -156,8 +156,8 @@ CREATE TABLE Usuario
 	senha varchar(256) NOT NULL,
 	usuarioID Integer NOT NULL AUTO_INCREMENT,
         tipo Integer NOT NULL,
-        dataNascimento Datetime NOT NULL,
-        sexo varchar(256) NOT NULL,
+        dataNascimento Datetime,
+        sexo varchar(256),
 	PRIMARY KEY (usuarioID)
 
 ) 
