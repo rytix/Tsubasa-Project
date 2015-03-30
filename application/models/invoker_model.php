@@ -135,6 +135,22 @@ class invoker_model extends CI_Model {
         return $campeonato;
     }
     
+    public function get_campeonatojuiz($id){
+        $this->load->model('campeonato_model');
+
+        $query = $this->db->query("SELECT * FROM campeonato WHERE juizID = ? AND ativo=true", $id);
+        $campeonato = null;
+        if ($query->num_rows() > 0) {
+            $campeonatoDB = $query->row();
+            $campeonato = new Campeonato_model();
+            $campeonato->setAtivo($campeonatoDB->ativo);
+            $campeonato->setId($campeonatoDB->campeonatoID);
+            $campeonato->setNome($campeonatoDB->nome);
+            $campeonato->setData($campeonatoDB->data);
+        }
+        return $campeonato;
+    }
+    
     public function delete_campeonato($id) {
         $this->db->delete('campeonatocategoria', array('campeonatoID' => $id)); 
         $this->db->delete('campeonato', array('campeonatoID' => $id)); 
@@ -152,7 +168,18 @@ class invoker_model extends CI_Model {
         $this->db->insert_batch('campeonatocategoria', $ccs); 
         
     }
+    
 
+    /* ------- Tabela categoria -------- */
+    
+     /**
+     * Função que procura uma categoria por um ID e retorna a instancia dele ou
+     * null se não for encontrado.
+     * 
+     * @param int $id
+     * @return Campeonato_model | NULL
+     */
+    
     public function get_categoria($id) {
         $this->load->model('categoria_model');
         $query = $this->db->query("SELECT * FROM categoria WHERE categoriaID = ?", $id);
@@ -172,6 +199,13 @@ class invoker_model extends CI_Model {
         return $categoria;
     }
 
+    /**
+     * Função que varre o banco de dados retornando um array com todas as categorias
+     * existentes nele.
+     * 
+     * @return array<Campeonato_model>
+     */
+    
     public function get_categorias() {
         $this->load->model('categoria_model');
         $query = $this->db->query("SELECT * FROM categoria");
@@ -193,6 +227,16 @@ class invoker_model extends CI_Model {
         return $categorias;
     }
 
+    
+    /* ------- Tabela Juiz -------- */
+    
+    /**
+     * Função que varre o banco de dados retornando um array com todos os juizes
+     * existentes nele.
+     * 
+     * @return array<Campeonato_model>
+     */
+    
     public function get_juizes() {
         $this->load->model('juiz_model');
         $query = $this->db->query("SELECT * FROM usuario WHERE tipo = ?", Usuario_model::JUIZ);
@@ -207,6 +251,23 @@ class invoker_model extends CI_Model {
             }
         }
         return $juizes;
+    }
+    
+     /* ------- Tabela Juiz -------- */
+    
+    public function get_partidacategoria($id){
+        $this->load->model('partida_model');
+        $query = $this->db->query("SELECT * FROM partida WHERE categoriaID=?",$id);
+        $partida= array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $partidasDB) {
+                $partida = new partida_model();
+                $partida->setNome($partidasDB->nome)
+                ;
+                array_push($partidas, $partida);
+            }
+        }
+        return $partidas;
     }
 
 }
