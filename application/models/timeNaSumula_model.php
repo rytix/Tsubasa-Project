@@ -15,7 +15,6 @@ use Time;
  */
 class TimeNaSumula_model extends CI_Model {
 
-    private $id;
     private $wo;
     private $time;
     private $sumula;
@@ -47,9 +46,6 @@ class TimeNaSumula_model extends CI_Model {
         $this->wo = $wo;
         return $this;
     }
-    public function getId() {
-        return $this->id;
-    }
 
     public function getTime() {
         return $this->time;
@@ -57,10 +53,6 @@ class TimeNaSumula_model extends CI_Model {
 
     public function getSumula() {
         return $this->sumula;
-    }
-
-    public function setId($id) {
-        $this->id = $id;
     }
 
     public function setTime(Time_model $time) {

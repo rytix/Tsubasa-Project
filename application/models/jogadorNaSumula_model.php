@@ -13,7 +13,6 @@
  */
 class JogadorNaSumula_model extends CI_Model {
 
-    private $id;
     private $sumula;
     private $jogador;
     private $cartaoVermelho;
@@ -24,10 +23,6 @@ class JogadorNaSumula_model extends CI_Model {
     function __construct() {
         parent::__construct();
     }
-    
-    public function getId() {
-        return $this->id;
-    }
 
     public function getSumula() {
         return $this->sumula;
@@ -35,10 +30,6 @@ class JogadorNaSumula_model extends CI_Model {
 
     public function getJogador() {
         return $this->jogador;
-    }
-
-    public function setId($id) {
-        $this->id = $id;
     }
 
     public function setSumula(Sumula_model $sumula) {

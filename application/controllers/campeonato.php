@@ -10,7 +10,7 @@
                 public function lista() {
                     $invoker = new invoker_model();
                     $data['title'] = 'Listagem de Campeonato';
-                    $data['campeonatos'] = $invoker->get_campeonatoscategoria();
+                    $data['campeonatos'] = $invoker->get_allCampeonatosCategoria();
                     $this->load->view('listacampeonato', $data);
                 }
 
@@ -29,7 +29,7 @@
                     $invoker = new invoker_model();
                     
                     $data['title'] = 'Listagem de Campeonato';
-                    $data['campeonatos'] = $invoker->get_campeonatoscategoria();
+                    $data['campeonatos'] = $invoker->get_allCampeonatosCategoria();
                     $this->load->view('listacampeonato', $data);
                     
                 }

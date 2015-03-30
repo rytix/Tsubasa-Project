@@ -22,7 +22,7 @@ class Sumula_model extends CI_Model {
     private $partida;
     private $timeNaSumulaA;
     private $timeNaSumulaB;
-    private $jogadoresNaPartida;
+    private $jogadoresNaSumula;
 
     /**
      * 
@@ -34,7 +34,7 @@ class Sumula_model extends CI_Model {
      */
     public function __construct() {
         parent::__construct();
-        $this->jogadoresNaPartida = array();
+        $this->jogadoresNaSumula = array();
     }
     public function getId() {
         return $this->id;
@@ -81,7 +81,7 @@ class Sumula_model extends CI_Model {
      * @return Array<JogadorNaPartida>
      */
     public function getJogadoresNaPartida() {
-        return $this->jogadoresNaPartida;
+        return $this->jogadoresNaSumula;
     }
     /**
      * 
@@ -102,34 +102,34 @@ class Sumula_model extends CI_Model {
     }
     /**
      * 
-     * @param TimeNaPartida $timeNaPartidaA
+     * @param TimeNaPartida $timeNaSumulaA
      * @return Sumula
      */
-    public function setTimeNaPartidaA(TimeNaPartida $timeNaPartidaA) {
-        if (!$timeNaPartidaA instanceof TimeNaPartida) {
-            $tipoEncontradoErro = gettype($timeNaPartidaA);
+    public function setTimeNaSumulaA(TimeNaSumula_model $timeNaSumulaA) {
+        if (!$timeNaSumulaA instanceof TimeNaPartida) {
+            $tipoEncontradoErro = gettype($timeNaSumulaA);
             if ($tipoEncontradoErro == 'object') {
-                $tipoEncontradoErro = get_class($timeNaPartidaA);
+                $tipoEncontradoErro = get_class($timeNaSumulaA);
             }
             trigger_error('$timeNaPartidaA precisa ser um TimeNaPartida, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
         }
-        $this->timeNaSumulaA = $timeNaPartidaA;
+        $this->timeNaSumulaA = $timeNaSumulaA;
         return $this;
     }
     /**
      * 
-     * @param TimeNaPartida $timeNaPartidaB
+     * @param TimeNaPartida $timeNaSumulaB
      * @return Sumula
      */
-    public function setTimeNaPartidaB(TimeNaPartida $timeNaPartidaB) {
-        if (!$timeNaPartidaB instanceof TimeNaPartida) {
-            $tipoEncontradoErro = gettype($timeNaPartidaB);
+    public function setTimeNaSumulaB(TimeNaSumula_model $timeNaSumulaB) {
+        if (!$timeNaSumulaB instanceof TimeNaPartida) {
+            $tipoEncontradoErro = gettype($timeNaSumulaB);
             if ($tipoEncontradoErro == 'object') {
-                $tipoEncontradoErro = get_class($timeNaPartidaB);
+                $tipoEncontradoErro = get_class($timeNaSumulaB);
             }
             trigger_error('$timeNaPartidaB precisa ser um TimeNaPartida, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
         }
-        $this->timeNaSumulaB = $timeNaPartidaB;
+        $this->timeNaSumulaB = $timeNaSumulaB;
         return $this;
     }
     /**
@@ -150,18 +150,18 @@ class Sumula_model extends CI_Model {
     }
     /**
      * 
-     * @param array<JogadorNaPartida> $jogadoresNaPartida
+     * @param array<JogadorNaPartida> $jogadoresNaSumula
      * @return Sumula
      */
-    public function setJogadoresNaPartida(JogadorNaSumula_model $jogadoresNaPartida) {
-        if (FALSE === is_string($jogadoresNaPartida)) {
-            $tipoEncontradoErro = gettype($jogadoresNaPartida);
+    public function setJogadoresNaSumula(JogadorNaSumula_model $jogadoresNaSumula) {
+        if (FALSE === is_string($jogadoresNaSumula)) {
+            $tipoEncontradoErro = gettype($jogadoresNaSumula);
             if ($tipoEncontradoErro == 'object') {
-                $tipoEncontradoErro = get_class($jogadoresNaPartida);
+                $tipoEncontradoErro = get_class($jogadoresNaSumula);
             }
             trigger_error('$jogadoresNaPartida precisa ser um array, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
         }
-        foreach ($jogadoresNaPartida as $value) {
+        foreach ($jogadoresNaSumula as $value) {
             if (!$value instanceof JogadorNaPartida) {
                 $tipoEncontradoErro = gettype($value);
                 if ($tipoEncontradoErro == 'object') {
@@ -170,7 +170,7 @@ class Sumula_model extends CI_Model {
                 trigger_error('$jogadoresNaPartida precisa possuir somente JogadorNaPartida, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
             }
         }
-        $this->jogadoresNaPartida = $jogadoresNaPartida;
+        $this->jogadoresNaSumula = $jogadoresNaSumula;
         return $this;
     }
 

@@ -19,12 +19,22 @@ class Partida_model extends CI_Model {
     private $nome;
     private $partidaAtiva;
     private $campeonatoCategoria;
-
+    private $sumula;
+    
     public function __construct() {
         parent::__construct();
         $this->load->database();
     }
+    
+    public function getSumula() {
+        return $this->sumula;
+    }
 
+    public function setSumula($sumula) {
+        $this->sumula = $sumula;
+    }
+
+        
     /**
      * 
      * @return String

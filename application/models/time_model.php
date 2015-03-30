@@ -15,7 +15,6 @@ class Time_model extends CI_Model {
 
     private $id;
     private $nome;
-    private $jogadores;
     private $campeonatoCategoria;
     
 
@@ -34,14 +33,6 @@ class Time_model extends CI_Model {
 
     /**
      * 
-     * @return array do tipo Jogador
-     */
-    public function getJogadores() {
-        return $this->jogadores;
-    }
-
-    /**
-     * 
      * @param String $nome
      */
     public function setNome($nome) {
@@ -56,30 +47,6 @@ class Time_model extends CI_Model {
         $this->nome = $nome;
     }
 
-    /**
-     * 
-     * @param array<Jogador> $jogadores
-     */
-    public function setJogadores($jogadores) {
-        if (FALSE === is_string($jogadores)) {
-            $tipoEncontradoErro = gettype($jogadores);
-            if ($tipoEncontradoErro == 'object') {
-                $tipoEncontradoErro = get_class($jogadores);
-            }
-            trigger_error('$jogadores precisa ser um array, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
-        }
-        foreach ($jogadores as $value) {
-            if (!$value instanceof Jogador) {
-                $tipoEncontradoErro = gettype($value);
-                if ($tipoEncontradoErro == 'object') {
-                    $tipoEncontradoErro = get_class($value);
-                }
-                trigger_error('$jogadores precisa possuir somente Jogador, encontrado:' . $tipoEncontradoErro, E_USER_ERROR);
-            }
-        }
-        
-        $this->jogadores = $jogadores;
-    }
     public function getId() {
         return $this->id;
     }

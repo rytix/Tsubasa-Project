@@ -16,7 +16,7 @@ class login extends CI_Controller {
             //Verificar login e criar sessão
             $usuario = $this->input->post('usuario', true);
             $senha = $this->input->post('senha', true);
-            $Usuario = $invoker->get_user($usuario, $senha);
+            $Usuario = $invoker->get_userByUserPass($usuario, $senha);
             if ($Usuario != null)
             {
                 $this->session->set_userdata('usuario',  serialize($Usuario));

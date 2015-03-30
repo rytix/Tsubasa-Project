@@ -27,7 +27,7 @@ class invoker_model extends CI_Model {
      * @return socio_model|juiz_model|diretor_model|null o objeto correspondente
      * a aquele usuário ou null caso o usuário e senha forem incorretos.
      */
-    public function get_user($usuario, $senha) {
+    public function get_userByUserPass($usuario, $senha) {
         $query = $this->db->query("SELECT * FROM usuario WHERE login = ? AND senha = ?", array($usuario, $senha));
         if ($query->num_rows() > 0) {
             $this->load->model('diretor_model');
@@ -60,16 +60,84 @@ class invoker_model extends CI_Model {
         }
     }
 
+    public function get_user($id) {
+        $query = $this->db->query("SELECT * FROM usuario WHERE usuarioID = ?", array($id));
+        if ($query->num_rows() > 0) {
+            $this->load->model('diretor_model');
+            $this->load->model('juiz_model');
+            $this->load->model('socio_model');
+            $row = $query->row_array();
+            $UsuarioObject;
+            switch ($row['tipo']) {
+                case Usuario_model::DIRETOR :
+                    $UsuarioObject = new Diretor_model();
+                    break;
+                case Usuario_model::JUIZ:
+                    $UsuarioObject = new Juiz_model();
+                    break;
+                case Usuario_model::SOCIO:
+                    $UsuarioObject = new Socio_model();
+                    break;
+                default:
+                    return null;
+            }
+            $UsuarioObject->setLogin($row['login']);
+            $UsuarioObject->setSenha($row['senha']);
+            $UsuarioObject->setNome($row['nome']);
+            $UsuarioObject->setDataNascimento($row['dataNascimento']);
+            $UsuarioObject->setSexo($row['sexo']);
+            $UsuarioObject->setId($row['usuarioID']);
+            return $UsuarioObject;
+        } else {
+            return null;
+        }
+    }
+
+    public function get_juizes() {
+        $this->load->model('juiz_model');
+        $query = $this->db->query("SELECT * FROM usuario WHERE tipo = ?", Usuario_model::JUIZ);
+        $juizes = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $juizDB) {
+                $juiz = new Juiz_model();
+                $juiz->setId($juizDB->usuarioID)
+                        ->setNome($juizDB->nome)
+                ;
+                array_push($juizes, $juiz);
+            }
+        }
+        return $juizes;
+    }
+
     /* ------- Tabela CampeonatoCategoria -------- */
 
     /**
      * Função que recebe um campeonato e retorna todos os campeonatosCategorias
      * Dentro dele.
      * 
-     * @param type Campeonato_model
+     * @param int $campeonatoID
      * @return array<CampeonatoCategoria_model>
      */
-    public function get_campeonatoscategoria() {
+    public function get_campeonatoCategorias($campeonatoID) {
+        $this->load->model('campeonatocategoria_model');
+        $query = $this->db->query("SELECT * FROM campeonatocategoria WHERE campeonatoID = ?", $campeonatoID);
+        $ccs = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $ccDB) {
+                $cc = new CampeonatoCategoria_model();
+                $campeonato = $this->get_campeonato($ccDB->campeonatoID);
+                $categoria = $this->get_categoria($ccDB->categoriaID);
+                $cc->setCampeonato($campeonato);
+                $cc->setCategoria($categoria);
+                $cc->setCampeonatoID($ccDB->campeonatoID);
+                $cc->setCategoriaID($ccDB->categoriaID);
+                array_push($ccs, $cc);
+            }
+        }
+        return $ccs;
+    }
+
+    public function get_allCampeonatosCategoria() {
         $this->load->model('campeonatocategoria_model');
         $query = $this->db->query("SELECT * FROM campeonatocategoria");
         $ccs = array();
@@ -80,10 +148,37 @@ class invoker_model extends CI_Model {
                 $categoria = $this->get_categoria($ccDB->categoriaID);
                 $cc->setCampeonato($campeonato);
                 $cc->setCategoria($categoria);
+                $cc->setCampeonatoID($ccDB->campeonatoID);
+                $cc->setCategoriaID($ccDB->categoriaID);
                 array_push($ccs, $cc);
             }
         }
         return $ccs;
+    }
+
+    /**
+     * 
+     * @param int $idCampeonato
+     * @param int $idCategoria
+     * @return CampeonatoCategoria_model
+     */
+    public function get_campeonatocategoria($idCampeonato, $idCategoria) {
+        $this->load->model('campeonatocategoria_model');
+        $query = $this->db->query("SELECT * FROM campeonatocategoria WHERE campeonatoID = ? AND categoriaID = ?", $idCampeonato, $idCategoria);
+        $cc = null;
+        if ($query->num_rows() > 0) {
+            $ccDB = $query->row();
+            $cc = new CampeonatoCategoria_model();
+
+            $campeonato = $this->get_campeonato($ccDB->campeonatoID);
+            $categoria = $this->get_categoria($ccDB->categoriaID);
+
+            $cc->setCampeonato($campeonato);
+            $cc->setCategoria($categoria);
+            $cc->setCampeonatoID($ccDB->campeonatoID);
+            $cc->setCategoriaID($ccDB->categoriaID);
+        }
+        return $cc;
     }
 
     /* ------- Tabela Campeonato -------- */
@@ -134,24 +229,25 @@ class invoker_model extends CI_Model {
         }
         return $campeonato;
     }
-    
+
     public function delete_campeonato($id) {
-        $this->db->delete('campeonatocategoria', array('campeonatoID' => $id)); 
-        $this->db->delete('campeonato', array('campeonatoID' => $id)); 
+        $this->db->delete('campeonatocategoria', array('campeonatoID' => $id));
+        $this->db->delete('campeonato', array('campeonatoID' => $id));
     }
-    
-    public function insert_campeonato($post){
+
+    public function insert_campeonato($post) {
         $campeonato = array('nome' => $post['nome'], 'juizID' => $post['juiz'], 'data' => $post['data'], 'ativo' => 0);
-        $this->db->insert('campeonato', $campeonato); 
+        $this->db->insert('campeonato', $campeonato);
         $campeonatoID = $this->db->insert_id();
         $ccs = array();
         foreach ($post['categorias'] as $categoriaID) {
             $cc = array('categoriaID' => $categoriaID, 'campeonatoID' => $campeonatoID);
             array_push($ccs, $cc);
         }
-        $this->db->insert_batch('campeonatocategoria', $ccs); 
-        
+        $this->db->insert_batch('campeonatocategoria', $ccs);
     }
+
+    /* ------- Tabela Categoria -------- */
 
     public function get_categoria($id) {
         $this->load->model('categoria_model');
@@ -172,6 +268,11 @@ class invoker_model extends CI_Model {
         return $categoria;
     }
 
+    /**
+     * Retorna todas as categorias de um campeonato
+     * @param CampeonatoCategoria_model $cc
+     * @return array<Categoria_model>
+     */
     public function get_categorias() {
         $this->load->model('categoria_model');
         $query = $this->db->query("SELECT * FROM categoria");
@@ -193,20 +294,196 @@ class invoker_model extends CI_Model {
         return $categorias;
     }
 
-    public function get_juizes() {
-        $this->load->model('juiz_model');
-        $query = $this->db->query("SELECT * FROM usuario WHERE tipo = ?", Usuario_model::JUIZ);
-        $juizes = array();
+    /* ------- Tabela Time -------- */
+
+    public function get_timesPorCampCat(CampeonatoCategoria_model $campeonatoCategoria) {
+        $this->load->model('time_model');
+        $this->load->model('campeonatoCategoria_model');
+        $idCampeonato = $campeonatoCategoria->getCampeonatoID();
+        $idCategoria = $campeonatoCategoria->getCategoriaID();
+        $query = $this->db->query("SELECT * FROM time WHERE campeonatoID = ? AND categoriaID = ?", $idCampeonato, $idCategoria);
+        $times = array();
         if ($query->num_rows() > 0) {
-            foreach ($query->result() as $juizDB) {
-                $juiz = new Juiz_model();
-                $juiz->setId($juizDB->usuarioID)
-                        ->setNome($juizDB->nome)
-                ;
-                array_push($juizes, $juiz);
+            foreach ($query->result() as $timeDB) {
+                $time = new Time_model();
+                $time->setId($timeDB->timeID);
+                $time->setNome($timeDB->nome);
+                $time->setCampeonatoCategoria($campeonatoCategoria);
+                array_push($times, $time);
             }
         }
-        return $juizes;
+        return $times;
+    }
+
+    public function get_time($id) {
+        $this->load->model('time_model');
+        $query = $this->db->query("SELECT * FROM time WHERE timeID = ?", $id);
+        $time = null;
+        if ($query->num_rows() > 0) {
+            $timeDB = $query->row();
+            $time = new Time_model();
+            $time->setId($timeDB->timeID);
+            $time->setNome($timeDB->nome);
+            $time->setCampeonatoCategoria($this->get_campeonatocategoria($timeDB->campeonatoID, $timeDB->categoriaID));
+        }
+        return $time;
+    }
+
+    /* ------- Tabela Partida -------- */
+
+    public function get_partidasPorCampCat(CampeonatoCategoria_model $campeonatoCategoria) {
+        $this->load->model('partida_model');
+        $this->load->model('campeonatoCategoria_model');
+        $idCampeonato = $campeonatoCategoria->getCampeonatoID();
+        $idCategoria = $campeonatoCategoria->getCategoriaID();
+        $query = $this->db->query("SELECT * FROM partida WHERE campeonatoID = ? AND categoriaID = ?", $idCampeonato, $idCategoria);
+        $partidas = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $partidaDB) {
+                $partida = new Partida_model();
+                $partida->setId($partidaDB->partidaID);
+                $partida->setNome($partidaDB->nome);
+                $partida->setCampeonatoCategoria($campeonatoCategoria);
+                $partida->setCampo($partidaDB->campo);
+                $partida->setData(strtotime($partidaDB->data));
+                $partida->setPartidaAtiva($partidaDB->partidaAtiva);
+                if (!is_null($partidaDB->sumulaID)) {
+                    $partida->setSumula($this->get_partidasGetSumulaDaPartida($partida, $partidaDB->sumulaID));
+                } else {
+                    $partida->setSumula(null);
+                }
+                array_push($partidas, $partida);
+            }
+        }
+        return $partidas;
+    }
+
+    public function get_partida($id) {
+        $this->load->model('partida_model');
+        $query = $this->db->query("SELECT * FROM partida WHERE partidaID = ?", $id);
+        $partida = null;
+        if ($query->num_rows() > 0) {
+            $partidaDB = $query->row();
+            $partida = new Partida_model();
+            $partida->setId($partidaDB->partidaID);
+            $partida->setNome($partidaDB->nome);
+            $partida->setCampeonatoCategoria($this->get_campeonatocategoria($partidaDB->campeonatoID, $partidaDB->categoriaID));
+            $partida->setCampo($partidaDB->campo);
+            $partida->setData(strtotime($partidaDB->data));
+            $partida->setPartidaAtiva($partidaDB->partidaAtiva);
+            if (!is_null($partidaDB->sumulaID)) {
+                $partida->setSumula($this->get_partidasGetSumulaDaPartida($partida, $partidaDB->sumulaID));
+            } else {
+                $partida->setSumula(null);
+            }
+        }
+        return $partida;
+    }
+
+    private function get_partidasGetSumulaDaPartida(Partida_model $partidaInacabada, $sumulaID) {
+        $this->load->model('sumula_model');
+        $query = $this->db->query("SELECT * FROM sumula WHERE sumulaID = ?", $id);
+        $sumula = null;
+        if ($query->num_rows() > 0) {
+            $sumulaDB = $query->row();
+            $sumula = new Sumula_model();
+            $sumula->setId($sumulaDB->id);
+            $sumula->setObservacoes($sumulaDB->observacoes);
+            $times = $this->get_sumulaTimesNaSumula($sumula, $sumula->getId());
+            $sumula->setTimeNaSumulaA($times[0]);
+            $sumula->setTimeNaSumulaB($times[1]);
+            $sumula->setPartida($partidaInacabada);
+            $sumula->setJogadoresNaSumula($this->get_sumulaJogadoresNaSumula($sumula, $sumula->getId()));
+        }
+        return $sumula;
+    }
+
+    /**
+     * 
+     * @param Sumula_model $sumulaInacabada
+     * @param int $sumulaID
+     * @return array<TimeNaSumula_model>
+     */
+    private function get_sumulaTimesNaSumula(Sumula_model $sumulaInacabada, $sumulaID) {
+        $this->load->model('timeNaSumula_model');
+        $this->load->model('sumula_model');
+        $query = $this->db->query("SELECT * FROM timenasumula WHERE sumulaID = ?", $sumulaID);
+        $timesNaSumula = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $timeNaSumulaDB) {
+                $timeNaSumula = new TimeNaSumula_model();
+                $timeNaSumula->setSumula($sumulaInacabada);
+                $timeNaSumula->setTime($this->get_time($timeNaSumulaDB->timeID));
+                $timeNaSumula->setWo($timeNaSumulaDB->wo);
+                array_push($timesNaSumula, $timeNaSumula);
+            }
+        }
+        return $timesNaSumula;
+    }
+
+    /**
+     * 
+     * @param Sumula_model $sumulaInacabada
+     * @param int $sumulaID
+     * @return array<JogadorNaSumula_model> Description
+     */
+    private function get_sumulaJogadoresNaSumula(Sumula_model $sumulaInacabada, $sumulaID) {
+        $this->load->model('jogadorNaSumula_model');
+        $this->load->model('sumula_model');
+        $query = $this->db->query("SELECT * FROM jogadornasumula WHERE sumulaID = ?", $sumulaID);
+        $jogadoresNaSumula = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $jogadorNaSumulaDB) {
+                $jogadorNaSumula = new JogadorNaSumula_model();
+
+                $jogadorNaSumula->setSumula($sumulaInacabada);
+                $jogadorNaSumula->setCartaoVermelho($jogadorNaSumulaDB->cartaoVermelho);
+                $jogadorNaSumula->setJogador($this->get_jogador($jogadorNaSumulaDB->jogadorID));
+                $jogadorNaSumula->setNCartaoAzul($jogadorNaSumulaDB->nCartaoAzul);
+                $jogadorNaSumula->setNFaltas($jogadorNaSumulaDB->nFaltas);
+                $jogadorNaSumula->setNGol($jogadorNaSumulaDB->nGol);
+
+                array_push($jogadoresNaSumula, $jogadorNaSumula);
+            }
+        }
+        return $jogadoresNaSumula;
+    }
+
+    /* ------- Tabela Jogador -------- */
+
+    public function get_jogador($id) {
+        $this->load->model('jogador_model');
+        $query = $this->db->query("SELECT * FROM jogador WHERE jogadorID = ?", $id);
+        $jogador = null;
+        if ($query->num_rows() > 0) {
+            $jogadorDB = $query->row();
+            $jogador = new Jogador_model();
+            $jogador->setId($jogadorDB->jogadorID);
+            $jogador->setGoleiro($jogadorDB->goleiro);
+            $jogador->setCampeonatoCategoria($this->get_campeonatocategoria($jogadorDB->campeonatoID, $jogadorDB->categoriaID));
+            $jogador->setTime($this->get_time($jogadorDB->timeID));
+            $jogador->setSocio($this->get_user($jogadorDB->usuarioID));
+        }
+        return $jogador;
+    }
+
+    public function get_jogadoresDeUmTime(Time_model $time) {
+        $this->load->model('Jogador_model');
+        $this->load->model('time_model');
+        $query = $this->db->query("SELECT * FROM jogador WHERE timeID = ?", $time->getId());
+        $jogadores = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $jogadorDB) {
+                $jogador = new Jogador_model();
+                $jogador->setId($jogadorDB->jogadorID);
+                $jogador->setGoleiro($jogadorDB->goleiro);
+                $jogador->setCampeonatoCategoria($this->get_campeonatocategoria($jogadorDB->campeonatoID, $jogadorDB->categoriaID));
+                $jogador->setTime($time);
+                $jogador->setSocio($this->get_user($jogadorDB->usuarioID));
+                array_push($jogadores, $jogador);
+            }
+        }
+        return $jogadores;
     }
 
 }
