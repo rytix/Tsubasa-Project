@@ -40,6 +40,7 @@ CREATE TABLE Campeonato
 (
 	ativo Boolean NOT NULL,
 	nome varchar(256) NOT NULL,
+        data Datetime NOT NULL,
 	campeonatoID Integer NOT NULL AUTO_INCREMENT,
         juizID Integer NOT NULL,
 	PRIMARY KEY (campeonatoID),
