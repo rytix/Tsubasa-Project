@@ -13,9 +13,53 @@
                     $data['campeonatos'] = $invoker->get_allCampeonatosCategoria();
                     $this->load->view('listacampeonato', $data);
                 }
+                
+                public function geratime() {
+                    $this->load->model('time_model');
+                    $invoker = new invoker_model();
+                    $data['title'] = 'Listagem de Campeonato';
+                    $data['campeonatos'] = $invoker->get_campeonatoscategoria();
+                    $jogadores = $invoker->get_jogadores_semtime($this->input->get('campeonato'),$this->input->get('categoria'));
+                    $goleiros = $invoker->get_goleiros_semtime($this->input->get('campeonato'),$this->input->get('categoria'));
+                    
+                    $qtdTime = 0;
+                    if((count($jogadores)+1)/12 > 11){
+                        $qtdTime = 12;
+                    }elseif((count($jogadores)+1)/8 > 11){
+                        $qtdTime = 8;
+                    }elseif((count($jogadores)+1)/4 > 11){
+                        $qtdTime = 4;
+                    }
+                    $i = 1;
+                    $controle = 0;
+                    $cc = null;
+                    while($i <= $qtdTime){
+                        $cc = $jogadores[0]->getCampeonatoCategoria();
+                        $time = new Time_model();
+                        $time->setNome('Time '.$i);
+                        $time->setCampeonatoCategoria($cc);
+                        $timeID = $invoker->insert_campeonato(array(
+                            'nome' => $time->getNome(),
+                            'campeonatoID' => $time->getCampeonatoCategoria()->getCampeonato()->getId(),
+                            'categoriaID' => $time->getCampeonatoCategoria()->getCategoria()->getId(),
+                        ));
+                        $goleiros[$i-1]->setTime($invoker->get_time($timeID));
+                        $invoker->update_jogador($goleiros[$i-1]->getId(), array('timeID' => $timeID));
+                        for ($j = $i-1; $j < 11 + $controle; $j++){
+                            $jogadores[$j]->setTime($invoker->get_time($timeID));
+                            $invoker->update_jogador($jogadores[$j]->getId(), array('timeID' => $timeID));
+                        }
+                        $i++;
+                        $controle+=10;
+                    }
+                    if(!is_null($cc)){
+                        $invoker->update_campeonato($cc->getCampeonato()->getId(), array('ativo' => 1));
+                    }
+                    
+                    $this->load->view('listacampeonato', $data);
+                }
 
 		public function novo($id = null){
-                        $this->load->model('invoker_model');
                         $invoker = new invoker_model();
                         $data['action'] = "index.php/campeonato/cadastrocampeonato";
 			$data['title'] = 'Cadastro de Campeonato';
