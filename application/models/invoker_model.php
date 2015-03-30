@@ -224,6 +224,8 @@ class invoker_model extends CI_Model {
             $categoria = $this->get_categoria($ccDB->categoriaID);
             $cc->setCampeonato($campeonato);
             $cc->setCategoria($categoria);
+            $cc->setCampeonatoID($ccDB->campeonatoID);
+            $cc->setCategoriaID($ccDB->categoriaID);
         }
         return $cc;
     }
