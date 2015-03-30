@@ -203,31 +203,6 @@ class invoker_model extends CI_Model {
         return $cc;
     }
 
-    /**
-     * 
-     * @param int $idCampeonato
-     * @param int $idCategoria
-     * @return CampeonatoCategoria_model
-     */
-    public function get_campeonatocategoria($idCampeonato, $idCategoria) {
-        $this->load->model('campeonatocategoria_model');
-        $query = $this->db->query("SELECT * FROM campeonatocategoria WHERE campeonatoID = ? AND categoriaID = ?", $idCampeonato, $idCategoria);
-        $cc = null;
-        if ($query->num_rows() > 0) {
-            $ccDB = $query->row();
-            $cc = new CampeonatoCategoria_model();
-
-            $campeonato = $this->get_campeonato($ccDB->campeonatoID);
-            $categoria = $this->get_categoria($ccDB->categoriaID);
-
-            $cc->setCampeonato($campeonato);
-            $cc->setCategoria($categoria);
-            $cc->setCampeonatoID($ccDB->campeonatoID);
-            $cc->setCategoriaID($ccDB->categoriaID);
-        }
-        return $cc;
-    }
-
     /* ------- Tabela Campeonato -------- */
 
     /**
@@ -632,20 +607,6 @@ class invoker_model extends CI_Model {
         return $jogadores;
     }
     
-    public function get_time($id) {
-        $this->load->model('time_model');
-        $query = $this->db->query("SELECT * FROM time WHERE timeID = ?", $id);
-        $time = null;
-        if ($query->num_rows() > 0) {
-            $timeDB = $query->row();
-            $time = new Time_model();
-            $time->setId($timeDB->categoriaID);
-            $time->setNome($time->nome);
-            $time->setCampeonatoCategoria($this->get_campeonatocategoria($timeDB->campeonatoID, $jogadorDB->categoriaID))
-            ;
-        }
-        return $time;
-    }
     
 
 }

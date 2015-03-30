@@ -18,7 +18,7 @@
                     $this->load->model('time_model');
                     $invoker = new invoker_model();
                     $data['title'] = 'Listagem de Campeonato';
-                    $data['campeonatos'] = $invoker->get_campeonatoscategoria();
+                    $data['campeonatos'] = $invoker->get_allCampeonatosCategoria();
                     $jogadores = $invoker->get_jogadores_semtime($this->input->get('campeonato'),$this->input->get('categoria'));
                     $goleiros = $invoker->get_goleiros_semtime($this->input->get('campeonato'),$this->input->get('categoria'));
                     
@@ -104,7 +104,7 @@
                                 $invoker->insert_campeonato($post);
                                 $data = array();
                                 $data['title'] = 'Listagem de Campeonato';
-                                $data['campeonatos'] = $invoker->get_campeonatoscategoria();
+                                $data['campeonatos'] = $invoker->get_allCampeonatosCategoria();
 				$data['sucesso'] = 'Campeonato cadastrado com sucesso';
                                 $this->load->view('listacampeonato', $data);
 			}

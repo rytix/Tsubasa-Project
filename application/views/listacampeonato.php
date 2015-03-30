@@ -86,7 +86,7 @@
         <div class="col-xs-12">
             <div class="form-group">
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="<?php echo base_url('index.php/campeonato/novo') ?>">Criar</a>
+                    <a class="btn btn-primary" href="<?php echo base_url('index.php/campeonato/novo') ?>"><i class="fa fa-plus"></i> Criar</a>
                 </div>
             </div>
         </div>
