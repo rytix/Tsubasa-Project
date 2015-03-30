@@ -5,9 +5,10 @@
 		public function __construct(){
 			parent::__construct();
 			$this->load->model('Juiz_model');
+			$this->load->model('Invoker_model');
 		}
 
-		public function view(){
+		public function index(){
 			$data['title'] = 'Cadastro de Juiz';
 			$this->load->view('cadastrojuiz');
 		}
@@ -24,6 +25,11 @@
 			if($this->form_validation->run() === FALSE){
 				$this->load->view('cadastrojuiz');
 			}else{
+				$data = array(
+            		'nome' => $this->input->post('nome'),
+            		'username' => $this->input->post('username'),
+            		'password' => $this->input->post('password')
+       			);
 				$this->Juiz_model->insert_juiz();
 				$situacao_cadastro = array();
 				$situacao_cadastro['sucesso'] = 'Usuario cadastrado com sucesso';

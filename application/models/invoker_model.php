@@ -609,4 +609,43 @@ class invoker_model extends CI_Model {
     
     
 
+    public function insert_jogador($data){
+        $this->db->insert('Jogador',$data);
+    }
+
+    public function get_campeonatoCategoria($campeonatoID, $categoriaID){
+        $this->load->model('CampeonatoCategoria_model');
+        $query = $this->db->query('SELECT campeonatoID, categoriaID FROM campeonatoCategoria WHERE campeonatoID="$campeonatoID" AND categoriaID="$categoriaID"');
+        $campeonatoCategoria = new CampeonatoCategoria_model();
+        if($query->num_rows() > 0) {
+            $campeonatoCategoriaDB = $query->row();
+            $campeonatoCategoria->setCampeonatoID($campeonatoCategoriaDB->campeonatoID);
+            $campeonatoCategoria->setCategoriaID($campeonatoCategoriaDB->categoriaID);
+            $campeonatoCategoria->setCampeonato($this->get_campeonato($campeonatoCategoriaDB->campeonatoID));
+            $campeonatoCategoria->setCategoria($this->get_categoria($campeonatoCategoriaDB->categoriaID));
+        }
+        return $campeonatoCategoria;
+    }
+
+    public function get_campeonatosCategoriasSocio($id){
+        $this->load->model('CampeonatoCategoria_model');
+        $query = $this->db->query('SELECT cc.campeonatoID, cc.categoriaID FROM campeonatoCategoria cc INNER JOIN Jogador j ON(j.socioID = "$id") WHERE j.socioID != "$id" GROUP BY cc.campeonatoID, cc.categoriaID');
+        $campeonatosCategoria = array();
+        if($query->num_rows() > 0){
+            foreach ($query->result() as $campeonatoCategoriaDB) {
+                $campeonatoCategoria = new CampeonatoCategoria_model();
+                $campeonatoCategoria->setCampeonatoID($campeonatoCategoriaDB->campeonatoID);
+                $campeonatoCategoria->setCategoriaID($campeonatoCategoriaDB->categoriaID);
+                $campeonatoCategoria->setCampeonato($this->get_campeonato($campeonatoCategoriaDB->campeonatoID));
+                $campeonatoCategoria->setCategoria($this->get_categoria($campeonatoCategoriaDB->categoriaID));
+                array_push($campeonatosCategoria, $campeonatoCategoria);
+            }
+        }
+        return $campeonatosCategoria;
+    }
+
+    public function insert_juiz($data){
+        $this->db->insert('usuario', $data);
+    }
+
 }

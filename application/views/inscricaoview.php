@@ -47,14 +47,14 @@
         </div>
                 <div class="container">
             <div class="row">
-        <form>
+       
     <div class="page-header">
         <h2>Inscrição do Campeonato</h2>
     </div>
     
     <div class="row">
         <?php echo validation_errors(); ?>
-        <?php echo form_open('index.php/juiz/cadastrojuiz'); ?>
+        <?php echo form_open('index.php/inscricao/cadastroSocioCampeonato'); ?>
         <div class="col-xs-12">
             <div class="form-group">
                 <div class="table-responsive">
@@ -69,27 +69,15 @@
                         </thead>
                         <tbody>
                             <?php 
-                                $contador = 0;
-                                $contadorGoleiro = 0;
-                                foreach($query->result_array() as $row){
-                                <tr>
-                                    <td>$row['nomeCampeonato']</td>
-                                    <td>$row['nomeCategoria']</td>
-                                    <td><input type="checkbox" name = "goleiro[]" value = "++contadorGoleiro"/></td>
-                                    <td><input type="checkbox" name = "selecionar[]" value = "++$contador"/></td>
-                                </tr>
-                                /*<tr>
-                                    <td>Copa Marte</td>
-                                    <td>Veteranos</td>
-                                    <td><input type="checkbox" /></td>
-                                    <td><input type="checkbox" /></td>
-                                </tr>
-                                <tr>
-                                    <td>Copa Uranus</td>
-                                    <td>Veteranos</td>
-                                    <td><input type="checkbox" /></td>
-                                    <td><input type="checkbox" name="<?php echo "selecionar".countadorDoMathiasHuezento ?>" /></td>
-                                </tr> */
+                                foreach($query as $campeonatoCategoria){
+                                echo "<tr>";
+                                echo    "<td>".$campeonatoCategoria->getCampeonato()->getNome()."</td>";
+                                echo    "<td>".$campeonatoCategoria->getCategoria()->getNome()."</td>";
+                                echo    "<td><input type=\"checkbox\" name = \"goleiro[]\" value = \"++contadorGoleiro\"/></td>";
+                                $campeonato = $campeonatoCategoria->getCampeonato()->getId();
+                                $categoria = $campeonatoCategoria->getCategoria()->getId();
+                                echo    "<td><input type=\"checkbox\" name = \"selecionar[]\" value = \"$campeonato:$categoria\"/></td>";
+                                echo "</tr>";
                             }?>
                             <!-- endfor -->
                         </tbody>
@@ -102,7 +90,63 @@
         </div>
     </div>
 </form>
-  
+            <?php
+                if (isset($sucesso)) {
+                    echo "
+                    <script type=\"text/javascript\">
+                    $(document).ready(function(){
+
+                        Command: toastr[\"success\"](\"$sucesso\")
+
+                        toastr.options = {
+                          \"closeButton\": true,
+                          \"debug\": false,
+                          \"newestOnTop\": true,
+                          \"progressBar\": false,
+                          \"positionClass\": \"toast-top-right\",
+                          \"preventDuplicates\": false,
+                          \"onclick\": null,
+                          \"showDuration\": \"300\",
+                          \"hideDuration\": \"1000\",
+                          \"timeOut\": \"5000\",
+                          \"extendedTimeOut\": \"1000\",
+                          \"showEasing\": \"swing\",
+                          \"hideEasing\": \"linear\",
+                          \"showMethod\": \"fadeIn\",
+                          \"hideMethod\": \"fadeOut\"
+                      }
+                  });
+                </script>
+                ";
+                }elseif(isset($falha)){
+                    echo "
+                    <script type=\"text/javascript\">
+                    $(document).ready(function(){
+
+                        Command: toastr[\"error\"](\"$falha\")
+
+                        toastr.options = {
+                          \"closeButton\": true,
+                          \"debug\": false,
+                          \"newestOnTop\": true,
+                          \"progressBar\": false,
+                          \"positionClass\": \"toast-top-right\",
+                          \"preventDuplicates\": false,
+                          \"onclick\": null,
+                          \"showDuration\": \"300\",
+                          \"hideDuration\": \"1000\",
+                          \"timeOut\": \"5000\",
+                          \"extendedTimeOut\": \"1000\",
+                          \"showEasing\": \"swing\",
+                          \"hideEasing\": \"linear\",
+                          \"showMethod\": \"fadeIn\",
+                          \"hideMethod\": \"fadeOut\"
+                      }
+                  });
+                </script>
+                ";
+                }
+            ?>
     </div>
         </div>
         <script type="text/javascript" src="<?php echo base_url('application/libraries/js/bootstrap.min.js'); ?>"></script>
