@@ -11,11 +11,12 @@
         <link rel="stylesheet" href="<?php echo base_url('application/libraries/css/datepicker3.css'); ?>" />
         <link rel="stylesheet" href="<?php echo base_url('application/libraries/css/font-awesome.min.css'); ?>" />
         <link rel="stylesheet" href="<?php echo base_url('application/libraries/css/toastr.min.css'); ?>" />
-    <title>Capitão Tsubasa!</title>           
+        <meta charset="UTF-8">
+        <title><?php echo $title ?></title>           
     </head>
 
     <body>
-                <div class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="javascript:;">
@@ -53,69 +54,73 @@
     </div>
     
     <div class="row">
-        <?php echo validation_errors(); ?>
-        <?php echo form_open('index.php/inscricao/cadastroSocioCampeonato'); ?>
+        <?php if (isset($vazio)) { ?>
         <div class="col-xs-12">
-            <div class="form-group">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Campeonato</th>
-                                <th>Categoria</th>
-                                <th>Goleiro</th>
-                                <th>Selecionar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-                                foreach($query as $campeonatoCategoria){
-                                echo "<tr>";
-                                echo    "<td>".$campeonatoCategoria->getCampeonato()->getNome()."</td>";
-                                echo    "<td>".$campeonatoCategoria->getCategoria()->getNome()."</td>";
-                                echo    "<td><input type=\"checkbox\" name = \"goleiro[]\" value = \"++contadorGoleiro\"/></td>";
-                                $campeonato = $campeonatoCategoria->getCampeonato()->getId();
-                                $categoria = $campeonatoCategoria->getCategoria()->getId();
-                                echo    "<td><input type=\"checkbox\" name = \"selecionar[]\" value = \"$campeonato:$categoria\"/></td>";
-                                echo "</tr>";
-                            }?>
-                            <!-- endfor -->
-                        </tbody>
-                    </table>
-                </div>
-                <div class="pull-right">
-                    <button class="btn btn-primary">Inscrever-se</button>
-                </div>
-            </div>
+            <p class="bg-danger">Não existem campeonatos disponíveis para você se inscrever</p>
         </div>
+        <?php } else { ?>
+                <?php echo validation_errors(); ?>
+                <?php echo form_open('index.php/inscricao/cadastroSocioCampeonato');?>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Campeonato</th>
+                                        <th>Categoria</th>
+                                        <th>Goleiro</th>
+                                        <th>Selecionar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($query as $campeonatoCategoria){
+                                        echo "<tr>";
+                                        echo    "<td>".$campeonatoCategoria->getCampeonato()->getNome()."</td>";
+                                        echo    "<td>".$campeonatoCategoria->getCategoria()->getNome()."</td>";
+                                        echo    "<td><input type=\"checkbox\" name = \"goleiro[]\" value = \"goleiro\"/></td>";
+                                        $campeonato = $campeonatoCategoria->getCampeonato()->getId();
+                                        $categoria = $campeonatoCategoria->getCategoria()->getId();
+                                        echo    "<td><input type=\"checkbox\" name = \"selecionar[]\" value = \"$campeonato:$categoria\"/></td>";
+                                        echo "</tr>";
+                                    } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pull-right">
+                            <button class="btn btn-primary">Inscrever-se</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        <?php } ?>
     </div>
-</form>
-            <?php
-                if (isset($sucesso)) {
-                    echo "
-                    <script type=\"text/javascript\">
-                    $(document).ready(function(){
+        <?php
+            if (isset($sucesso)) {
+                echo "
+                <script type=\"text/javascript\">
+                $(document).ready(function(){
 
-                        Command: toastr[\"success\"](\"$sucesso\")
+                    Command: toastr[\"success\"](\"$sucesso\")
 
-                        toastr.options = {
-                          \"closeButton\": true,
-                          \"debug\": false,
-                          \"newestOnTop\": true,
-                          \"progressBar\": false,
-                          \"positionClass\": \"toast-top-right\",
-                          \"preventDuplicates\": false,
-                          \"onclick\": null,
-                          \"showDuration\": \"300\",
-                          \"hideDuration\": \"1000\",
-                          \"timeOut\": \"5000\",
-                          \"extendedTimeOut\": \"1000\",
-                          \"showEasing\": \"swing\",
-                          \"hideEasing\": \"linear\",
-                          \"showMethod\": \"fadeIn\",
-                          \"hideMethod\": \"fadeOut\"
-                      }
-                  });
+                    toastr.options = {
+                      \"closeButton\": true,
+                      \"debug\": false,
+                      \"newestOnTop\": true,
+                      \"progressBar\": false,
+                      \"positionClass\": \"toast-top-right\",
+                      \"preventDuplicates\": false,
+                      \"onclick\": null,
+                      \"showDuration\": \"300\",
+                      \"hideDuration\": \"1000\",
+                      \"timeOut\": \"5000\",
+                      \"extendedTimeOut\": \"1000\",
+                      \"showEasing\": \"swing\",
+                      \"hideEasing\": \"linear\",
+                      \"showMethod\": \"fadeIn\",
+                      \"hideMethod\": \"fadeOut\"
+                    }
+                });
                 </script>
                 ";
                 }elseif(isset($falha)){

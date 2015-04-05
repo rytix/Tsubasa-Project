@@ -10,7 +10,8 @@
         <link rel="stylesheet" href="<?php echo base_url('application/libraries/css/datepicker3.css'); ?>" />
         <link rel="stylesheet" href="<?php echo base_url('application/libraries/css/font-awesome.min.css'); ?>" />
         <link rel="stylesheet" href="<?php echo base_url('application/libraries/css/toastr.min.css'); ?>" />
-        <title>Capit�o Tsubasa!</title>            
+        <meta charset="UTF-8">
+        <title><?php echo $title ?></title>           
     </head>
 
     <body>
@@ -19,16 +20,16 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="javascript:;">
                         <img alt="logo" src="http://3.bp.blogspot.com/-gYpGFzVfHcI/TZynmmaPV0I/AAAAAAAADDg/JVqK4s_Krjo/s320/capit%25C3%25A3o+tsubasa.jpg" style="height: 20px"/>
-                        Capit�o Tsubasa
+                        Capitão Tsubasa
                     </a>
                 </div>
-                <div class="navbar-collapse collapse">��
+                <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li ><a href="symfony/web/app.php/campeonato"  >Campeonato</a></li>
-                        <li ><a href="symfony/web/app.php/inscricao"  >Inscri��es</a></li>
+                        <li ><a href="symfony/web/app.php/inscricao"  >Inscrições</a></li>
                         <li  class="active" ><a href="symfony/web/app.php/juiz"  >Cadastrar Juiz</a></li>
                         <li ><a href="symfony/web/app.php/agendamento"  >Agendamento</a></li>
-                        <li ><a href="symfony/web/app.php/sumula"  >S�mula</a></li>
+                        <li ><a href="symfony/web/app.php/sumula"  >Súmula</a></li>
                     </ul>
                     <div class="pull-right">
                         <ul class="nav navbar-nav">
@@ -98,6 +99,33 @@
                     $(document).ready(function(){
 
                         Command: toastr[\"success\"](\"$sucesso\")
+
+                        toastr.options = {
+                          \"closeButton\": true,
+                          \"debug\": false,
+                          \"newestOnTop\": true,
+                          \"progressBar\": false,
+                          \"positionClass\": \"toast-top-right\",
+                          \"preventDuplicates\": false,
+                          \"onclick\": null,
+                          \"showDuration\": \"300\",
+                          \"hideDuration\": \"1000\",
+                          \"timeOut\": \"5000\",
+                          \"extendedTimeOut\": \"1000\",
+                          \"showEasing\": \"swing\",
+                          \"hideEasing\": \"linear\",
+                          \"showMethod\": \"fadeIn\",
+                          \"hideMethod\": \"fadeOut\"
+                      }
+                  });
+                </script>
+                ";
+                }elseif(isset($error)){
+                    echo "
+                    <script type=\"text/javascript\">
+                    $(document).ready(function(){
+
+                        Command: toastr[\"error\"](\"$error\")
 
                         toastr.options = {
                           \"closeButton\": true,

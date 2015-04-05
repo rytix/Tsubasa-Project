@@ -735,7 +735,7 @@ class invoker_model extends CI_Model {
 
     public function get_campeonatosCategoriasSocio($id){
         $this->load->model('CampeonatoCategoria_model');
-        $query = $this->db->query('SELECT cc.campeonatoID, cc.categoriaID FROM campeonatoCategoria cc INNER JOIN Jogador j ON(j.socioID = "$id") WHERE j.socioID != "$id" GROUP BY cc.campeonatoID, cc.categoriaID');
+        $query = $this->db->query('SELECT cc.campeonatoID, cc.categoriaID FROM campeonatocategoria cc LEFT JOIN  jogador j ON(j.socioID = ? AND j.campeonatoID = cc.campeonatoID AND j.categoriaID = cc.categoriaID) WHERE j.campeonatoID IS NULL AND j.categoriaID IS NULL GROUP BY cc.campeonatoID, cc.categoriaID', $id);
         $campeonatosCategoria = array();
         if($query->num_rows() > 0){
             foreach ($query->result() as $campeonatoCategoriaDB) {
