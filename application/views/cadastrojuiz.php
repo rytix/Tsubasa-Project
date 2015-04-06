@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="<?php echo base_url('application/libraries/css/font-awesome.min.css'); ?>" />
         <link rel="stylesheet" href="<?php echo base_url('application/libraries/css/toastr.min.css'); ?>" />
         <meta charset="UTF-8">
-        <title><?php echo $title ?></title>           
+        <title><?php echo 'Cadastro de Juiz' ?></title>           
     </head>
 
     <body>
@@ -20,7 +20,7 @@
         $Header->get_header();
         ?>
 
-        <div class="container">
+        <div class="container principal">
             <div class="row">
                 <?php echo validation_errors(); ?>
                 <?php echo form_open('index.php/juiz/cadastrojuiz'); ?>
