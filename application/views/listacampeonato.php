@@ -21,7 +21,7 @@
             }
         </style>
 
-        <div class="container">
+        <div class="container principal">
             <div class="row">
                 <form>
                     <div class="page-header">

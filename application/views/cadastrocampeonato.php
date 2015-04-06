@@ -18,7 +18,7 @@
         $Header = new Header_model();
         $Header->get_header();
         ?>
-        <div class="container">
+        <div class="container principal">
             <div class="row">
                 <?php echo validation_errors(); ?>
                 <?php echo form_open($action); ?>

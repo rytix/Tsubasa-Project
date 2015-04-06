@@ -63,11 +63,13 @@ class invoker_model extends CI_Model {
             return null;
         }
     }
-    
-    public function get_usuario($id) {
+
+    public function get_usuario($id)
+    {
         $query = $this->db->query("SELECT * FROM usuario WHERE usuarioID = ?", array($id));
         $UsuarioObject = null;
-        if ($query->num_rows() > 0) {
+        if ($query->num_rows() > 0)
+        {
             $this->load->model('diretor_model');
             $this->load->model('juiz_model');
             $this->load->model('socio_model');
@@ -91,9 +93,8 @@ class invoker_model extends CI_Model {
             $UsuarioObject->setDataNascimento($row['dataNascimento']);
             $UsuarioObject->setSexo($row['sexo']);
             $UsuarioObject->setId($row['usuarioID']);
-        } 
+        }
         return $UsuarioObject;
-        
     }
 
     public function get_user($id)
@@ -204,7 +205,6 @@ class invoker_model extends CI_Model {
         }
         return $ccs;
     }
-
 
     /**
      * 
@@ -325,23 +325,25 @@ class invoker_model extends CI_Model {
         }
         $this->db->insert_batch('campeonatocategoria', $ccs);
     }
-    
-    public function insert_time($time){
-        $this->db->insert('time', $time); 
+
+    public function insert_time($time)
+    {
+        $this->db->insert('time', $time);
         $timeID = $this->db->insert_id();
         return $timeID;
     }
-    
-    public function update_campeonato($id, $dados){
+
+    public function update_campeonato($id, $dados)
+    {
         $this->db->where('campeonatoID', $id);
-        $this->db->update('campeonato', $dados); 
+        $this->db->update('campeonato', $dados);
     }
-    
-    public function update_jogador($id, $dados){
+
+    public function update_jogador($id, $dados)
+    {
         $this->db->where('jogadorID', $id);
-        $this->db->update('jogador', $dados); 
+        $this->db->update('jogador', $dados);
     }
-    
 
     /* ------- Tabela Categoria -------- */
 
@@ -594,6 +596,33 @@ class invoker_model extends CI_Model {
 
     /* ------- Tabela Jogador -------- */
 
+    public function get_JogadoresDestaques()
+    {
+        $this->load->model('jogador_model');
+        $artilheiro = null;
+        $goleiro = null;
+        $farPlay = null;
+        $query = $this->db->query("SELECT jogadorID,sum(nGol) FROM jogadornasumula GROUP BY jogadorID ORDER BY sum(nGol) DESC");
+        if ($query->num_rows() > 0)
+        {
+            $queryRow = $query->row();
+            $artilheiro = $this->get_jogador($queryRow->jogadorID);
+        }
+//        $query = $this->db->query("");
+//        if ($query->num_rows() > 0)
+//        {
+//            $queryRow = $query->row();
+//            $goleiro = $this->get_jogador($queryRow->jogadorID);
+//        }
+        $query = $this->db->query("SELECT jogadorID,sum(nFaltas) FROM jogadornasumula GROUP BY jogadorID ORDER BY nFaltas;");
+        if ($query->num_rows() > 0)
+        {
+            $queryRow = $query->row();
+            $farPlay = $this->get_jogador($queryRow->jogadorID);
+        }
+        return array($artilheiro,$goleiro,$farPlay);
+    }
+
     public function get_jogador($id)
     {
         $this->load->model('jogador_model');
@@ -639,14 +668,16 @@ class invoker_model extends CI_Model {
         }
         return $jogadores;
     }
-    
-    
-    public function get_partidacategoria($campeonatoID,$categoriaID){
+
+    public function get_partidacategoria($campeonatoID, $categoriaID)
+    {
         $this->load->model('partida_model');
-        $query = $this->db->query("SELECT * FROM partida WHERE categoriaID= ? AND campeonatoID= ? ", array($campeonatoID,$categoriaID));
-        $partidas= array();
-        if ($query->num_rows() > 0) {
-            foreach ($query->result() as $partidasDB) {
+        $query = $this->db->query("SELECT * FROM partida WHERE categoriaID= ? AND campeonatoID= ? ", array($campeonatoID, $categoriaID));
+        $partidas = array();
+        if ($query->num_rows() > 0)
+        {
+            foreach ($query->result() as $partidasDB)
+            {
                 $partida = new partida_model();
                 $partida->setNome($partidasDB->nome)
                 ;
@@ -655,7 +686,6 @@ class invoker_model extends CI_Model {
         }
         return $partidas;
     }
-
 
     public function get_partidacategoriaById($id)
     {
@@ -674,56 +704,63 @@ class invoker_model extends CI_Model {
         }
         return $partidas;
     }
-    
-    public function get_jogadores_semtime($campeonato, $categoria) {
+
+    public function get_jogadores_semtime($campeonato, $categoria)
+    {
         $this->load->model('jogador_model');
         $query = $this->db->query("SELECT * FROM jogador WHERE timeID is NULL AND goleiro = 0  AND campeonatoID = ? AND categoriaID = ?", array($campeonato, $categoria));
         $jogadores = array();
-        if ($query->num_rows() > 0) {
-            foreach ($query->result() as $jogadorDB) {
+        if ($query->num_rows() > 0)
+        {
+            foreach ($query->result() as $jogadorDB)
+            {
                 $jogador = new Jogador_model();
                 $jogador->setId($jogadorDB->jogadorID);
                 $jogador->setGoleiro($jogadorDB->goleiro);
                 $jogador->setTime(NULL);
                 $jogador->setCampeonatoCategoria($this->get_campeonatocategoria($jogadorDB->campeonatoID, $jogadorDB->categoriaID));
                 $jogador->setSocio($this->get_usuario($jogadorDB->socioID));
-                
+
                 array_push($jogadores, $jogador);
             }
         }
         return $jogadores;
     }
-    
-    public function get_goleiros_semtime($campeonato, $categoria) {
+
+    public function get_goleiros_semtime($campeonato, $categoria)
+    {
         $this->load->model('jogador_model');
         $query = $this->db->query("SELECT * FROM jogador WHERE timeID is NULL AND goleiro = 1  AND campeonatoID = ? AND categoriaID = ?", array($campeonato, $categoria));
         $jogadores = array();
-        if ($query->num_rows() > 0) {
-            foreach ($query->result() as $jogadorDB) {
+        if ($query->num_rows() > 0)
+        {
+            foreach ($query->result() as $jogadorDB)
+            {
                 $jogador = new Jogador_model();
                 $jogador->setId($jogadorDB->jogadorID);
                 $jogador->setGoleiro($jogadorDB->goleiro);
                 $jogador->setTime(NULL);
                 $jogador->setCampeonatoCategoria($this->get_campeonatocategoria($jogadorDB->campeonatoID, $jogadorDB->categoriaID));
                 $jogador->setSocio($this->get_usuario($jogadorDB->socioID));
-                
+
                 array_push($jogadores, $jogador);
             }
         }
         return $jogadores;
     }
-    
-    
 
-    public function insert_jogador($data){
-        $this->db->insert('Jogador',$data);
+    public function insert_jogador($data)
+    {
+        $this->db->insert('Jogador', $data);
     }
 
-    public function get_campeonatossCategoria($campeonatoID, $categoriaID){
+    public function get_campeonatossCategoria($campeonatoID, $categoriaID)
+    {
         $this->load->model('CampeonatoCategoria_model');
         $query = $this->db->query("SELECT campeonatoID, categoriaID FROM campeonatoCategoria WHERE campeonatoID=$campeonatoID AND categoriaID=$categoriaID");
         $campeonatoCategoria = new CampeonatoCategoria_model();
-        if($query->num_rows() > 0) {
+        if ($query->num_rows() > 0)
+        {
             $campeonatoCategoriaDB = $query->row();
             $campeonatoCategoria->setCampeonatoID($campeonatoCategoriaDB->campeonatoID);
             $campeonatoCategoria->setCategoriaID($campeonatoCategoriaDB->categoriaID);
@@ -733,12 +770,15 @@ class invoker_model extends CI_Model {
         return $campeonatoCategoria;
     }
 
-    public function get_campeonatosCategoriasSocio($id){
+    public function get_campeonatosCategoriasSocio($id)
+    {
         $this->load->model('CampeonatoCategoria_model');
         $query = $this->db->query('SELECT cc.campeonatoID, cc.categoriaID FROM campeonatocategoria cc LEFT JOIN  jogador j ON(j.socioID = ? AND j.campeonatoID = cc.campeonatoID AND j.categoriaID = cc.categoriaID) WHERE j.campeonatoID IS NULL AND j.categoriaID IS NULL GROUP BY cc.campeonatoID, cc.categoriaID', $id);
         $campeonatosCategoria = array();
-        if($query->num_rows() > 0){
-            foreach ($query->result() as $campeonatoCategoriaDB) {
+        if ($query->num_rows() > 0)
+        {
+            foreach ($query->result() as $campeonatoCategoriaDB)
+            {
                 $campeonatoCategoria = new CampeonatoCategoria_model();
                 $campeonatoCategoria->setCampeonatoID($campeonatoCategoriaDB->campeonatoID);
                 $campeonatoCategoria->setCategoriaID($campeonatoCategoriaDB->categoriaID);
@@ -750,15 +790,18 @@ class invoker_model extends CI_Model {
         return $campeonatosCategoria;
     }
 
-    public function insert_juiz($data){
+    public function insert_juiz($data)
+    {
         $this->db->insert('usuario', $data);
     }
-    
-    public function has_time($idCampeonato, $idCategoria){
+
+    public function has_time($idCampeonato, $idCategoria)
+    {
         $this->load->model('time_model');
         $query = $this->db->query("SELECT * FROM time WHERE campeonatoID = ? AND categoriaID = ?", array($idCampeonato, $idCategoria));
-        if($query->num_rows() > 0){
-          return true;  
+        if ($query->num_rows() > 0)
+        {
+            return true;
         }
         return false;
     }
