@@ -64,10 +64,11 @@
                         <div class="col-sm-4"> 
                             <div class="form-group">
                                 <label for="campenato">Campeonato</label>
-                                <select id="campeonato" class="form-control"  >
+                                <select id="campeonato" class="form-control" name="campeonato"  >
+                                    <option selected="selected" value=" ">&nbsp;</option>
                                     <?php
                                     foreach ($campeonatocategoria as $cc) {
-                                        echo "<option>".$cc->getCampeonato()->getNome()."</option>";
+                                        echo "<option value='".$cc->getCampeonato()->getId()."' >".$cc->getCampeonato()->getNome()."</option>";
                                     }
                                         ?>
                                     
@@ -77,20 +78,15 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="categoria">Categoria</label>
-                                    <select id="categoria" class="form-control"  >
-                                        <?php
-                                        foreach ($campeonatocategoria as $cc) {
-                                            echo "<option>".$cc->getCategoria()->getNome()."</option>";
-                                        }
-                                    ?>
-                                    
+                                    <select id="categoria" class="form-control" name="categoria" >
+                                    <option selected="selected" value=" ">&nbsp;</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="categoria">Partida Ativa</label>
-                                <select id="categoria" class="form-control"  >
+                                <label for="partida">Partida Ativa</label>
+                                <select id="partida" class="form-control"  name="partida">
                                     <?php
                                         foreach ($partidas as $p) {
                                             echo "<option>".$p->getNome()."</option>";
@@ -232,13 +228,40 @@
 
                             </div>
                             </div>
-                            <script type="text/javascript" src="symfony/web/bundles/lecapatsubasa/js/bootstrap.min.js"></script>
-                            <script type="text/javascript" src="symfony/web/bundles/lecapatsubasa/js/bootstrap-datepicker.js"></script>
-                            <script type="text/javascript" src="symfony/web/bundles/lecapatsubasa/js/locales/bootstrap-datepicker.pt-BR.js"></script>
-                            <script type="text/javascript" src="symfony/web/bundles/lecapatsubasa/js/select2.js"></script>
-                            <script type="text/javascript" src="symfony/web/bundles/lecapatsubasa/js/locales/select2_locale_pt-BR.js"></script>		
+                            <script type="text/javascript" src="<?php echo base_url('application/libraries/js/bootstrap.min.js'); ?>"></script>
+                            <script type="text/javascript" src="<?php echo base_url('application/libraries/js/toastr.min.js'); ?>"></script>
+                            <script type="text/javascript" src="<?php echo base_url('application/libraries/js/app.js'); ?>"></script>
+                            <script type="text/javascript" src="<?php echo base_url('application/libraries/js/bootstrap-datepicker.js'); ?>"></script>
+                            <script type="text/javascript" src="<?php echo base_url('application/libraries/js/locales/bootstrap-datepicker.pt-BR.js'); ?>"></script>	
                             <script type="text/javascript" >
-                                $('select').select2();
+                                var $campeonato = $('#campeonato');
+                                var $categoria = $('#categoria');
+                                var $partida = $('#categoria');
+                                
+                                $campeonato.change(function () {
+                                    var url = '<?php echo base_url("index.php/sumula/ajaxCampeonato/__CAMPEONATO__"); ?>';
+                                    $.ajax({
+                                        url: url.replace('__CAMPEONATO__', $campeonato.val()),
+                                        type: 'GET',
+                                        beforeSend: function () {
+                                            //App.blockUI({target: $categoria, iconOnly: true});
+                                        },
+                                        success: function (categorias) {
+                                            console.log(categorias);
+                                            $categoria.prop('readonly', false);
+                                            $categoria.empty();
+                                            $categoria.append($('<option></option>'));
+                                            for (i in categorias) {
+                                                $option = $('<option></option>').val(i).text(categorias[i]);
+                                                $categoria.append($option);
+                                            }
+                                            //App.unblockUI($categoria);
+                                        },
+                                        error: function () {
+                                            //App.unblockUI($categoria);
+                                        }
+                                    });
+                                });
                             </script>
                             </body>
                             </html>

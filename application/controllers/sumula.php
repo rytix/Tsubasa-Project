@@ -30,6 +30,19 @@ class sumula extends CI_Controller {
         $this->load->view('cadastrasumula', $data);
     }
     
+    public function ajaxCampeonato($campeonatoId){
+        $invoker = new invoker_model();
+        $ccs = $invoker->get_campeonatoCategorias($campeonatoId);
+        $categoriasJson = array();
+        foreach ($ccs as $cc) {
+            $categoriasJson[$cc->getCategoria()->getId()] = $cc->getCategoria()->getNome();
+        }
+        
+        $this->output
+        ->set_content_type('application/json')
+        ->set_output(json_encode($categoriasJson));
+    }
+    
     
 
 }
