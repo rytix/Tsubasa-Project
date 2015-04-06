@@ -612,7 +612,35 @@ class invoker_model extends CI_Model {
     }
 
     /* ------- Tabela Jogador -------- */
-
+    
+    
+    public function get_JogadoresDestaques()
+    {
+        $this->load->model('jogador_model');
+        $artilheiro = null;
+        $goleiro = null;
+        $farPlay = null;
+        $query = $this->db->query("SELECT jogadorID,sum(nGol) FROM jogadornasumula GROUP BY jogadorID ORDER BY sum(nGol) DESC");
+        if ($query->num_rows() > 0)
+        {
+            $queryRow = $query->row();
+            $artilheiro = $this->get_jogador($queryRow->jogadorID);
+        }
+//        $query = $this->db->query("");
+//        if ($query->num_rows() > 0)
+//        {
+//            $queryRow = $query->row();
+//            $goleiro = $this->get_jogador($queryRow->jogadorID);
+//        }
+        $query = $this->db->query("SELECT jogadorID,sum(nFaltas) FROM jogadornasumula GROUP BY jogadorID ORDER BY nFaltas;");
+        if ($query->num_rows() > 0)
+        {
+            $queryRow = $query->row();
+            $farPlay = $this->get_jogador($queryRow->jogadorID);
+        }
+        return array($artilheiro,$goleiro,$farPlay);
+    }
+    
     public function get_jogador($id)
     {
         $this->load->model('jogador_model');
