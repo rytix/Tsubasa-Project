@@ -155,7 +155,7 @@ function create_tables($data, $selected, $parameters)
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Time</th>
+                        <th>Times</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -20,7 +20,7 @@
         $Header = new Header_model();
         $Header->get_header();
         ?>
-        <div class="container">
+        <div class="container principal">
             <div class="row">
 
                 <div class="page-header">
