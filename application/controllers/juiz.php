@@ -11,11 +11,17 @@ class Juiz extends CI_Controller {
     }
 
     public function index() {
+        $verificadorUsuario = new Verificador_usuarios_model();
+        $verificadorUsuario->verificarUsuario(Usuario_model::DIRETOR);
+
         $data['title'] = 'Cadastro de Juiz';
         $this->load->view('cadastrojuiz');
     }
 
     public function cadastrojuiz() {
+        $verificadorUsuario = new Verificador_usuarios_model();
+        $verificadorUsuario->verificarUsuario(Usuario_model::DIRETOR);
+
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');

@@ -23,6 +23,7 @@
     </head>
 
     <body>
+<<<<<<< HEAD
         <div class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -54,6 +55,12 @@
             </div>
         </div>
 
+=======
+        <?php
+        $Header = new Header_model();
+        $Header->get_header();
+        ?>
+>>>>>>> origin/master
         <div class="container">
             <div class="row">
                 <?php echo validation_errors(); ?>
@@ -69,8 +76,13 @@
                                 <select id="campeonato" class="form-control" name="campeonato"  >
                                     <option selected="selected" value=" ">&nbsp;</option>
                                     <?php
+<<<<<<< HEAD
                                     foreach ($cc as $cc) {
                                         echo "<option value='" . $cc->getCampeonato()->getId() . "' >" . $cc->getCampeonato()->getNome() . "</option>";
+=======
+                                    foreach ($campeonatos as $row) {
+                                        echo '<option value="' . $row->nome . '">' . $row->nome . '</option>';
+>>>>>>> origin/master
                                     }
                                     ?>
 

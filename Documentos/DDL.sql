@@ -168,54 +168,54 @@ SET FOREIGN_KEY_CHECKS=1;
 
 
 ALTER TABLE Campeonato ADD CONSTRAINT FK_Campeonato_UsuarioJuiz 
-	FOREIGN KEY (juizID) REFERENCES Usuario (usuarioID)
+	FOREIGN KEY (juizID) REFERENCES Usuario (usuarioID) ON DELETE CASCADE
 ;
 
 ALTER TABLE CampeonatoCategoria ADD CONSTRAINT FK_CampeonatoCategoria_Campeonato 
-	FOREIGN KEY (campeonatoID) REFERENCES Campeonato (campeonatoID)
+	FOREIGN KEY (campeonatoID) REFERENCES Campeonato (campeonatoID) ON DELETE CASCADE
 ;
 
 ALTER TABLE CampeonatoCategoria ADD CONSTRAINT FK_CampeonatoCategoria_Categoria 
-	FOREIGN KEY (categoriaID) REFERENCES Categoria (categoriaID)
+	FOREIGN KEY (categoriaID) REFERENCES Categoria (categoriaID) ON DELETE CASCADE
 ;
 
 ALTER TABLE Jogador ADD CONSTRAINT FK_Jogador_Time
-	FOREIGN KEY (timeID) REFERENCES Time (timeID)
+	FOREIGN KEY (timeID) REFERENCES Time (timeID) ON DELETE CASCADE
 ;
 
 ALTER TABLE Jogador ADD CONSTRAINT FK_Jogador_Usuario 
-	FOREIGN KEY (socioID) REFERENCES Usuario (usuarioID)
+	FOREIGN KEY (socioID) REFERENCES Usuario (usuarioID) ON DELETE CASCADE
 ;
 
 ALTER TABLE Jogador ADD CONSTRAINT FK_Jogador_CampeonatoCategoria 
-	FOREIGN KEY (campeonatoID,categoriaID) REFERENCES CampeonatoCategoria (campeonatoID,categoriaID)
+	FOREIGN KEY (campeonatoID,categoriaID) REFERENCES CampeonatoCategoria (campeonatoID,categoriaID) ON DELETE CASCADE
 ;
 
 ALTER TABLE JogadorNaSumula ADD CONSTRAINT FK_JogadorNaSumula_Jogador 
-	FOREIGN KEY (jogadorID) REFERENCES Jogador (jogadorID)
+	FOREIGN KEY (jogadorID) REFERENCES Jogador (jogadorID) ON DELETE CASCADE
 ;
 
-ALTER TABLE JogadorNaSumula ADD CONSTRAINT FK_JogadorNaSumula_Sumula
-	FOREIGN KEY (sumulaID) REFERENCES Sumula (sumulaID)
+ALTER TABLE JogadorNaSumula ADD CONSTRAINT FK_JogadorNaSumula_Sumula 
+	FOREIGN KEY (sumulaID) REFERENCES Sumula (sumulaID) ON DELETE CASCADE
 ;
 
 ALTER TABLE Partida ADD CONSTRAINT FK_Partida_Sumula 
-	FOREIGN KEY (sumulaID) REFERENCES Sumula (sumulaID)
+	FOREIGN KEY (sumulaID) REFERENCES Sumula (sumulaID) ON DELETE CASCADE
 ;
 
 ALTER TABLE Partida ADD CONSTRAINT FK_Partida_CampeonatoCategoriaID 
-	FOREIGN KEY (campeonatoID,categoriaID) REFERENCES CampeonatoCategoria (campeonatoID,categoriaID)
+	FOREIGN KEY (campeonatoID,categoriaID) REFERENCES CampeonatoCategoria (campeonatoID,categoriaID) ON DELETE CASCADE
 ;
 
 ALTER TABLE Time ADD CONSTRAINT FK_Time_CampeonatoCategoria 
-	FOREIGN KEY (campeonatoID,categoriaID) REFERENCES CampeonatoCategoria (campeonatoID,categoriaID)
+	FOREIGN KEY (campeonatoID,categoriaID) REFERENCES CampeonatoCategoria (campeonatoID,categoriaID) ON DELETE CASCADE
 ;
 
 ALTER TABLE TimeNaSumula ADD CONSTRAINT FK_TimeNaSumula_Sumula 
-	FOREIGN KEY (sumulaID) REFERENCES Sumula (sumulaID)
+	FOREIGN KEY (sumulaID) REFERENCES Sumula (sumulaID) ON DELETE CASCADE
 ;
 
-ALTER TABLE TimeNaSumula ADD CONSTRAINT FK_TimeNaSumula_Time
-	FOREIGN KEY (timeID) REFERENCES Time (timeID)
+ALTER TABLE TimeNaSumula ADD CONSTRAINT FK_TimeNaSumula_Time 
+	FOREIGN KEY (timeID) REFERENCES Time (timeID) ON DELETE CASCADE
 ;
 COMMIT;
