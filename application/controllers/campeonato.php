@@ -69,6 +69,50 @@
 			$this->load->view('cadastrocampeonato', $data);
 		}
                 
+		public function alterar($id){
+                        $invoker = new invoker_model();
+                        $data['action'] = "index.php/campeonato/alterarcampeonato";
+			$data['title'] = 'Alteração de Campeonato';
+                        $data['juizes'] = $invoker->get_juizes();
+                        $data['categorias'] = $invoker->get_categorias();
+                        $data['campeonato'] = $invoker->get_campeonatoCategorias($id);
+                        
+			$this->load->view('alterarcampeonato', $data);
+		}
+                
+		public function alterarcampeonato(){
+                        $id = $this->input->post('id');
+                        $this->load->model('invoker_model');
+                        $invoker = new invoker_model();
+                        $data['title'] = 'Alteração de Campeonato';
+                        $data['action'] = "index.php/campeonato/alterarcampeonato";
+                        
+                        $this->form_validation->set_rules('nome','Nome','required');
+                        $this->form_validation->set_rules('juiz','Juiz','required');
+                        $this->form_validation->set_rules('data','Data do Campeonato','required');
+                        
+                        $data['juizes'] = $invoker->get_juizes();
+                        $data['categorias'] = $invoker->get_categorias();
+                        $data['campeonato'] = $invoker->get_campeonatoCategorias($id);
+                        
+			if($this->form_validation->run() === FALSE){
+				$this->load->view('cadastrocampeonato', $data);
+			}else{
+                                $dataArray = explode('/', $this->input->post('data'));
+                                $dataVal = $dataArray[2].'/'.$dataArray[1].'/'.$dataArray[0];
+                                
+                                $post = array(
+                                    'nome' => $this->input->post('nome'),
+                                    'juizID' => $this->input->post('juiz'),
+                                    'data' => $dataVal,
+                                );
+                                $invoker->update_campeonato($id, $post);
+				$data['sucesso'] = 'Campeonato alterado com sucesso';
+                                $data['campeonato'] = $invoker->get_campeonatoCategorias($id);
+                                $this->load->view('alterarcampeonato', $data);
+			}
+		}
+                
                 public function excluir() {
                     $invoker = new invoker_model();
                     $invoker->delete_campeonato($this->input->get('campeonato'),$this->input->get('categoria'));
