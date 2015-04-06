@@ -21,7 +21,7 @@
             }
         </style>
 
-        <div class="container">
+        <div class="container principal">
             <div class="row">
                 <form>
                     <div class="page-header">
@@ -45,6 +45,7 @@
                                     echo "<td>
                             <ul>";
                                     echo "<li><a class='btn btn-danger' href='" . base_url('index.php/campeonato/excluir?campeonato=' . $cc->getCampeonato()->getId() . "&categoria=" . $cc->getCategoria()->getId()) . "'><i class='fa fa-trash-o'></i> Excluir</a></li>";
+                                    echo "<li><a class='btn btn-success' href='" . base_url('index.php/campeonato/alterar/' . $cc->getCampeonato()->getId()) . "'><i class='fa fa-edit'></i> Alterar</a></li>";
 
                                     if (!$cc->getTemTime()) {
                                         echo "<li><a class='btn btn-info' href='" . base_url('index.php/campeonato/geratime?campeonato=' . $cc->getCampeonato()->getId() . "&categoria=" . $cc->getCategoria()->getId()) . "'><i class='fa fa-refresh'></i> Gerar Time</a></li>";

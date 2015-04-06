@@ -1,7 +1,7 @@
 <!DOCTYPE HTML> 
 <?php
 
-function show_th($ehUmTime, $selected)
+function show_th($selected)
 {
     switch ($selected) {
         case -1:
@@ -16,26 +16,7 @@ function show_th($ehUmTime, $selected)
             echo '<th>Idade Jogador</th>';
             break;
         case 1:
-            if ($ehUmTime == 1)
-            {
-                echo '<th>Nome</th>';
-            } else
-            {
-                echo '<th>Nome</th>';
-                echo '<th>Campo</th>';
-                echo '<th>Data</th>';
-                echo '<th>Partida Ativa</th>';
-            }
-            break;
-        case 2:
-            echo '<th>Nome</th>';
-            echo '<th>Goleiro</th>';
-            break;
-        case 3:
-            //NO
-            break;
-        case 4:
-            //NO
+
             break;
     }
 }
@@ -61,7 +42,7 @@ function createHref($selected, $parameters, $value)
     }
 }
 
-function show_title($selected, $ehUmTime)
+function show_title($selected)
 {
     switch ($selected) {
         case -1:
@@ -69,17 +50,10 @@ function show_title($selected, $ehUmTime)
         case 0:
             return 'Categorias';
         case 1:
-            if ($ehUmTime == 1)
-            {
-                return 'Time';
-            } else
-            {
-                return 'Partidas';
-            }
     }
 }
 
-function show_tbody($ehUmTime, $data, $selected, $parameters)
+function show_tbody($data, $selected, $parameters)
 {
     foreach ($data as $value)
     {
@@ -103,74 +77,117 @@ function show_tbody($ehUmTime, $data, $selected, $parameters)
                 echo '<td>' . $value->getIdadeMinJ() . '-' . $value->getIdadeMaxJ() . '</td>';
                 break;
             case 1:
-                if ($ehUmTime == 1 && $value instanceof Time_model)
-                {
-                    echo '<th>' . $value->getNome() . '</th>';
-                } else if ($ehUmTime == 0 && $value instanceof Partida_model)
-                {
-                    echo '<th>' . $value->getNome() . '</th>';
-                    echo '<th>' . $value->getCampo() . '</th>';
-                    echo '<th>' . $value->getData() . '</th>';
-                    if ($value->getPartidaAtiva())
-                    {
-                        echo '<td>SIM</td>';
-                    } else
-                    {
-                        echo '<td>NÃO</td>';
-                    }
-                }
-                break;
-            case 2:
-                echo '<td>' . $value->getSocio()->getNome() . '</th>';
-                if ($value->getGoleiro())
-                {
-                    echo '<td>SIM</td>';
-                } else
-                {
-                    echo '<td>NÃO</td>';
-                }
-                break;
-            case 3:
-                //NO
-                break;
-            case 4:
-                //NO
+
                 break;
         }
         echo '</tr>';
     }
 }
 
-function create_tables($data, $selected, $parameters)
+function show_merito($data)
 {
     ?>
-    <div class="row">
-        <?php echo '<h2>' . show_title($selected, 1) . '</h2>' ?>
-        <table class="table">
-            <thead>
-                <tr>
-                    <?php show_th(1, $selected) ?>
-                </tr>
-            </thead>
-            <tbody>
-                <?php show_tbody(1, $data, $selected, $parameters) ?>
-            </tbody>
-        </table>
-    </div>
     <?php
+    $value = $data['destaques'];
+    ?>  
+    <tr> 
+        <td> <?php echo $value[0]->getSocio()->getNome();?> </td>
+        <td> Artilheiro </td>
+    </tr>
+    <tr> 
+        <td> <?php //echo $value[1]->getSocio()->getNome(); ?> </td>
+        <td> Goleiro Menos Vazado </td>
+    </tr>
+    <tr> 
+        <td> <?php echo $value[2]->getSocio()->getNome(); ?> </td>
+        <td> Fair Play </td>
+    </tr>
+    <?php
+}
+
+function show_times($data)
+{
+    ?>
+    <?php
+    foreach ($data['times'] as $value)
+    {
+        ?>  
+        <tr> 
+            <td> <?php echo $value->getNome(); ?> </td>
+        </tr>
+        <?php
+    }
+}
+
+function show_jogadores($data)
+{
+    ?>
+    <?php
+    foreach ($data['jogadores'] as $value)
+    {
+        ?>  
+        <tr> 
+            <td> <?php echo $value->getSocio()->getNome(); ?> </td>
+            <td> <?php echo $value->getTime()->getNome(); ?> </td>
+        </tr>
+        <?php
+    }
+}
+
+function create_tables($data, $selected, $parameters)
+{
     if ($selected == 1)
     {
         ?>
         <div class="row">
-            <?php echo '<h2>' . show_title($selected, 0) . '</h2>' ?>
+            <h2> Destaques: </h2>
             <table class="table">
                 <thead>
                     <tr>
-                        <?php show_th(0, $selected) ?>
+                        <th>Jogador</th>
+                        <th>Mérito</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php show_tbody(0, $data, $selected, $parameters) ?>
+                    <?php show_merito($data); ?>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php show_times($data); ?>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Jogador</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php show_jogadores($data); ?>
+                </tbody>
+            </table>
+        </div>
+        <?php
+    } else
+    {
+        ?>
+        <div class="row">
+            <?php echo '<h2>' . show_title($selected) . '</h2>' ?>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <?php show_th($selected) ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php show_tbody($data, $selected, $parameters) ?>
                 </tbody>
             </table>
         </div>
@@ -184,8 +201,10 @@ function create_tables($data, $selected, $parameters)
         <title>CT Login</title>    
     </head>
     <body>
-        <?php $Header = new Header_model();
-              $Header->get_header();?>
+        <?php
+        $Header = new Header_model();
+        $Header->get_header();
+        ?>
         <div class="container principal">
             <div class="row">
                 <?php create_tables($data, $selected, $parameters) ?>

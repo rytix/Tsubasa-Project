@@ -18,30 +18,19 @@
         $Header = new Header_model();
         $Header->get_header();
         ?>
-        <div class="container principal">
+        <div class="container">
             <div class="row">
                 <?php echo validation_errors(); ?>
                 <?php echo form_open($action); ?>
                 <div class="page-header">
                     <h2>Cadastro de Campeonato</h2>
                 </div>
+                <input id="id" type="hidden"  value="<?php echo $campeonato[0]->getCampeonato()->getId() ?>" class="form-control" name="id">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="nome">Nome</label>
-                            <input id="nome" type="text" class="form-control" name="nome">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="categoria">Categoria</label>
-                            <select id="categoria" class="form-control" multiple="true" name="categoria[]">
-                                <?php
-                                foreach ($categorias as $categoria) {
-                                    echo "<option value='" . $categoria->getId() . "'>" . $categoria->getNome() . "</option>";
-                                }
-                                ?>
-                            </select>
+                            <input id="nome" type="text"  value="<?php echo $campeonato[0]->getCampeonato()->getNome() ?>" class="form-control" name="nome">
                         </div>
                     </div>
                 </div>
@@ -51,8 +40,12 @@
                             <label for="juiz">Juiz</label>
                             <select id="juiz" class="form-control" name="juiz">
                                 <?php
+                                $selecionado = '';
                                 foreach ($juizes as $juiz) {
-                                    echo "<option value='" . $juiz->getId() . "'>" . $juiz->getNome() . "</option>";
+                                    if($juiz->getId() == $campeonato[0]->getCampeonato()->getJuiz()->getId()){
+                                        $selecionado = "selected = 'selected'";
+                                    }
+                                    echo "<option $selecionado  value='" . $juiz->getId() . "'>" . $juiz->getNome() . "</option>";
                                 }
                                 ?>
                             </select>
@@ -70,7 +63,7 @@
                     <div class="col-xs-12">
                         <div class="form-group">
                             <div class="pull-right">
-                                <button class="btn btn-primary">Cadastrar</button>
+                                <button class="btn btn-primary">Alterar</button>
                             </div>
                         </div>
                     </div>
@@ -119,6 +112,12 @@
         format: "dd/mm/yyyy",
         language: "pt-BR"
     });
+    var data = '<?php 
+                        $data = trim(str_replace('00:00:00', '', $campeonato[0]->getCampeonato()->getData()));
+                        $dataArray = explode('-', $data);
+                        $data = $dataArray[2].'/'.$dataArray[1].'/'.$dataArray[0]; 
+                        echo $data;?>';
+    $('#data').val(data);
 </script>
 </body>
 </html>
