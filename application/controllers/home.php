@@ -12,6 +12,9 @@ class Home extends CI_Controller {
     const PARTIDA = 'partidaID';
 
     public function index() {
+        $verificadorUsuario = new Verificador_usuarios_model();
+        $verificadorUsuario->verificarUsuarioExiste();
+        
         $this->load->model('Diretor_model');
         $parameters = $this->getParameters();
         $selected = $this->getShowPosition($parameters);
