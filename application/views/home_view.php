@@ -184,7 +184,8 @@ function create_tables($data, $selected, $parameters)
         <title>CT Login</title>    
     </head>
     <body>
-        <?php include('header.php') ?>
+        <?php $Header = new Header_model();
+              $Header->get_header();?>
         <div class="container principal">
             <div class="row breadcrumb">
             </div>

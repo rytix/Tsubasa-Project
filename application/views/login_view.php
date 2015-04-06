@@ -5,7 +5,6 @@
         <title>CT Login</title>    
     </head>
     <body>
-        <?php include('header.php') ?>
         <div class="container geral">
             <div class="row fakemodel">
                 <form class="form-signin" role="form">

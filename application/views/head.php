@@ -9,8 +9,8 @@
 <meta charset="UTF-8">
 <style type="text/css">
     body {
-        padding-top: 40px;
-        padding-bottom: 40px;
+        //padding-top: 40px;
+        //padding-bottom: 40px;
         background-color: #eee;
     }
 
