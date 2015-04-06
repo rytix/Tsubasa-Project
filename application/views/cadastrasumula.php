@@ -70,7 +70,7 @@
                                     foreach ($campeonatocategoria as $cc) {
                                         echo "<option value='".$cc->getCampeonato()->getId()."' >".$cc->getCampeonato()->getNome()."</option>";
                                     }
-                                        ?>
+                                    ?>
                                     
                                     </select>
                                 </div>
@@ -236,7 +236,7 @@
                             <script type="text/javascript" >
                                 var $campeonato = $('#campeonato');
                                 var $categoria = $('#categoria');
-                                var $partida = $('#categoria');
+                                var $partida = $('#partida');
                                 
                                 $campeonato.change(function () {
                                     var url = '<?php echo base_url("index.php/sumula/ajaxCampeonato/__CAMPEONATO__"); ?>';
