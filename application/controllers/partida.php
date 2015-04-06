@@ -22,15 +22,15 @@ class Partida extends CI_Controller {
     public function agendamentopartida() {
         $verificadorUsuario = new Verificador_usuarios_model();
         $verificadorUsuario->verificarUsuario(Usuario_model::JUIZ);
-        
+        $invoker = new invoker_model();
         $data['title'] = 'Agendamento de Partida';
         $data['action'] = "index.php/partida/agendamentopartida";
         $campeonatos = array();
-        $invoker = new invoker_model();
         $cc = $invoker->get_allCampeonatosCategoria();
         $usuario = unserialize($this->session->userdata('usuario'));
         $data['cc']=$cc;
-
+        $times = $invoker->get_timescc($this->input->get('campeonato'), $this->input->get('categoria'));
+        $data['times'] = $times;
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
@@ -62,7 +62,6 @@ class Partida extends CI_Controller {
         foreach ($ccs as $cc) {
             $categoriasJson[$cc->getCategoria()->getId()] = $cc->getCategoria()->getNome();
         }
-        
         $this->output
         ->set_content_type('application/json')
         ->set_output(json_encode($categoriasJson));

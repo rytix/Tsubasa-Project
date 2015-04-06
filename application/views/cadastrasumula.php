@@ -29,7 +29,8 @@
         ?>
         <div class="container">
             <div class="row">
-                <form>
+                <?php echo validation_errors(); ?>
+                <?php echo form_open('index.php/partida/novo'); ?>
                     <div class="page-header">
                         <h2>Cadastro de Súmula</h2>
                     </div>

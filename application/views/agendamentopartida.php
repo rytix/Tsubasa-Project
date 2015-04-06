@@ -31,7 +31,7 @@
             <div class="row">
                 <?php echo validation_errors(); ?>
                 <?php echo form_open('index.php/partida/agendamentopartida'); ?>
-                <form>
+                
                     <div class="page-header">
                         <h2>Agendamento do Jogo</h2>
                     </div>
@@ -44,7 +44,6 @@
                                     <?php
                                     foreach ($cc as $cc) {
                                         echo "<option value='" . $cc->getCampeonato()->getId() . "' >" . $cc->getCampeonato()->getNome() . "</option>";
-
                                     }
                                     ?>
 
@@ -54,9 +53,8 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="categoria">Categoria</label>
-                                <select id="categoria" class="form-control"  >
                                     <select id="categoria" class="form-control" name="categoria" >
-                                        <option selected="selected" value=" ">&nbsp;</option>
+                                        <option selected="selected" value=" " href="$cc">&nbsp;</option>
                                     </select>
                             </div>
                         </div>
@@ -66,12 +64,11 @@
                             <div class="form-group">
                                 <label for="casa">Casa</label>
                                 <select id="casa" class="form-control">
-                                    <option>Time 1</option>
-                                    <option>Time 2</option>
-                                    <option>Time 3</option>
-                                    <option>Time 4</option>
-                                    <option>Time 5</option>
-                                    <option>Time 6</option>
+                                    <?php
+                                    foreach ($times as $time) {
+                                        echo "<option value='" . $time->getNome() . "' >" . $time->getNome() . "</option>";
+                                    }
+                                    ?>   
                                 </select>
                             </div>
                         </div>
@@ -79,12 +76,11 @@
                             <div class="form-group">
                                 <label for="visitante">Visitante</label>
                                 <select id="visitante" class="form-control">
-                                    <option>Time 1</option>
-                                    <option>Time 2</option>
-                                    <option>Time 3</option>
-                                    <option>Time 4</option>
-                                    <option>Time 5</option>
-                                    <option>Time 6</option>
+                                    <?php
+                                    foreach ($times as $time) {
+                                        echo "<option value='" . $time->getNome() . "' >" . $time->getNome() . "</option>";
+                                    }
+                                    ?>     
                                 </select>
                             </div>
                         </div>

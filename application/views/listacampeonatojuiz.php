@@ -43,12 +43,12 @@
                                 echo "<td>" . $cc->getData() . "</td>";
                                 echo "<td>
                             <ul>";
-                                echo "<li><a class='btn btn-info'><i class='fa fa-refresh' href='" . base_url('index.php/sumula/view') . "'></i> Caddastra Uma Nova Sumula</a></li>";
+                                echo "<li ><a href = ".base_url('index.php/sumula/novo')." >Gerar Sumula</a></li>";
                                 echo "<li>
-                                    <a class='btn btn-info'><i class='fa fa-refresh'></i> Gerar Um Novo Agendamento</a>
+                                    <a  href = ".base_url('index.php/partida/agendamentopartida')."> Gerar Um Novo Agendamento</a>
 				</li>";
                                 echo "<li>
-                                    <a class='btn btn-info'><i class='fa fa-refresh'></i> Excluir Uma Sumula</a>
+                                    <a> Excluir Uma Sumula</a>
 				</li>";
                                 echo "
                             </ul>

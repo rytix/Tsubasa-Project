@@ -425,6 +425,25 @@ class invoker_model extends CI_Model {
         }
         return $times;
     }
+    
+    public function get_timescc($idCampeonato,$idCategoria)
+    {
+        $this->load->model('time_model');
+        $query = $this->db->query("SELECT * FROM time WHERE campeonatoID = ? AND categoriaID = ?", array($idCampeonato, $idCategoria));
+        $times = array();
+        if ($query->num_rows() > 0)
+        {
+            foreach ($query->result() as $timeDB)
+            {
+                $time = new Time_model();
+                $time->setId($timeDB->timeID);
+                $time->setNome($timeDB->nome);
+                $time->setCampeonatoCategoria($campeonatoCategoria);
+                array_push($times, $time);
+            }
+        }
+        return $times;
+    }
 
     public function get_time($id)
     {
@@ -674,6 +693,8 @@ class invoker_model extends CI_Model {
         }
         return $partidas;
     }
+    
+   
     
     public function get_jogadores_semtime($campeonato, $categoria) {
         $this->load->model('jogador_model');
