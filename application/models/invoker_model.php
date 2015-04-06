@@ -314,7 +314,7 @@ class invoker_model extends CI_Model {
 
     public function insert_campeonato($post)
     {
-        $campeonato = array('nome' => $post['nome'], 'juizID' => $post['juiz'], 'data' => $post['data'], 'ativo' => 0);
+        $campeonato = array('nome' => $post['nome'], 'juizID' => $post['juiz'], 'data' => strtotime($post['data']), 'ativo' => 0);
         $this->db->insert('campeonato', $campeonato);
         $campeonatoID = $this->db->insert_id();
         $ccs = array();
