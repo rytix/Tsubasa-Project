@@ -23,36 +23,10 @@
     </head>
 
     <body>
-        <div class="navbar navbar-default navbar-static-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="javascript:;">
-                        <img alt="logo" src="http://3.bp.blogspot.com/-gYpGFzVfHcI/TZynmmaPV0I/AAAAAAAADDg/JVqK4s_Krjo/s320/capit%25C3%25A3o+tsubasa.jpg" style="height: 20px"/>
-                        Capitão Tsubasa
-                    </a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li ><a href="symfony/web/app.php/campeonato"  >Campeonato</a></li>
-                        <li ><a href="symfony/web/app.php/inscricao"  >Inscrições</a></li>
-                        <li ><a href="symfony/web/app.php/juiz"  >Cadastrar Juiz</a></li>
-                        <li ><a href="symfony/web/app.php/agendamento"  >Agendamento</a></li>
-                        <li  class="active" ><a href="symfony/web/app.php/sumula"  >Súmula</a></li>
-                    </ul>
-                    <div class="pull-right">
-                        <ul class="nav navbar-nav">
-                            <li class="dropdownn">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tsubasa <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="javascript:;"><span><i class="fa fa-user"></i>  Perfil</span></a></li>
-                                    <li><a href="javascript:;"><span><i class="fa fa-power-off"></i>  Sair  </span></a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php
+        $Header = new Header_model();
+        $Header->get_header();
+        ?>
         <div class="container">
             <div class="row">
                 <form>
@@ -68,17 +42,17 @@
                                     <option selected="selected" value=" ">&nbsp;</option>
                                     <?php
                                     foreach ($campeonatocategoria as $cc) {
-                                        echo "<option value='".$cc->getCampeonato()->getId()."' >".$cc->getCampeonato()->getNome()."</option>";
+                                        echo "<option value='" . $cc->getCampeonato()->getId() . "' >" . $cc->getCampeonato()->getNome() . "</option>";
                                     }
-                                        ?>
-                                    
-                                    </select>
-                                </div>
+                                    ?>
+
+                                </select>
                             </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="categoria">Categoria</label>
-                                    <select id="categoria" class="form-control" name="categoria" >
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="categoria">Categoria</label>
+                                <select id="categoria" class="form-control" name="categoria" >
                                     <option selected="selected" value=" ">&nbsp;</option>
                                 </select>
                             </div>
@@ -88,9 +62,9 @@
                                 <label for="partida">Partida Ativa</label>
                                 <select id="partida" class="form-control"  name="partida">
                                     <?php
-                                        foreach ($partidas as $p) {
-                                            echo "<option>".$p->getNome()."</option>";
-                                        }
+                                    foreach ($partidas as $p) {
+                                        echo "<option>" . $p->getNome() . "</option>";
+                                    }
                                     ?>
                                 </select>
                             </div>
@@ -102,9 +76,9 @@
                             <div class="form-group">
                                 <select class="form-control">
                                     <?php
-                                        foreach ($times as $times){
-                                          echo "<option>".$p->getNome()."</option>";  
-                                        }
+                                    foreach ($times as $times) {
+                                        echo "<option>" . $p->getNome() . "</option>";
+                                    }
                                     ?>
                                 </select>
                             </div>
@@ -113,9 +87,9 @@
                             <div class="form-group">
                                 <select class="form-control">
                                     <?php
-                                        foreach ($times as $times){
-                                          echo "<option>".$p->getNome()."</option>";  
-                                        }
+                                    foreach ($times as $times) {
+                                        echo "<option>" . $p->getNome() . "</option>";
+                                    }
                                     ?>
                                 </select>
                             </div>
@@ -237,16 +211,16 @@
                                 var $campeonato = $('#campeonato');
                                 var $categoria = $('#categoria');
                                 var $partida = $('#categoria');
-                                
-                                $campeonato.change(function () {
+
+                                $campeonato.change(function() {
                                     var url = '<?php echo base_url("index.php/sumula/ajaxCampeonato/__CAMPEONATO__"); ?>';
                                     $.ajax({
                                         url: url.replace('__CAMPEONATO__', $campeonato.val()),
                                         type: 'GET',
-                                        beforeSend: function () {
+                                        beforeSend: function() {
                                             //App.blockUI({target: $categoria, iconOnly: true});
                                         },
-                                        success: function (categorias) {
+                                        success: function(categorias) {
                                             console.log(categorias);
                                             $categoria.prop('readonly', false);
                                             $categoria.empty();
@@ -257,7 +231,7 @@
                                             }
                                             //App.unblockUI($categoria);
                                         },
-                                        error: function () {
+                                        error: function() {
                                             //App.unblockUI($categoria);
                                         }
                                     });

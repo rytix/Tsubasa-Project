@@ -11,12 +11,16 @@
         <title><?php echo $title ?></title>            
         <title>Capitão Tsubasa!</title>            </head>
     <body>
+        <?php
+        $Header = new Header_model();
+        $Header->get_header();
+        ?>
         <style>
             ul{
                 list-style: none;
             }
         </style>
-        
+
         <div class="container">
             <div class="row">
                 <form>
