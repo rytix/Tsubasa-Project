@@ -60,6 +60,8 @@
                 }
 
 		public function novo($id = null){
+                        $verificadorUsuario = new Verificador_usuarios_model();
+                        $verificadorUsuario->verificarUsuario(Usuario_model::DIRETOR);
                         $invoker = new invoker_model();
                         $data['action'] = "index.php/campeonato/cadastrocampeonato";
 			$data['title'] = 'Cadastro de Campeonato';
@@ -70,6 +72,8 @@
 		}
                 
 		public function alterar($id){
+                        $verificadorUsuario = new Verificador_usuarios_model();
+                        $verificadorUsuario->verificarUsuario(Usuario_model::DIRETOR);
                         $invoker = new invoker_model();
                         $data['action'] = "index.php/campeonato/alterarcampeonato";
 			$data['title'] = 'Alteração de Campeonato';
@@ -81,7 +85,6 @@
 		}
                 
 		public function alterarcampeonato(){
-                        $id = $this->input->post('id');
                         $this->load->model('invoker_model');
                         $invoker = new invoker_model();
                         $data['title'] = 'Alteração de Campeonato';

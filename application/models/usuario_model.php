@@ -30,7 +30,7 @@ class Usuario_model extends CI_Model {
     function __construct() {
         parent::__construct();
     }
-
+    
     public static function get_user_type($usuario) {
         if ($usuario instanceof Socio_model) {
             return Usuario_model::SOCIO;

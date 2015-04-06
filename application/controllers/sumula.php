@@ -14,6 +14,9 @@ class sumula extends CI_Controller {
     }
 
     public function novo() {
+        $verificadorUsuario = new Verificador_usuarios_model();
+        $verificadorUsuario->verificarUsuario(Usuario_model::JUIZ);
+
         $data['title'] = 'Cadastro de Sumula';
         $data['action'] = "index.php/campeonato/cadastrocampeonato";     
         $usuario = serialize($this->session->userdata('usuario'));
@@ -31,6 +34,9 @@ class sumula extends CI_Controller {
     }
     
     public function ajaxCampeonato($campeonatoId){
+        $verificadorUsuario = new Verificador_usuarios_model();
+        $verificadorUsuario->verificarUsuario(Usuario_model::JUIZ);
+
         $invoker = new invoker_model();
         $ccs = $invoker->get_campeonatoCategorias($campeonatoId);
         $categoriasJson = array();

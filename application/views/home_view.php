@@ -187,8 +187,6 @@ function create_tables($data, $selected, $parameters)
         <?php $Header = new Header_model();
               $Header->get_header();?>
         <div class="container principal">
-            <div class="row breadcrumb">
-            </div>
             <div class="row">
                 <?php create_tables($data, $selected, $parameters) ?>
             </div>
