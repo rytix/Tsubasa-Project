@@ -4,11 +4,10 @@ function url_by_user($usuarioCode) {
     switch ($usuarioCode) {
         case Usuario_model::DIRETOR:
             echo '<li ><a href = "'.base_url('index.php/campeonato/lista').'" >Campeonato</a></li>';
-            echo '<li ><a href = "'.base_url('?').'" >Cadastrar Juiz</a></li>';
+            echo '<li ><a href = "'.base_url('index.php/juiz').'" >Cadastrar Juiz</a></li>';
             break;
         case Usuario_model::JUIZ:
-            echo '<li ><a href = "'.base_url('index.php/partida/view').'" >Agendamento</a></li>';
-            echo '<li ><a href = "'.base_url('?').'" >Súmula</a></li>';
+            echo '<li ><a href = "'.base_url('index.php/campeonatojuiz/lista').'" >Controle de Campeonatos</a></li>';
             break;
         case Usuario_model::SOCIO:
             echo '<li ><a href = "'.base_url('index.php/inscricao').'" >Inscrições</a></li>';
