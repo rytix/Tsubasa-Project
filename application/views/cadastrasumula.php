@@ -45,14 +45,9 @@
                                         echo "<option value='" . $cc->getCampeonato()->getId() . "' >" . $cc->getCampeonato()->getNome() . "</option>";
                                     }
                                     ?>
-<<<<<<< HEAD
                                     
                                     </select>
                                 </div>
-=======
-
-                                </select>
->>>>>>> origin/master
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -216,15 +211,9 @@
                             <script type="text/javascript" >
                                 var $campeonato = $('#campeonato');
                                 var $categoria = $('#categoria');
-<<<<<<< HEAD
                                 var $partida = $('#partida');
                                 
                                 $campeonato.change(function () {
-=======
-                                var $partida = $('#categoria');
-
-                                $campeonato.change(function() {
->>>>>>> origin/master
                                     var url = '<?php echo base_url("index.php/sumula/ajaxCampeonato/__CAMPEONATO__"); ?>';
                                     $.ajax({
                                         url: url.replace('__CAMPEONATO__', $campeonato.val()),

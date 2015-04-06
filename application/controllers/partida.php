@@ -17,10 +17,11 @@ class Partida extends CI_Controller {
         parent::__construct();
         $this->load->model('invoker_model');
 
-<<<<<<< HEAD
     }
     
     public function agendamentopartida() {
+        $verificadorUsuario = new Verificador_usuarios_model();
+        $verificadorUsuario->verificarUsuario(Usuario_model::JUIZ);
         
         $data['title'] = 'Agendamento de Partida';
         $data['action'] = "index.php/partida/agendamentopartida";
@@ -29,21 +30,7 @@ class Partida extends CI_Controller {
         $cc = $invoker->get_allCampeonatosCategoria();
         $usuario = unserialize($this->session->userdata('usuario'));
         $data['cc']=$cc;
-=======
-    public function view() {
-        $verificadorUsuario = new Verificador_usuarios_model();
-        $verificadorUsuario->verificarUsuario(Usuario_model::JUIZ);
 
-        $data['title'] = 'Agendamento de Partida';
-        $data['campeonatos'] = $this->campeonato_model->select_campeonato();
-        $this->load->view('agendamentopartida');
-    }
-
-    public function cadastropartida() {
-        $verificadorUsuario = new Verificador_usuarios_model();
-        $verificadorUsuario->verificarUsuario(Usuario_model::JUIZ);
-
->>>>>>> origin/master
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
