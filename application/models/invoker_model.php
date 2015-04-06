@@ -151,6 +151,22 @@ class invoker_model extends CI_Model {
         }
         return $juizes;
     }
+    
+    public function get_juiz($id)
+    {
+        $this->load->model('juiz_model');
+        $query = $this->db->query("SELECT * FROM usuario WHERE tipo = ? AND usuarioID = ?", array(Usuario_model::JUIZ, $id));
+        $juiz = null;
+        if ($query->num_rows() > 0)
+        {
+            $juizDB = $query->row();
+            $juiz = new Juiz_model();
+            $juiz->setId($juizDB->usuarioID)
+                    ->setNome($juizDB->nome)
+            ;
+        }
+        return $juiz;
+    }
 
     /* ------- Tabela CampeonatoCategoria -------- */
 
@@ -281,6 +297,7 @@ class invoker_model extends CI_Model {
             $campeonato->setId($campeonatoDB->campeonatoID);
             $campeonato->setNome($campeonatoDB->nome);
             $campeonato->setData($campeonatoDB->data);
+            $campeonato->setJuiz($this->get_juiz($campeonatoDB->juizID));
         }
         return $campeonato;
     }
@@ -314,7 +331,10 @@ class invoker_model extends CI_Model {
 
     public function insert_campeonato($post)
     {
-        $campeonato = array('nome' => $post['nome'], 'juizID' => $post['juiz'], 'data' => $post['data'], 'ativo' => 0);
+        $dataArray = explode('/', $post['data']);
+        $data = $dataArray[2].'/'.$dataArray[1].'/'.$dataArray[0];
+        
+        $campeonato = array('nome' => $post['nome'], 'juizID' => $post['juiz'], 'data' => $data, 'ativo' => 0);
         $this->db->insert('campeonato', $campeonato);
         $campeonatoID = $this->db->insert_id();
         $ccs = array();
